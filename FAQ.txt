@@ -1,0 +1,7 @@
+Initialize
+#New : Hastag untuk sesuatu yang baru
+?Questions: Hastag Untuk pertanyaan
+!Notification : Hastag untuk pemberitahuan
+
+Usage:
+Hastag#nama : isi komentar
