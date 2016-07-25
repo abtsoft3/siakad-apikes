@@ -5,3 +5,6 @@ Initialize
 
 Usage:
 Hastag#nama : isi komentar
+
+#New#bas08 :
+!Notification : aku udah sampe ke matakuliah
