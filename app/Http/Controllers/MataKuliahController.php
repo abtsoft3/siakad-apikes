@@ -12,7 +12,7 @@ class MataKuliahController extends Controller
 {
     //
 	public function index(){
-		return view('show_matakuliah');
+		return view('matakuliah.show_matakuliah');
 	}
 	
 	public function edit($kodemk){
@@ -28,7 +28,7 @@ class MataKuliahController extends Controller
 					'8'=>'Semester 8');
 				
 			$matakuliah = MataKuliahModel::findOrfail($kodemk);
-			return view('edit_matakuliah',array('arrsemester' => $arrsemester))->with('matakuliah',$matakuliah);
+			return view('matakuliah.edit_matakuliah',array('arrsemester' => $arrsemester))->with('matakuliah',$matakuliah);
 			
 	}
 	
@@ -51,7 +51,7 @@ class MataKuliahController extends Controller
 		'6'=>'Semester 6',
 		'7'=>'Semester 7',
 		'8'=>'Semester 8');
-		return view('add_matakuliah',array('arrsemester' => $arrsemester));
+		return view('matakuliah.add_matakuliah',array('arrsemester' => $arrsemester));
 	}
 	
 	public function store(Request $request){

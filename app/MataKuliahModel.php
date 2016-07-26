@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Validator;
 class MataKuliahModel extends Model
 {
-<<<<<<< HEAD
-    
-=======
+
     //
 	protected $table ='matakuliah';
 	protected $primaryKey ='kodemk';
@@ -28,5 +26,4 @@ class MataKuliahModel extends Model
 		
 		return Validator::make($input, $rules);
 	}
->>>>>>> 2542006f7f531742b312fc1a2346e870d6f0a391
 }
