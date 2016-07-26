@@ -24,11 +24,11 @@
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
 						{!! Form::open(array('url' => '/storematakuliah','class'=>'form-horizontal','id'=>'form-matakuliah','autocomplete'=>'off')) !!}
-							<div class="form-group">
+							<div class="form-group" id="mkkd">
 								{!! Form::label('kodemk','Kode MataKuliah',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
 									{!! Form::text('kodemk',null,array('class' => 'form-control','maxlength'=>'6')) !!}
-									<span id="status_kdmk"></span>
+									<small id="status_kdmk"></small>
 								</div>
 							</div>
 							
@@ -115,7 +115,9 @@
                     success: function (data) {
                         response($.map(data, function (obj) {
 							if(parseInt(obj)==1){
-								$('#status_kdmk').text('kode sudah ada!').css('color','red');
+								$('#mkkd').removeClass('has-success').addClass('has-error');
+								$('[data-bv-icon-for="kodemk"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
+								$('#status_kdmk').text('kode sudah ada!').css('color','#a94442');
 								$('#btn-submit').prop('disabled',true);
 							}else{
 								$('#status_kdmk').text('')
@@ -265,6 +267,7 @@
 							$('#form-matakuliah input').removeAttr("disabled");
 							$('#bobot').val(2);
 							$('#teori,#praktek').val(1);
+							$('#bobotnilai').val(0);
 						}
 					});
 				});
