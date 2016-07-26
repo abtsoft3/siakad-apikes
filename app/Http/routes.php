@@ -26,6 +26,9 @@ Route::post('editmahasiswa/{nim}','MahasiswaController@update');
 
 Route::get('datamahasiswa','MahasiswaController@show');
 
+//periode
+Route::get('showperiode','PeriodeController@index');
+Route::get('addperiode','PeriodeController@add');
 
 //matakuliah
 Route::get('showmatakuliah','MataKuliahController@index');
@@ -45,6 +48,8 @@ Route::post('/deletematakuliah','MataKuliahController@destroy');
 Route::get('edit_matakuliah/{kodemk}','MataKuliahController@edit');
 //update matakuliah
 Route::post('/updatematakuliah','MataKuliahController@updatematakuliah');
+
+//
 
 //error
 Route::get('503',function(){

@@ -113,11 +113,17 @@
                       
                     </ul>
                   </li>
-				  
+				   <li><a><i class="fa fa-calendar"></i> Periode <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('addperiode')}}">Tambah</a></li>
+                      <li><a href="{{url('showperiode')}}">Tampilkan</a></li>
+                      
+                    </ul>
+                  </li>
 				   <li><a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#level1_1">Tambah</a>
-                        
+                        </li>
                         <li><a href="#level1_2">Tampilkan</a>
                         </li>
                     </ul>
