@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SIAKAD-APIKES |@yield('title') </title>
-
+	
+	<!--jquery ui-->
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <!-- Bootstrap -->
     <link href="{{ URL::asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
@@ -114,17 +116,16 @@
                 </ul>
               </div>
               <div class="menu_section">
-                <h3>Live On</h3>
+                <h3>Kontrol</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Halaman Tambahan <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bug"></i> User Management <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
+                      <li><a href="e_commerce.html">Mahasiswa</a></li>
+                      <li><a href="projects.html">Dosen</a></li>
+                      
                     </ul>
                   </li>
+				  <!-- tutup dulu
                   <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="page_403.html">403 Error</a></li>
@@ -153,6 +154,7 @@
                     </ul>
                   </li>                  
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+				  -->
                 </ul>
               </div>
 

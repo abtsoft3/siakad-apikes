@@ -30,3 +30,23 @@ Route::get('datamahasiswa','MahasiswaController@show');
 //matakuliah
 Route::get('showmatakuliah','MataKuliahController@index');
 Route::get('addmatakuliah','MataKuliahController@add');
+//simpan matakuliah
+Route::post('/storematakuliah','MataKuliahController@store');
+//autocomplete cek kode mata kuliah
+Route::post('kodemk_autocomplete','MataKuliahController@autocomplete');
+//getdatatable matakuliah
+Route::controller('datatables', 'MataKuliahController', [
+    'getData'  => 'datatables.data',
+    'getIndex' => 'datatables',
+]);
+//hapus matakuliah
+Route::post('/deletematakuliah','MataKuliahController@destroy');
+//edit matakuliah
+Route::get('edit_matakuliah/{kodemk}','MataKuliahController@edit');
+//update matakuliah
+Route::post('/updatematakuliah','MataKuliahController@updatematakuliah');
+
+//error
+Route::get('503',function(){
+	abort(503);
+});
