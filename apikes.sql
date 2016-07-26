@@ -29,7 +29,7 @@ CREATE TABLE `angkatan` (
   `angkatan` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `tahun` int(4) NOT NULL,
   PRIMARY KEY (`idangkatan`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `angkatan` (
 
 LOCK TABLES `angkatan` WRITE;
 /*!40000 ALTER TABLE `angkatan` DISABLE KEYS */;
+INSERT INTO `angkatan` VALUES (1,'4',2011),(2,'5',2012),(3,'6',2013),(4,'7',2014),(5,'8',2015),(6,'1',2009);
 /*!40000 ALTER TABLE `angkatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,13 +96,13 @@ DROP TABLE IF EXISTS `detailmahasiswa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detailmahasiswa` (
-  `nim` int(10) unsigned zerofill NOT NULL,
+  `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `idangkatan` int(3) NOT NULL,
   `statuskrs` int(1) DEFAULT NULL COMMENT '1 = boleh\nnull = tidak boleh',
   PRIMARY KEY (`nim`),
   KEY `fk_detailmhs_idangkatan_idx` (`idangkatan`),
   CONSTRAINT `fk_detailmhs_idangkatan` FOREIGN KEY (`idangkatan`) REFERENCES `angkatan` (`idangkatan`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `fk_detailmhs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT `fk_detailmhs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -208,7 +209,7 @@ DROP TABLE IF EXISTS `khs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `khs` (
   `idkhs` int(20) NOT NULL AUTO_INCREMENT,
-  `nim` int(10) unsigned zerofill NOT NULL,
+  `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `kodemk` varchar(6) CHARACTER SET latin1 NOT NULL,
   `absensi` double NOT NULL,
   `seminar` double NOT NULL,
@@ -220,11 +221,9 @@ CREATE TABLE `khs` (
   `semester` varchar(2) CHARACTER SET latin1 NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idkhs`),
-  KEY `fk_khs_nim_idx` (`nim`),
   KEY `fk_khs_kodemk_idx` (`kodemk`),
-  KEY `fk_khs_nidn_idx` (`nidn`),
+  KEY `fk_khs_nim_idx` (`nim`),
   CONSTRAINT `fk_khs_kodemk` FOREIGN KEY (`kodemk`) REFERENCES `matakuliah` (`kodemk`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_khs_nidn` FOREIGN KEY (`nidn`) REFERENCES `dosen` (`nidn`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_khs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -247,12 +246,12 @@ DROP TABLE IF EXISTS `krs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `krs` (
   `idkrs` int(20) NOT NULL AUTO_INCREMENT,
-  `nim` int(10) unsigned zerofill NOT NULL,
+  `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `kodemk` varchar(6) CHARACTER SET latin1 NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`idkrs`),
-  KEY `fk_krs_nim_idx` (`nim`),
   KEY `fk_krs_kodemk_idx` (`kodemk`),
+  KEY `fk_krs_nim_idx` (`nim`),
   CONSTRAINT `fk_krs_kodemk` FOREIGN KEY (`kodemk`) REFERENCES `matakuliah` (`kodemk`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_krs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -275,7 +274,7 @@ DROP TABLE IF EXISTS `mahasiswa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mahasiswa` (
-  `nim` int(10) unsigned zerofill NOT NULL,
+  `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `nama` varchar(100) CHARACTER SET latin1 NOT NULL,
   `tempatlahir` varchar(50) CHARACTER SET latin1 NOT NULL,
   `tanggallahir` date NOT NULL,
@@ -293,6 +292,35 @@ LOCK TABLES `mahasiswa` WRITE;
 /*!40000 ALTER TABLE `mahasiswa` DISABLE KEYS */;
 /*!40000 ALTER TABLE `mahasiswa` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tggr_insdetailmhs` AFTER INSERT
+    ON `apikes`.`mahasiswa`
+    FOR EACH ROW BEGIN
+		
+        declare nim varchar(10);
+        declare vidangkatan int(3);
+        declare vtahun varchar(4);
+        
+        set vtahun = concat('20', substr(new.nim, 1,2));
+        
+        select idangkatan into vidangkatan from angkatan where tahun=vtahun;
+        
+        insert into detailmahasiswa (nim, idangkatan) values(new.nim, vidangkatan);
+        
+    END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `matakuliah`
@@ -448,13 +476,13 @@ LOCK TABLES `tahunajaran` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `nama` varchar(45) NOT NULL,
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`nama`)
@@ -462,13 +490,13 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `user`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('rrr','tommysuindra7@gmail.com'),('tommi suindra','tommysuindra7@gmail.com');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('Sartika','tommysuindra7@gmail.com');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -478,6 +506,44 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'apikes'
 --
+/*!50003 DROP FUNCTION IF EXISTS `fromRoman` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `fromRoman`(inRoman varchar(15)) RETURNS int(11)
+    DETERMINISTIC
+BEGIN
+
+    DECLARE numeral CHAR(7) DEFAULT 'IVXLCDM';
+
+    DECLARE digit TINYINT;
+    DECLARE previous INT DEFAULT 0;
+    DECLARE current INT;
+    DECLARE sum INT DEFAULT 0;
+
+    SET inRoman = UPPER(inRoman);
+
+    WHILE LENGTH(inRoman) > 0 DO
+        SET digit := LOCATE(RIGHT(inRoman, 1), numeral) - 1;
+        SET current := POW(10, FLOOR(digit / 2)) * POW(5, MOD(digit, 2));
+        SET sum := sum + POW(-1, current < previous) * current;
+        SET previous := current;
+        SET inRoman = LEFT(inRoman, LENGTH(inRoman) - 1);
+    END WHILE;
+
+    RETURN sum;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -488,4 +554,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-24 13:13:41
+-- Dump completed on 2016-07-26 16:52:04

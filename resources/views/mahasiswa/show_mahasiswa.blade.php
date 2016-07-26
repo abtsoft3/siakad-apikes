@@ -22,12 +22,16 @@
                   <div class="x_content">
 				  
 					<!--table-->
-					<table id="datatable-mk" class="table table-striped table-bordered">
+					<table id="datatable-mahasiswa" class="table table-striped table-bordered">
                             <thead>
                               <tr>
                                 <th>Nim</th>
                                 <th>Nama</th>
+                                <th>Tempat Lahir</th>
                                 <th>Tanggal Lahir</th>
+                                <th>Asal Sekolah</th>
+                                <th>Nama Orang Tua</th>
+                                <th>Aksi</th>
                               </tr>
                             </thead>
 					</table>
@@ -44,7 +48,20 @@
     <script src="{{ URL::asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
    <script type='text/javascript'>
 		$(document).ready(function(){
-			$('#datatable-mk').DataTable();
+			$('#datatable-mahasiswa').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: '{{url("datamahasiswa")}}',
+          columns: [
+              {data: 'nim', name: 'nama'},
+              {data: 'nama', name: 'nama'},
+              {data: 'tempatlahir', name: 'tempatlahir'},
+              {data: 'tanggallahir', name: 'tanggallahir'},
+              {data: 'asalsekolah', name: 'asalsekolah'},
+              {data: 'namaortu', name: 'namaortu'},
+              {data: 'aksi', name: 'action'},
+          ]
+      });
 		});
    </script>
 @endsection

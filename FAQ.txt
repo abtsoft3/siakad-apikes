@@ -8,3 +8,17 @@ Hastag#nama : isi komentar
 
 #New#bas08 :
 !Notification : aku udah sampe ke matakuliah
+
+#New#tommy :
+!Notification : 
+-Crud mahasiswa uda selesai, 
+-tabel yang berubah utk type data "Nim" dari int dirubah ke varchar
+ dan ada penambahan trigger di tabel "detailmahasiswa"
+-file view mahasiswa aku masukkan di folder mahasiswa (file dalam 1 folder)
+-utk nim yang depannya misal "0900000001" ketika ditampilkan di browser menjadi "900000001"
+ atau angka 0 hilang walaupun sudah diganti type datanya menjadi varchar
+ 
+ catatan : bisa di bantu agar bisa tampil 0 didepannya
+ terima kasih
+
+

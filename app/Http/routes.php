@@ -16,7 +16,16 @@ Route::get('/', function () {
 });
 //mahasiswa
 Route::get('showmahasiswa','MahasiswaController@index');
+Route::get('deletemahasiswa/{nim}','MahasiswaController@destroy');
+
 Route::get('addmahasiswa','MahasiswaController@add');
+Route::post('addmahasiswa','MahasiswaController@store');
+
+Route::get('editmahasiswa/{nim}','MahasiswaController@edit');
+Route::post('editmahasiswa/{nim}','MahasiswaController@update');
+
+Route::get('datamahasiswa','MahasiswaController@show');
+
 
 //matakuliah
 Route::get('showmatakuliah','MataKuliahController@index');
