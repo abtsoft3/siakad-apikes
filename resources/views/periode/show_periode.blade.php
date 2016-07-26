@@ -27,7 +27,6 @@
 					<table id="datatable-mk" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                <th>Id Periode</th>
                                 <th>Sistem</th>
                                 <th>Tanggal awal</th>
 								<th>Tanggal akhir</th>
@@ -49,8 +48,57 @@
 	<script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
    <script type='text/javascript'>
-			$(document).ready(function(){
-			$('#datatable-mk').DataTable();
+			var gentable=null;
+		$(document).ready(function(){
+			gentable=$('#datatable-mk').DataTable({
+				  processing: true,
+				 
+				 //serverSide: true,
+					ajax: "{!! route('datatablesperiode.data') !!}",
+					columns: [
+						{ data: 'sistem', name: 'sistem' },
+						{ data: 'tglawal', name: 'tglawal'},
+						{ data: 'tglakhir', name: 'tglakhir'},
+							{"className": "action text-center",
+							"data": null,
+							"bSortable": false,
+							"defaultContent": "" +
+							"<div class='btn-group' role='group'>" +
+							"  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='left' title='Edit'><i class='fa fa-edit'></i></button>" +
+							"  <button class='delete btn btn-danger btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='right' title='Hapus'><i class='fa fa-trash-o'></i></button>" +
+							"<button type=\"button\" class=\"btn btn-success btn-xs detail\" rel='tooltip' data-toggle='tooltip' data-placement='right' title='Detail'><i class='fa fa-list'></i>" +
+							"<span class=\"sr-only\">Action</span></button>" +
+							"</div>"
+						}
+					
+				]
+			});
+			
+		var sbody = $('#datatable-mk tbody');
+		sbody.on('click','.edit',function(){
+			var data = gentable.row($(this).parents('tr')).data();
+			window.location.href='/edit_matakuliah/'+data.kodemk;
+		}).
+		on('click','.delete',function(){
+			var data = gentable.row($(this).parents('tr')).data();
+			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
+				if (e) {
+					$.post("/deletematakuliah",{'kodemk':data.kodemk,_token:$('#token').val()},function(data,status){
+							if(parseInt(data.return)==1){
+								alertify.success('Data berhasil dihapus');
+								gentable.ajax.reload();
+							}else{
+								alertify.error('Gagal menghapus');
+							}
+							
+						},'json');
+				}
+			});		
+		});
+			//tooltip
+			$('body').tooltip({
+				selector: '[rel=tooltip]'
+			});
 		});
    </script>
 @endsection

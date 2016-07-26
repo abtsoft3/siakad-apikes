@@ -29,6 +29,15 @@ Route::get('datamahasiswa','MahasiswaController@show');
 //periode
 Route::get('showperiode','PeriodeController@index');
 Route::get('addperiode','PeriodeController@add');
+//simpan periode
+Route::post('/storeperiode','PeriodeController@store');
+//show periode
+Route::controller('datatablesperiode', 'PeriodeController', [
+    'getData'  => 'datatablesperiode.data',
+    'getIndex' => 'datatables',
+]);
+
+
 
 //matakuliah
 Route::get('showmatakuliah','MataKuliahController@index');
