@@ -125,6 +125,7 @@
                       
                     </ul>
                   </li>
+				  <!-- tutup dulu
                   <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="page_403.html">403 Error</a></li>
@@ -153,6 +154,7 @@
                     </ul>
                   </li>                  
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+				  -->
                 </ul>
               </div>
 
