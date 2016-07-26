@@ -114,6 +114,7 @@
                     dataType: 'json',
                     success: function (data) {
                         response($.map(data, function (obj) {
+							
 							if(parseInt(obj)==1){
 								$('#mkkd').removeClass('has-success').addClass('has-error');
 								$('[data-bv-icon-for="kodemk"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
@@ -132,7 +133,12 @@
 				results: function() {{
 					}
 				}
-			}
+			},
+            change: function (event, ui) {
+                if (ui.item != null) {
+					console.log(ui.item.check);
+                }
+            }
         });
 		
 		
