@@ -37,7 +37,6 @@
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
 									{!! Form::text('nim', $cdata->nim, array('class' => 'form-control','maxlength'=>'10')) !!}
-									{!! $errors->first('nim', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -45,7 +44,6 @@
 								{!! Form::label('nama','Nama Mahasiswa',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('nama', $cdata->nama, array('class' => 'form-control')) !!}
-									{!! $errors->first('nama', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -53,7 +51,6 @@
 								{!! Form::label('tempatlahir','Tempat Lahir',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('tempatlahir', $cdata->tempatlahir, array('class' => 'form-control')) !!}
-									{!! $errors->first('tempatlahir', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -63,7 +60,6 @@
 									 <div class="input-group" id="dtpicker">
 										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 											{!! Form::text('tanggallahir', $cdata->tanggallahir, array('class' => 'form-control')) !!}
-											{!! $errors->first('tanggallahir', '<span class=text-danger>:message</span>') !!}
 										</div>
 									</div>
 								</div>
@@ -71,18 +67,14 @@
 								<div class="form-group">
 									{!! Form::label('asalsekolah','Asal Sekolah',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('asalsekolah', $cdata->asalsekolah, array('class' => 'form-control')) !!}
-										{!! $errors->first('asalsekolah', '<span class=text-danger>:message</span>') !!}
 									</div>
 								</div>
 
 								<div class="form-group">
 									{!! Form::label('namaortu','Nama Orang Tua',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('namaortu', $cdata->namaortu, array('class' => 'form-control')) !!}
-										{!! $errors->first('namaortu', '<span class=text-danger>:message</span>') !!}
 									</div>
 								</div>
-								
-								
 
 								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">

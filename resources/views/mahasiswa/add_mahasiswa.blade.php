@@ -23,18 +23,11 @@
                   <div class="x_content">
 					<div class="col-lg-6 col-sm-6 col-xs-5">
 
-						<!-- @if(Session::has('success'))
-						    <div class="alert alert-success">
-						        {{ Session::get('success') }}
-						    </div>
-						@endif -->
-
 						{!! Form::open(array('url' => '/addmahasiswa', 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
 							<div class="form-group">
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
 									{!! Form::text('nim',null,array('class' => 'form-control','maxlength'=>'10')) !!}
-									{!! $errors->first('nim', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -42,7 +35,6 @@
 								{!! Form::label('nama','Nama Mahasiswa',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('nama',null,array('class' => 'form-control')) !!}
-									{!! $errors->first('nama', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -50,7 +42,6 @@
 								{!! Form::label('tempatlahir','Tempat Lahir',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('tempatlahir',null,array('class' => 'form-control')) !!}
-									{!! $errors->first('tempatlahir', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -60,7 +51,6 @@
 									 <div class="input-group" id="dtpicker">
 										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 											{!! Form::text('tanggallahir',null,array('class' => 'form-control')) !!}
-											{!! $errors->first('tanggallahir', '<span class=text-danger>:message</span>') !!}
 										</div>
 									</div>
 								</div>
@@ -68,14 +58,12 @@
 								<div class="form-group">
 									{!! Form::label('asalsekolah','Asal Sekolah',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('asalsekolah',null,array('class' => 'form-control')) !!}
-										{!! $errors->first('asalsekolah', '<span class=text-danger>:message</span>') !!}
 									</div>
 								</div>
 
 								<div class="form-group">
 									{!! Form::label('namaortu','Nama Orang Tua',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('namaortu',null,array('class' => 'form-control')) !!}
-										{!! $errors->first('namaortu', '<span class=text-danger>:message</span>') !!}
 									</div>
 								</div>
 								
