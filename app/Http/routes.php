@@ -58,7 +58,11 @@ Route::get('edit_matakuliah/{kodemk}','MataKuliahController@edit');
 //update matakuliah
 Route::post('/updatematakuliah','MataKuliahController@updatematakuliah');
 
-//
+
+//daftar KRS
+Route::get('daftarkrs','DaftarKrsController@index');
+Route::get('datakrs','DaftarKrsController@showkrs');
+Route::get('datamhs','DaftarKrsController@showmahasiswa');
 
 //error
 Route::get('503',function(){
