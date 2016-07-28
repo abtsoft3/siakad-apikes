@@ -26,4 +26,7 @@ Hastag#nama : isi komentar
 ada perubahan di database di tabel krs ditambahkan field "keterangan"
 terima kasih
 
+#New#basri
+!Notification :
+dompdf sudah dipasang , silahkan dicoba ,jika ingin menggunakan snappy pdf itu ada wkhtmlpdf silahkan install
 
