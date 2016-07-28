@@ -11,6 +11,8 @@ use App\DaftarKrsModel;
 
 use Datatables;
 
+use PDF;
+
 class DaftarKrsController extends Controller
 {
     public function index(){
@@ -28,7 +30,7 @@ class DaftarKrsController extends Controller
             $arrsemester[$csem->semester] = "Semester ".$csem->semester;
         }
     	
-    	return view('krs.daftarkrs', ['arrsemester'=> $arrsemester]);
+    	return view('krs.list_krs', ['arrsemester'=> $arrsemester]);
     }
 
     public function showkrs($sem){
@@ -54,6 +56,14 @@ class DaftarKrsController extends Controller
         ->with($cmhs)
         ->make(true);
 
+    }
+
+     public function printkrs(){
+        
+        //$model = new DaftarKrsModel;
+
+        $pdf = PDF::loadView('krs.show_krs')->setPaper('a4')->setOrientation('potrait');
+        return $pdf->stream();
     }
 
 }

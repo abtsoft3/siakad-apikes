@@ -66,9 +66,9 @@ Route::post('/updatematakuliah','MataKuliahController@updatematakuliah');
 
 
 //daftar KRS
-Route::get('daftarkrs','DaftarKrsController@index');
-Route::get('datakrs/{sem}','DaftarKrsController@showkrs');
-
+Route::get('listkrs','DaftarKrsController@index');
+Route::get('listkrs/{sem}','DaftarKrsController@showkrs');
+Route::get('printkrs','DaftarKrsController@printkrs');
 
 
 //error

@@ -100,7 +100,7 @@
 
 <!--endtable-->
   </div>
-  <a href="{{url('')}}" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
+  <a href="{{url('printkrs')}}" target="_blank" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
 </div>
 
 @endsection
@@ -126,7 +126,7 @@
 
       $("#semester").change(function() {
         
-          $.get('{{"datakrs"}}/'+$('#semester').val(), function(data, status){
+          $.get('{{"listkrs"}}/'+$('#semester').val(), function(data, status){
 
             $('#vtahunakademik').text(": "+(tahun.getFullYear()-1)+" / "+tahun.getFullYear());
             $('#vnim').text(": "+data.nim);
@@ -136,7 +136,7 @@
 
           },'json');
 
-          url = '{{"datakrs"}}/'+$('#semester').val();
+          url = '{{"listkrs"}}/'+$('#semester').val();
             
           if($('#semester').val()!=0){
             $('#datamhs').show();
@@ -156,7 +156,7 @@
               searching   : false,
               bInfo       : false,
               bPaginate   : false,
-              ajax        : '{{"datakrs"}}/0',
+              ajax        : '{{"listkrs"}}/0',
 
               fnDrawCallback: function ( oSettings ) {
 
