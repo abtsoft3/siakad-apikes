@@ -45,8 +45,11 @@
             {!! Form::close() !!}
             </div>
 
-            <div>
+            <div class="x_content">
+
+            <div style="display:none;" id="datamhs">
             <hr>
+
               <div class="col-md-7">
               <div class="col-md-4"><p>Tahun Akademik</p></div>
                 <label id="vtahunakademik"></label>
@@ -54,25 +57,27 @@
 
               <div class="col-md-7">
               <div class="col-md-4"><p>Nim</p></div>
-               <div id="vnim">gsfg</div>
+               <div id="vnim"></div>
               </div>
 
               <div class="col-md-7">
               <div class="col-md-4"><p>Nama Mahasiswa</p></div>
-                Nama
+                <div id="vnama"></div>
               </div>     
 
               <div class="col-md-7">
               <div class="col-md-4"><p>Angkatan / Tahun</p></div>
-                Nama
+                <div id="vangkatan"></div>
               </div> 
 
               <div class="col-md-7">
               <div class="col-md-4"><p>Tingkat / Semester</p></div>
-                Nama
+                <div id="vts"></div>
               </div>  
+
             </div>
 
+            </div>
           </th>
         </tr>
         <tr>
@@ -95,6 +100,7 @@
 
 <!--endtable-->
   </div>
+  <a href="{{url('')}}" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
 </div>
 
 @endsection
@@ -108,97 +114,98 @@
     <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
 
     <script type='text/javascript'>
-    var gentable=null;
+    
+
 		$(document).ready(function(){
+
+      var gentable=null;
+      var url = '';
+      var tahun = new Date();
+
+      $('#cetakkrs').addClass('disabled');
+
       $("#semester").change(function() {
         
-          $.get("./datamhs", function(data, status){
-              alert($('#vnim').val());
-               gentable.ajax.reload(); 
-            },'json');
-      });
-			gentable = $('#datatable-krs').DataTable({
-          processing  : true,
-          searching   : false,
-          bInfo       : false,
-          bPaginate   : false,
-          ajax: '{{url("datakrs")}}',
+          $.get('{{"datakrs"}}/'+$('#semester').val(), function(data, status){
 
-          fnDrawCallback: function ( oSettings ) {
+            $('#vtahunakademik').text(": "+(tahun.getFullYear()-1)+" / "+tahun.getFullYear());
+            $('#vnim').text(": "+data.nim);
+            $('#vnama').text(": "+data.nama);
+            $('#vangkatan').text(": "+data.angkatan+" / "+data.tahun);
+            $('#vts').text(": "+$('#semester').val()+" / "+$('#semester').val());
 
-            if ( oSettings.bSorted || oSettings.bFiltered )
-            {
-                for ( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ )
-                {
-                    $('td:eq(0)', oSettings.aoData[ oSettings.aiDisplay[i] ].nTr ).html( i+1 );
-                }
-            }
-          },
-          footerCallback: function ( row, data, start, end, display ) {
-            var api = this.api(), data;
+          },'json');
 
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-
-            total = api
-                .column( 3 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            $( api.column( 3 ).footer() ).html(
-                 total 
-            );
-          },
-          aoColumns: [
-              {data: null,         name: 'no', bSortable : false,},
-              {data: 'kodemk',     name: 'kodemk'},
-              {data: 'matakuliah', name: 'matakuliah'},
-              {data: 'bobot',      name: 'bobot'},
-              {data: 'tahun',      name: 'tahun'},
-              {data: 'keterangan', name: 'keterangan'}
-          ],
-          aoColumnDefs: [
-            { 
-              aTargets  : [ -1 ]
-            }],
-          
-          aaSorting: [[ 1, 'asc' ]]
-      });
-
-
-      var sbody = $('#datatable-mahasiswa tbody');
-      sbody.on('click','.edit',function(){
-        var data = gentable.row($(this).parents('tr')).data();
-        window.location.href='./editmahasiswa/'+data.nim;
-      }).
-      on('click','.delete',function(){
-        var data = gentable.row($(this).parents('tr')).data();
-        alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
-          if (e) {
-            $.get("./deletemahasiswa/"+data.nim, function(data, status){
-              //alert(data)
-                if(parseInt(data.return)==1){
-                  alertify.success('Data berhasil dihapus');
-                  gentable.ajax.reload();
-                }else{
-                  alertify.error('Gagal menghapus');
-                }
-                
-            },'json');
+          url = '{{"datakrs"}}/'+$('#semester').val();
+            
+          if($('#semester').val()!=0){
+            $('#datamhs').show();
+            $('#cetakkrs').removeClass('disabled');
           }
-        });   
-      });
-      //tooltip
-      $('body').tooltip({
-        selector: '[rel=tooltip]'
+          else{
+            $('#datamhs').hide();
+            $('#cetakkrs').addClass('disabled');
+          }
+
+          gentable.ajax.url(url).load(); 
+
       });
 
+      gentable = $('#datatable-krs').DataTable({
+              processing  : true,
+              searching   : false,
+              bInfo       : false,
+              bPaginate   : false,
+              ajax        : '{{"datakrs"}}/0',
+
+              fnDrawCallback: function ( oSettings ) {
+
+                if ( oSettings.bSorted || oSettings.bFiltered )
+                {
+                    for ( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ )
+                    {
+                        $('td:eq(0)', oSettings.aoData[ oSettings.aiDisplay[i] ].nTr ).html( i+1 );
+                    }
+                }
+              },
+              footerCallback: function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+
+                total = api
+                    .column( 3 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+
+                $( api.column( 3 ).footer() ).html(
+                     total 
+                );
+              },
+              aoColumns: [
+                  {data: null,         name: 'no', bSortable : false,},
+                  {data: 'kodemk',     name: 'kodemk'},
+                  {data: 'matakuliah', name: 'matakuliah'},
+                  {data: 'bobot',      name: 'bobot'},
+                  {data: 'tahun',      name: 'tahun'},
+                  {data: 'keterangan', name: 'keterangan'}
+              ],
+              aoColumnDefs: [
+                { 
+                  aTargets  : [ -1 ]
+                }],
+              
+              aaSorting: [[ 1, 'asc' ]]
+
+          });
+			
 		});
 
     

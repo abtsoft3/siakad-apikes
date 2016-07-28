@@ -14,34 +14,46 @@ use Datatables;
 class DaftarKrsController extends Controller
 {
     public function index(){
+        
+        $model = new DaftarKrsModel;
 
-    	$arrsemester = array(
-    				'' =>'Pilih',
-					'1'=>'Semester 1',
-					'2'=>'Semester 2',
-					'3'=>'Semester 3',
-					'4'=>'Semester 4',
-					'5'=>'Semester 5',
-					'6'=>'Semester 6',
-					'7'=>'Semester 7',
-					'8'=>'Semester 8');
+        $arrsemester = array();
 
+        $model->nim         = '1100000001';
+        
+        $sem = $model->getsemester();
+       
+        $arrsemester['0'] = "Pilih";
+        foreach ($sem as $key => $csem) {
+            $arrsemester[$csem->semester] = "Semester ".$csem->semester;
+        }
+    	
     	return view('krs.daftarkrs', ['arrsemester'=> $arrsemester]);
     }
 
-    public function showkrs(){
+    public function showkrs($sem){
 
     	$model = new DaftarKrsModel;
 
-    	$data = $model->showkrs('1','1');
-    	return Datatables::of($data)->make(true);
+        $cmhs = array();
+
+        $model->nim = '1100000001';
+        $model->semester = $sem;
+
+        $datakrs = $model->showkrs();
+
+        $datamhs = $model->showmahasiswa();       
+        foreach ($datamhs as $name => $cdatamhs) {
+            $cmhs['nim'] = $cdatamhs->nim;
+            $cmhs['nama'] = $cdatamhs->nama;
+            $cmhs['angkatan'] = $cdatamhs->angkatan;
+            $cmhs['tahun'] = $cdatamhs->tahun;
+        }
+
+        return Datatables::of($datakrs)
+        ->with($cmhs)
+        ->make(true);
+
     }
 
-    public function showmahasiswa(){
-
-        $model = new DaftarKrsModel;
-
-        $data = $model->showmahasiswa('1100000001');
-        return Datatables::of($data)->make(true);
-    }
 }
