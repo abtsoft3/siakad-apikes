@@ -34,8 +34,14 @@ Route::post('/storeperiode','PeriodeController@store');
 //show periode
 Route::controller('datatablesperiode', 'PeriodeController', [
     'getData'  => 'datatablesperiode.data',
-    'getIndex' => 'datatables',
+    'getIndex' => 'datatablesperiode',
 ]);
+//hapus periode
+Route::post('/deleteperiode','PeriodeController@destroy');
+//edit periode
+Route::get('edit_periode/{idperiode}','PeriodeController@edit');
+//update periode
+Route::post('/updateperiode','PeriodeController@updateperiode');
 
 
 
@@ -59,6 +65,8 @@ Route::get('edit_matakuliah/{kodemk}','MataKuliahController@edit');
 Route::post('/updatematakuliah','MataKuliahController@updatematakuliah');
 
 //
+
+
 
 //error
 Route::get('503',function(){

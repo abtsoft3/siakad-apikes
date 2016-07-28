@@ -24,9 +24,10 @@
                   <div class="x_content">
 				  <input type="hidden" name="_token" value="{{ csrf_token() }}" id='token'>
 					<!--table-->
-					<table id="datatable-mk" class="table table-striped table-bordered">
+					<table id="datatable-periode" class="table table-striped table-bordered">
                             <thead>
                               <tr>
+							   <th>Id periode</th>
                                 <th>Sistem</th>
                                 <th>Tanggal awal</th>
 								<th>Tanggal akhir</th>
@@ -50,12 +51,13 @@
    <script type='text/javascript'>
 			var gentable=null;
 		$(document).ready(function(){
-			gentable=$('#datatable-mk').DataTable({
+			gentable=$('#datatable-periode').DataTable({
 				  processing: true,
 				 
 				 //serverSide: true,
 					ajax: "{!! route('datatablesperiode.data') !!}",
 					columns: [
+						{ data: 'idperiode', name: 'idperiode' , "className": "text-center"},
 						{ data: 'sistem', name: 'sistem' },
 						{ data: 'tglawal', name: 'tglawal'},
 						{ data: 'tglakhir', name: 'tglakhir'},
@@ -74,16 +76,16 @@
 				]
 			});
 			
-		var sbody = $('#datatable-mk tbody');
+		var sbody = $('#datatable-periode tbody');
 		sbody.on('click','.edit',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			window.location.href='/edit_matakuliah/'+data.kodemk;
+			window.location.href='/edit_periode/'+data.idperiode;
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
 			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
-					$.post("/deletematakuliah",{'kodemk':data.kodemk,_token:$('#token').val()},function(data,status){
+					$.post("/deleteperiode",{'idperiode':data.idperiode,_token:$('#token').val()},function(data,status){
 							if(parseInt(data.return)==1){
 								alertify.success('Data berhasil dihapus');
 								gentable.ajax.reload();

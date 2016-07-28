@@ -13,6 +13,16 @@ class MataKuliahModel extends Model
 	
 	public $timestamps = false;
 	
+	protected $filltable=[
+	'kodemk' ,
+			'matakuliah',
+			'bobot' ,
+			'teori' ,
+			'praktek'  ,
+			'kadep' ,
+			'bobotnilai'
+    ];
+	
 	public static function validate($input){
 		$rules = array(
 			'kodemk' => 'Required|Max:6',
