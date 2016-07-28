@@ -21,4 +21,9 @@ Hastag#nama : isi komentar
  catatan : bisa di bantu agar bisa tampil 0 didepannya
  terima kasih
 
+#New#tommy :
+!Notification : 
+ada perubahan di database di tabel krs ditambahkan field "keterangan"
+terima kasih
+
 
