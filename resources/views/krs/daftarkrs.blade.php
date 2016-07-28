@@ -1,0 +1,215 @@
+@extends('layouts.master')
+
+@section('title','MataKuliah')
+@section('css')
+  <!-- Datatables -->
+    <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+    
+    <link href="{{ URL::asset('vendors/alertify/css/alertify.min.css')}}" rel="stylesheet">
+ 
+    <link href="{{ URL::asset('vendors/alertify/css/default.min.css')}}" rel="stylesheet">
+@endsection
+@section('sidebar')
+@parent
+@endsection
+@section('content')
+
+<div class="x_panel">
+  <div class="x_title">
+      <h2>Kartu Rencana Studi</h2>
+                    
+      <div class="clearfix">
+				<a href="{{url('')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Pengisian KRS</a>
+			</div>
+  </div>
+  <div class="x_content">
+    <div class="col-lg-6 col-sm-6 col-xs-5">
+      <!-- form -->
+
+    </div>
+
+    <!--table-->
+    <table id="datatable-krs" class="table table-striped table-bordered" width="100%">
+      <thead>
+      <tr>
+          <th colspan="6">
+           <div class="form-horizontal">
+            {!! Form::open(array('url' => '/addmahasiswa', 'id'=>'form-daftarkrs')) !!}
+              <div class="form-group">
+                {!! Form::label('semester','Semester',array('class' => 'col-sm-4 control-label')) !!}
+                    <div class="col-sm-4">
+                      {!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control')) !!}
+                    </div>
+              </div>
+            {!! Form::close() !!}
+            </div>
+
+            <div class="x_content">
+
+            <div style="display:none;" id="datamhs">
+            <hr>
+
+              <div class="col-md-7">
+              <div class="col-md-4"><p>Tahun Akademik</p></div>
+                <label id="vtahunakademik"></label>
+              </div>
+
+              <div class="col-md-7">
+              <div class="col-md-4"><p>Nim</p></div>
+               <div id="vnim"></div>
+              </div>
+
+              <div class="col-md-7">
+              <div class="col-md-4"><p>Nama Mahasiswa</p></div>
+                <div id="vnama"></div>
+              </div>     
+
+              <div class="col-md-7">
+              <div class="col-md-4"><p>Angkatan / Tahun</p></div>
+                <div id="vangkatan"></div>
+              </div> 
+
+              <div class="col-md-7">
+              <div class="col-md-4"><p>Tingkat / Semester</p></div>
+                <div id="vts"></div>
+              </div>  
+
+            </div>
+
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th>No.</th>
+          <th>Kode M.K</th>
+          <th>Nama Mata Kuliah</th>
+          <th>SKS</th>
+          <th>Tahun</th>
+          <th>Keterangan</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th colspan="3">Total SKS Diambil : </th>          
+          <th></th>
+          <th colspan="2"></th>
+        </tr>
+      </tfoot>
+    </table>
+
+<!--endtable-->
+  </div>
+  <a href="{{url('')}}" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
+</div>
+
+@endsection
+@section('scripts')
+<!-- Datatables -->
+    <script src="{{ URL::asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    
+    <script src="{{ URL::asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
+
+    <script type='text/javascript'>
+    
+
+		$(document).ready(function(){
+
+      var gentable=null;
+      var url = '';
+      var tahun = new Date();
+
+      $('#cetakkrs').addClass('disabled');
+
+      $("#semester").change(function() {
+        
+          $.get('{{"datakrs"}}/'+$('#semester').val(), function(data, status){
+
+            $('#vtahunakademik').text(": "+(tahun.getFullYear()-1)+" / "+tahun.getFullYear());
+            $('#vnim').text(": "+data.nim);
+            $('#vnama').text(": "+data.nama);
+            $('#vangkatan').text(": "+data.angkatan+" / "+data.tahun);
+            $('#vts').text(": "+$('#semester').val()+" / "+$('#semester').val());
+
+          },'json');
+
+          url = '{{"datakrs"}}/'+$('#semester').val();
+            
+          if($('#semester').val()!=0){
+            $('#datamhs').show();
+            $('#cetakkrs').removeClass('disabled');
+          }
+          else{
+            $('#datamhs').hide();
+            $('#cetakkrs').addClass('disabled');
+          }
+
+          gentable.ajax.url(url).load(); 
+
+      });
+
+      gentable = $('#datatable-krs').DataTable({
+              processing  : true,
+              searching   : false,
+              bInfo       : false,
+              bPaginate   : false,
+              ajax        : '{{"datakrs"}}/0',
+
+              fnDrawCallback: function ( oSettings ) {
+
+                if ( oSettings.bSorted || oSettings.bFiltered )
+                {
+                    for ( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ )
+                    {
+                        $('td:eq(0)', oSettings.aoData[ oSettings.aiDisplay[i] ].nTr ).html( i+1 );
+                    }
+                }
+              },
+              footerCallback: function ( row, data, start, end, display ) {
+                var api = this.api(), data;
+
+                var intVal = function ( i ) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '')*1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+
+                total = api
+                    .column( 3 )
+                    .data()
+                    .reduce( function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0 );
+
+                $( api.column( 3 ).footer() ).html(
+                     total 
+                );
+              },
+              aoColumns: [
+                  {data: null,         name: 'no', bSortable : false,},
+                  {data: 'kodemk',     name: 'kodemk'},
+                  {data: 'matakuliah', name: 'matakuliah'},
+                  {data: 'bobot',      name: 'bobot'},
+                  {data: 'tahun',      name: 'tahun'},
+                  {data: 'keterangan', name: 'keterangan'}
+              ],
+              aoColumnDefs: [
+                { 
+                  aTargets  : [ -1 ]
+                }],
+              
+              aaSorting: [[ 1, 'asc' ]]
+
+          });
+			
+		});
+
+    
+
+
+   </script>
+@endsection

@@ -112,6 +112,7 @@ CREATE TABLE `detailmahasiswa` (
 
 LOCK TABLES `detailmahasiswa` WRITE;
 /*!40000 ALTER TABLE `detailmahasiswa` DISABLE KEYS */;
+INSERT INTO `detailmahasiswa` VALUES ('1100000001',1,NULL);
 /*!40000 ALTER TABLE `detailmahasiswa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,12 +250,13 @@ CREATE TABLE `krs` (
   `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `kodemk` varchar(6) CHARACTER SET latin1 NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `keterangan` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`idkrs`),
   KEY `fk_krs_kodemk_idx` (`kodemk`),
   KEY `fk_krs_nim_idx` (`nim`),
   CONSTRAINT `fk_krs_kodemk` FOREIGN KEY (`kodemk`) REFERENCES `matakuliah` (`kodemk`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_krs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,6 +265,7 @@ CREATE TABLE `krs` (
 
 LOCK TABLES `krs` WRITE;
 /*!40000 ALTER TABLE `krs` DISABLE KEYS */;
+INSERT INTO `krs` VALUES (1,'1100000001','PK105','2016-07-27 03:51:12',NULL),(2,'1100000001','PK102','2016-07-27 08:09:29',NULL),(3,'1100000001','PK106','2016-07-28 08:01:45',NULL),(4,'1100000001','PK204','2016-07-28 08:01:46',NULL);
 /*!40000 ALTER TABLE `krs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,6 +293,7 @@ CREATE TABLE `mahasiswa` (
 
 LOCK TABLES `mahasiswa` WRITE;
 /*!40000 ALTER TABLE `mahasiswa` DISABLE KEYS */;
+INSERT INTO `mahasiswa` VALUES ('1100000001','Jokowi','Medan','2016-07-27','Medan','Sutisna');
 /*!40000 ALTER TABLE `mahasiswa` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -348,6 +352,7 @@ CREATE TABLE `matakuliah` (
 
 LOCK TABLES `matakuliah` WRITE;
 /*!40000 ALTER TABLE `matakuliah` DISABLE KEYS */;
+INSERT INTO `matakuliah` VALUES ('PK102','Pendidikan Pancasila',2,1,1,'Erlinday, M.Kes','1',6),('PK105','Bahasa Inggris I',2,1,1,'Parmen, SKM, M.Kes','1',6),('PK106','Bahasa Inggris II',2,1,1,'Leo Sardo, S.S','2',3),('PK204','Biomedik IV ( Patologi )',2,1,1,'Erikson, SKM','2',3);
 /*!40000 ALTER TABLE `matakuliah` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -554,4 +559,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-26 16:52:04
+-- Dump completed on 2016-07-28 17:47:29

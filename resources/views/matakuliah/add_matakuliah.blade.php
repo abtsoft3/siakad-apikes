@@ -101,6 +101,18 @@
 </script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 <script type='text/javascript'>
+	var checkkode=0;
+	var fn_check_kodemk_exist = function(val){
+		if(val==1){
+			$('#mkkd').removeClass('has-success').addClass('has-error');
+			$('[data-bv-icon-for="kodemk"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
+			$('#status_kdmk').text('kode sudah ada!').css('color','#a94442');
+			$('#btn-submit').prop('disabled',true);
+		}else{
+			$('#status_kdmk').text('');
+			$('#btn-submit').prop('disabled',false);
+		}
+	}
 	$(document).ready(function(){
 		$('#kodemk').autocomplete({
             source: function (request, response) {
@@ -114,16 +126,8 @@
                     dataType: 'json',
                     success: function (data) {
                         response($.map(data, function (obj) {
-							
-							if(parseInt(obj)==1){
-								$('#mkkd').removeClass('has-success').addClass('has-error');
-								$('[data-bv-icon-for="kodemk"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
-								$('#status_kdmk').text('kode sudah ada!').css('color','#a94442');
-								$('#btn-submit').prop('disabled',true);
-							}else{
-								$('#status_kdmk').text('')
-								$('#btn-submit').prop('disabled',false);
-							}
+							checkkode=parseInt(obj);
+							fn_check_kodemk_exist(parseInt(obj));
                         }));
                     }
                 });
@@ -135,9 +139,7 @@
 				}
 			},
             change: function (event, ui) {
-                if (ui.item != null) {
-					console.log(ui.item.check);
-                }
+				parseInt(checkkode);
             }
         });
 		

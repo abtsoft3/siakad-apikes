@@ -26,6 +26,7 @@ class MahasiswaController extends Controller
 
 	public function store(MahasiswaRequests $requests){
 
+		$stat=0;
 		$model = new ModelMahasiswa;
 
 		$model->nim 			= $requests['nim'];
@@ -35,12 +36,16 @@ class MahasiswaController extends Controller
 		$model->asalsekolah 	= $requests['asalsekolah'];
 		$model->namaortu 		= $requests['namaortu'];
 		$save = $model->save();
+		
 
 		if($save){
-			\Session::flash('success', 'Data Berhasil Disimpan !' );
+			$stat=1;
+		}
+		else{
+			$stat=2;
 		}
 
-		return redirect()->back();
+		return response()->json(['return' => $stat]);
 	}
 
 	public function show(){
@@ -48,12 +53,7 @@ class MahasiswaController extends Controller
 		$model = new ModelMahasiswa;
 		$data = $model->show();
 
-		return Datatables::of($data)
-		->addColumn('aksi', function ($data) {
-                return '
-                <a href="./editmahasiswa/'.$data->nim.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                <a href="./deletemahasiswa/'.$data->nim.'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-remove"></i> Delete</a>';
-            })->make(true);
+		return Datatables::of($data)->make(true);
 	}
 
 	public function edit($nim){
@@ -67,6 +67,7 @@ class MahasiswaController extends Controller
 
 	public function update(MahasiswaRequests $requests){
 
+		$stat=0;
 		$model = new ModelMahasiswa;
 
 		$data = $model->find($requests['nim']);
@@ -81,18 +82,23 @@ class MahasiswaController extends Controller
 		$update = $data->save();
 
 		if($update){
-			\Session::flash('success', 'Data Berhasil Diubah !' );
+			$stat=1;
+		}else{
+			$stat=2;
 		}
 
-		return redirect()->back();
+		return response()->json(['return' => $stat]);
 	}
 
 	public function destroy($nim){
 		
+		$statreturn = 0;
 		$model = new ModelMahasiswa;
 		$data  = $model->find($nim);
-		$data->delete();
-
-		return redirect()->back();
+		$destroy = $data->delete();
+		if($destroy){
+			$statreturn = 1;
+		}
+		return response()->json(['return' => $statreturn]);
 	}
 }

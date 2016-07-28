@@ -3,6 +3,12 @@
 @section('title','Mahasiswa')
 @section('css')
 	<link href="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+
+	<link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
+ 
+ 	<link href="{{ URL::asset('vendors/alertify/css/alertify.min.css')}}" rel="stylesheet">
+ 
+ 	<link href="{{ URL::asset('vendors/alertify/css/default.min.css')}}" rel="stylesheet">
 @endsection
 @section('sidebar')
 @parent
@@ -25,13 +31,12 @@
 
 						<!-- @foreach( $data as $key => $cdata ) -->
 		
-						{!! Form::open(array('url' => '/editmahasiswa/'.$cdata->nim,'class'=>'form-horizontal')) !!}
+						{!! Form::open(array('url' => '/editmahasiswa/'.$cdata->nim, 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
 						
 							<div class="form-group">
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
 									{!! Form::text('nim', $cdata->nim, array('class' => 'form-control','maxlength'=>'10')) !!}
-									{!! $errors->first('nim', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -39,7 +44,6 @@
 								{!! Form::label('nama','Nama Mahasiswa',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('nama', $cdata->nama, array('class' => 'form-control')) !!}
-									{!! $errors->first('nama', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -47,7 +51,6 @@
 								{!! Form::label('tempatlahir','Tempat Lahir',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('tempatlahir', $cdata->tempatlahir, array('class' => 'form-control')) !!}
-									{!! $errors->first('tempatlahir', '<span class=text-danger>:message</span>') !!}
 								</div>
 							</div>
 							
@@ -57,7 +60,6 @@
 									 <div class="input-group" id="dtpicker">
 										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 											{!! Form::text('tanggallahir', $cdata->tanggallahir, array('class' => 'form-control')) !!}
-											{!! $errors->first('tanggallahir', '<span class=text-danger>:message</span>') !!}
 										</div>
 									</div>
 								</div>
@@ -65,18 +67,14 @@
 								<div class="form-group">
 									{!! Form::label('asalsekolah','Asal Sekolah',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('asalsekolah', $cdata->asalsekolah, array('class' => 'form-control')) !!}
-										{!! $errors->first('asalsekolah', '<span class=text-danger>:message</span>') !!}
 									</div>
 								</div>
 
 								<div class="form-group">
 									{!! Form::label('namaortu','Nama Orang Tua',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('namaortu', $cdata->namaortu, array('class' => 'form-control')) !!}
-										{!! $errors->first('namaortu', '<span class=text-danger>:message</span>') !!}
 									</div>
 								</div>
-								
-								
 
 								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">
@@ -95,17 +93,113 @@
                </div>
 @endsection
 @section('scripts')
-<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment.min.js')}}">
-	</script>
-	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment-with-locales.min.js')}}">
-	</script>
-	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.js')}}">
-	</script>
-   <script type='text/javascript'>
+	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment.min.js')}}"></script>
+	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment-with-locales.min.js')}}"></script>
+	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+	
+	<script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}"></script>
+	<script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
+	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+
+    <script type='text/javascript'>
 		$(document).ready(function(){
-			$('#dtpicker').datetimepicker({
+			$('#tanggallahir').datetimepicker({
 				format:'YYYY-MM-DD'
 			});
+
+			$('#form-mahasiswa').bootstrapValidator({
+				live: 'enabled',
+				message: 'This value is not Valid',
+				feedbackIcons: {
+					valid: 'glyphicon glyphicon-ok',
+					invalid: 'glyphicon glyphicon-remove',
+					validating: 'glyphicon glyphicon-refresh'
+				},
+				excluded:'disabled',
+				fields: {
+					
+					nim: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi nim'
+							}
+							
+						}
+					},
+					nama: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi nama'
+							}
+						}
+					},
+					tempatlahir: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi tempat lahir'
+							}
+						}
+					},
+					tanggallahir: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi tanggal lahir'
+							}
+						}
+					},
+					asalsekolah: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi asal sekolah'
+							}
+						}
+					},
+					namaortu: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi nama orang tua'
+							}
+						}
+					}
+				}
+			}).on('success.form.bv', function (e) {
+        // Prevent form submission
+				e.preventDefault();
+				// Get the form instance
+				var $form = $(e.target);
+				// Get the BootstrapValidator instance
+				var bv = $form.data('bootstrapValidator');
+				// Use Ajax to submit form data
+				
+				//formData.append('file','file);
+				var data = $form.serialize();
+				$('#form-mahasiswa input').attr("disabled", "disabled");
+				$.ajax({
+					type: 'POST',
+					url: $form.attr('action'),
+					data: data,
+					dataType: 'json',
+					success: function (data) {
+						
+							var returndata=parseInt(data.return);
+							if(returndata==1){
+								alertify.success('Data Berhasil Diubah');
+							}else{
+								alertify.alert("Error ","Data Input Tidak Valid");
+							}
+							return false;
+						},
+						error: function (xhr,textStatus,errormessage) {
+							alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+						},
+						complete: function () {
+							$('#form-mahasiswa').bootstrapValidator('resetForm',true);
+							$('#btn-submit').removeAttr('disabled');
+							$('#form-mahasiswa input').removeAttr("disabled");
+						}
+					});
+				});
 		});
+		
    </script>
 @endsection
