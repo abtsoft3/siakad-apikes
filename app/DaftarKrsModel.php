@@ -20,10 +20,10 @@ class DaftarKrsModel extends Model
     				 ->where('krs.nim', '=', $this->nim)
                      ->where('matakuliah.semester', '=', $this->semester)
     				 ->select([
-    				     		'mahasiswa.nim',
     				     		'matakuliah.kodemk',
     				     		'matakuliah.matakuliah',
     				     		'matakuliah.bobot',
+                                 DB::raw('matakuliah.semester as sem'),
     				     		 DB::raw('year(krs.tanggal) as tahun'),
     				     		'krs.keterangan'
     				     	  ])->get();

@@ -33,7 +33,7 @@
     <table id="datatable-krs" class="table table-striped table-bordered" width="100%">
       <thead>
       <tr>
-          <th colspan="6">
+          <th colspan="7">
            <div class="form-horizontal">
             {!! Form::open(array('url' => '/addmahasiswa', 'id'=>'form-daftarkrs')) !!}
               <div class="form-group">
@@ -85,6 +85,7 @@
           <th>Kode M.K</th>
           <th>Nama Mata Kuliah</th>
           <th>SKS</th>
+          <th>Semester</th>
           <th>Tahun</th>
           <th>Keterangan</th>
         </tr>
@@ -93,14 +94,14 @@
         <tr>
           <th colspan="3">Total SKS Diambil : </th>          
           <th></th>
-          <th colspan="2"></th>
+          <th colspan="3"></th>
         </tr>
       </tfoot>
     </table>
 
 <!--endtable-->
   </div>
-  <a href="{{url('printkrs')}}" target="_blank" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
+  <a href="#" target="_blank" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
 </div>
 
 @endsection
@@ -123,6 +124,10 @@
       var tahun = new Date();
 
       $('#cetakkrs').addClass('disabled');
+
+      $('#cetakkrs').click(function(){
+          window.open("{{url('printkrs')}}/"+$('#semester').val(), "Cetak KRS", "location=1,status=1,scrollbars=1,width=1000,height=600");
+      });
 
       $("#semester").change(function() {
         
@@ -194,6 +199,7 @@
                   {data: 'kodemk',     name: 'kodemk'},
                   {data: 'matakuliah', name: 'matakuliah'},
                   {data: 'bobot',      name: 'bobot'},
+                  {data: 'sem',        name: 'sem'},
                   {data: 'tahun',      name: 'tahun'},
                   {data: 'keterangan', name: 'keterangan'}
               ],

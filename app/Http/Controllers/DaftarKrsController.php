@@ -44,7 +44,8 @@ class DaftarKrsController extends Controller
 
         $datakrs = $model->showkrs();
 
-        $datamhs = $model->showmahasiswa();       
+        $datamhs = $model->showmahasiswa(); 
+
         foreach ($datamhs as $name => $cdatamhs) {
             $cmhs['nim'] = $cdatamhs->nim;
             $cmhs['nama'] = $cdatamhs->nama;
@@ -58,11 +59,20 @@ class DaftarKrsController extends Controller
 
     }
 
-     public function printkrs(){
+     public function printkrs($sem){
         
-        //$model = new DaftarKrsModel;
+        $model = new DaftarKrsModel;
 
-        $pdf = PDF::loadView('krs.show_krs')->setPaper('a4')->setOrientation('potrait');
+        $model->nim = '1100000001';
+        $model->semester = $sem;
+
+        $datakrs = $model->showkrs();
+        $datamhs = $model->showmahasiswa();
+
+        $pdf = PDF::loadView('krs.show_krs', ['datamhs'=>$datamhs, 'datakrs'=>$datakrs, 'vts'=>$sem])
+                    ->setPaper('a4')
+                    ->setOrientation('potrait');
+
         return $pdf->stream();
     }
 
