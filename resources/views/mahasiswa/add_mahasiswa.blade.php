@@ -72,7 +72,7 @@
 										  <button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button>
 										</div>
 									  </div>
-									  {!! Form::close() !!}
+							    {!! Form::close() !!}
 							</div>
 					</div>
 					

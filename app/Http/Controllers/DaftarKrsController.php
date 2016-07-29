@@ -15,7 +15,36 @@ use PDF;
 
 class DaftarKrsController extends Controller
 {
+    
     public function index(){
+
+        $model = new DaftarKrsModel;
+
+        $arrsemester = array();
+
+        $model->nim         = '1100000001';
+        
+        $sem = $model->getsemester(1);
+
+        $arrsemester['0'] = "Pilih";
+        foreach ($sem as $key => $csem) {
+            $arrsemester[$csem->semester] = "Semester ".$csem->semester;
+        }
+        return view('krs.add_krs',  ['arrsemester'=> $arrsemester]);
+    }
+
+    public function datamk($sem){
+         $model = new DaftarKrsModel;
+         $model->nim        = '1100000001';
+         $model->semester   = $sem;
+         $datamk = $model->showmk();
+         /*foreach ($datamk as $key => $value) {
+             echo $value->kodemk;
+         }*/
+         return Datatables::of($datamk)->make(true);
+    }
+
+    public function listkrs(){
         
         $model = new DaftarKrsModel;
 
@@ -23,7 +52,7 @@ class DaftarKrsController extends Controller
 
         $model->nim         = '1100000001';
         
-        $sem = $model->getsemester();
+        $sem = $model->getsemester(2);
        
         $arrsemester['0'] = "Pilih";
         foreach ($sem as $key => $csem) {

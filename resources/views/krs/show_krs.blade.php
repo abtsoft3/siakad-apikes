@@ -29,7 +29,8 @@
         		word-break:normal;
         		border-color:#ccc;
         		color:#333;
-        		background-color:#f0f0f0;
+        		background-color:#09C;
+        		font-weight: bold;
         	  }
         .tg .tg-3wr7{ font-weight:bold;
         			  font-size:12px;
@@ -62,7 +63,7 @@
     </td>
   </tr>
   <tr>
-    <td colspan="7" align="center"><b>KARTU RENCANA STUDY</b></td>
+    <td colspan="7" align="center" style="background-color:#09C;"><b>KARTU RENCANA STUDY</b></td>
   </tr>
   <tr>
     <td colspan="7">
@@ -106,7 +107,7 @@
   <?php $totalsks = 0; ?>
   @foreach($datakrs as $key => $cdatakrs)
   <tr>
-    <td>{{ $key+1 }}</td>
+    <td align="center">{{ $key+1 }}</td>
     <td>{{ $cdatakrs->kodemk }}</td>
     <td>{{ $cdatakrs->matakuliah }}</td>
     <td>{{ $cdatakrs->bobot }}</td>

@@ -65,10 +65,13 @@ Route::get('edit_matakuliah/{kodemk}','MataKuliahController@edit');
 Route::post('/updatematakuliah','MataKuliahController@updatematakuliah');
 
 
-//daftar KRS
-Route::get('listkrs','DaftarKrsController@index');
+// KRS
+Route::get('listkrs','DaftarKrsController@listkrs');
 Route::get('listkrs/{sem}','DaftarKrsController@showkrs');
 Route::get('printkrs/{sem}','DaftarKrsController@printkrs');
+Route::get('datamk/{sem}','DaftarKrsController@datamk');
+
+Route::get('addkrs','DaftarKrsController@index');
 
 
 //error
