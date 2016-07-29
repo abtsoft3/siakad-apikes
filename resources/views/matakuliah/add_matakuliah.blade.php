@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('title','MataKuliah')
 @section('css')
@@ -92,7 +92,6 @@
 					
 					
                   </div>
-               </div>
 @endsection
 @section('scripts')
 <script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}">
