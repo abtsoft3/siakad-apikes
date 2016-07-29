@@ -121,28 +121,6 @@
               bInfo       : false,
               bPaginate   : false,
               ajax        : '{{"datamk"}}/0',
-
-              footerCallback: function ( row, data, start, end, display ) {
-                var api = this.api(), data;
-
-                var intVal = function ( i ) {
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,]/g, '')*1 :
-                        typeof i === 'number' ?
-                            i : 0;
-                };
-
-                total = api
-                    .column( 3 )
-                    .data()
-                    .reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
-
-                $( api.column( 3 ).footer() ).html(
-                     total 
-                );
-              },
               aoColumns: [
                   {
                     data:   null,
@@ -183,26 +161,14 @@
           });
 
       var sbody = $('#datatable-krs tbody');
-      sbody.on('click','.editor-active:checked',function(){
-        row = gentable.$('.editor-active:checked', {'page': 'all'});
-        var data = new Array(null);
-        $i=0;
-        row.each(function(index, elem){
-          data[$i] = gentable.row($(this).parents('tr')).data();
-          $i++;
+      sbody.on('click','.editor-active',function(){
+        var rowData = new Array(null);
+        $('.editor-active:checked').each(function(index, elem) {    
+          rowData [index] = gentable.row($(this).parents('tr')).data().bobot;
+          
         });
 
-        
-        alert(data.reduce(getSum));
-        /*var data = gentable.row($(this).parents('tr')).data();
-              alert(data.bobot.reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 ));*/
-          /*row.each(function(index, elem){
-              
-          });*/
-        
-        
+        $('#totalsks').text(rowData.reduce(getSum));
         
       });
 
