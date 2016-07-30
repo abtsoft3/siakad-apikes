@@ -1,100 +1,44 @@
-CREATE DATABASE  IF NOT EXISTS `apikes` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `apikes`;
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
---
--- Host: 127.0.0.1    Database: apikes
--- ------------------------------------------------------
--- Server version	5.5.5-10.1.13-MariaDB
+/*
+MySQL Data Transfer
+Source Host: localhost
+Source Database: apikes
+Target Host: localhost
+Target Database: apikes
+Date: 7/29/2016 9:01:22 PM
+*/
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `angkatan`
---
-
-DROP TABLE IF EXISTS `angkatan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for angkatan
+-- ----------------------------
 CREATE TABLE `angkatan` (
   `idangkatan` int(3) NOT NULL AUTO_INCREMENT,
   `angkatan` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `tahun` int(4) NOT NULL,
   PRIMARY KEY (`idangkatan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `angkatan`
---
-
-LOCK TABLES `angkatan` WRITE;
-/*!40000 ALTER TABLE `angkatan` DISABLE KEYS */;
-INSERT INTO `angkatan` VALUES (1,'4',2011),(2,'5',2012),(3,'6',2013),(4,'7',2014),(5,'8',2015),(6,'1',2009);
-/*!40000 ALTER TABLE `angkatan` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bidang`
---
-
-DROP TABLE IF EXISTS `bidang`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for bidang
+-- ----------------------------
 CREATE TABLE `bidang` (
   `idbidang` int(2) NOT NULL AUTO_INCREMENT,
   `nama` varchar(100) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`idbidang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `bidang`
---
-
-LOCK TABLES `bidang` WRITE;
-/*!40000 ALTER TABLE `bidang` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bidang` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bidangkeahlian`
---
-
-DROP TABLE IF EXISTS `bidangkeahlian`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for bidangkeahlian
+-- ----------------------------
 CREATE TABLE `bidangkeahlian` (
   `idbidangkeahlian` int(2) NOT NULL,
   `nama` varchar(50) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`idbidangkeahlian`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `bidangkeahlian`
---
-
-LOCK TABLES `bidangkeahlian` WRITE;
-/*!40000 ALTER TABLE `bidangkeahlian` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bidangkeahlian` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detailmahasiswa`
---
-
-DROP TABLE IF EXISTS `detailmahasiswa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for detailmahasiswa
+-- ----------------------------
 CREATE TABLE `detailmahasiswa` (
   `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `idangkatan` int(3) NOT NULL,
@@ -104,25 +48,10 @@ CREATE TABLE `detailmahasiswa` (
   CONSTRAINT `fk_detailmhs_idangkatan` FOREIGN KEY (`idangkatan`) REFERENCES `angkatan` (`idangkatan`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_detailmhs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `detailmahasiswa`
---
-
-LOCK TABLES `detailmahasiswa` WRITE;
-/*!40000 ALTER TABLE `detailmahasiswa` DISABLE KEYS */;
-INSERT INTO `detailmahasiswa` VALUES ('1100000001',1,NULL);
-/*!40000 ALTER TABLE `detailmahasiswa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `dosen`
---
-
-DROP TABLE IF EXISTS `dosen`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for dosen
+-- ----------------------------
 CREATE TABLE `dosen` (
   `nidn` int(10) unsigned zerofill NOT NULL,
   `nama` varchar(100) CHARACTER SET latin1 NOT NULL,
@@ -144,70 +73,28 @@ CREATE TABLE `dosen` (
   CONSTRAINT `fk_dosen_idjabatan` FOREIGN KEY (`idjabatan`) REFERENCES `jabatan` (`idjabatan`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_dosen_idpendidikan` FOREIGN KEY (`idpendidikan`) REFERENCES `pendidikan` (`idpendidikan`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `dosen`
---
-
-LOCK TABLES `dosen` WRITE;
-/*!40000 ALTER TABLE `dosen` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dosen` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jabatan`
---
-
-DROP TABLE IF EXISTS `jabatan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for jabatan
+-- ----------------------------
 CREATE TABLE `jabatan` (
   `idjabatan` int(2) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`idjabatan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `jabatan`
---
-
-LOCK TABLES `jabatan` WRITE;
-/*!40000 ALTER TABLE `jabatan` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jabatan` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `kelas`
---
-
-DROP TABLE IF EXISTS `kelas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for kelas
+-- ----------------------------
 CREATE TABLE `kelas` (
   `idkelas` int(2) NOT NULL AUTO_INCREMENT,
   `nama` varchar(10) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`idkelas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `kelas`
---
-
-LOCK TABLES `kelas` WRITE;
-/*!40000 ALTER TABLE `kelas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `kelas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `khs`
---
-
-DROP TABLE IF EXISTS `khs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for khs
+-- ----------------------------
 CREATE TABLE `khs` (
   `idkhs` int(20) NOT NULL AUTO_INCREMENT,
   `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -227,24 +114,10 @@ CREATE TABLE `khs` (
   CONSTRAINT `fk_khs_kodemk` FOREIGN KEY (`kodemk`) REFERENCES `matakuliah` (`kodemk`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_khs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `khs`
---
-
-LOCK TABLES `khs` WRITE;
-/*!40000 ALTER TABLE `khs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `khs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `krs`
---
-
-DROP TABLE IF EXISTS `krs`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for krs
+-- ----------------------------
 CREATE TABLE `krs` (
   `idkrs` int(20) NOT NULL AUTO_INCREMENT,
   `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -257,25 +130,10 @@ CREATE TABLE `krs` (
   CONSTRAINT `fk_krs_kodemk` FOREIGN KEY (`kodemk`) REFERENCES `matakuliah` (`kodemk`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_krs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `krs`
---
-
-LOCK TABLES `krs` WRITE;
-/*!40000 ALTER TABLE `krs` DISABLE KEYS */;
-INSERT INTO `krs` VALUES (1,'1100000001','PK105','2016-07-27 03:51:12',NULL),(2,'1100000001','PK102','2016-07-27 08:09:29',NULL),(3,'1100000001','PK106','2016-07-28 08:01:45',NULL),(4,'1100000001','PK204','2016-07-28 08:01:46',NULL);
-/*!40000 ALTER TABLE `krs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `mahasiswa`
---
-
-DROP TABLE IF EXISTS `mahasiswa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for mahasiswa
+-- ----------------------------
 CREATE TABLE `mahasiswa` (
   `nim` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `nama` varchar(100) CHARACTER SET latin1 NOT NULL,
@@ -285,54 +143,10 @@ CREATE TABLE `mahasiswa` (
   `namaortu` varchar(100) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`nim`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `mahasiswa`
---
-
-LOCK TABLES `mahasiswa` WRITE;
-/*!40000 ALTER TABLE `mahasiswa` DISABLE KEYS */;
-INSERT INTO `mahasiswa` VALUES ('1100000001','Jokowi','Medan','2016-07-27','Medan','Sutisna');
-/*!40000 ALTER TABLE `mahasiswa` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tggr_insdetailmhs` AFTER INSERT
-    ON `apikes`.`mahasiswa`
-    FOR EACH ROW BEGIN
-		
-        declare nim varchar(10);
-        declare vidangkatan int(3);
-        declare vtahun varchar(4);
-        
-        set vtahun = concat('20', substr(new.nim, 1,2));
-        
-        select idangkatan into vidangkatan from angkatan where tahun=vtahun;
-        
-        insert into detailmahasiswa (nim, idangkatan) values(new.nim, vidangkatan);
-        
-    END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-
---
--- Table structure for table `matakuliah`
---
-
-DROP TABLE IF EXISTS `matakuliah`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for matakuliah
+-- ----------------------------
 CREATE TABLE `matakuliah` (
   `kodemk` varchar(6) CHARACTER SET latin1 NOT NULL,
   `matakuliah` varchar(100) CHARACTER SET latin1 NOT NULL,
@@ -344,72 +158,48 @@ CREATE TABLE `matakuliah` (
   `bobotnilai` double NOT NULL,
   PRIMARY KEY (`kodemk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `matakuliah`
---
+-- ----------------------------
+-- Table structure for migrations
+-- ----------------------------
+CREATE TABLE `migrations` (
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `matakuliah` WRITE;
-/*!40000 ALTER TABLE `matakuliah` DISABLE KEYS */;
-INSERT INTO `matakuliah` VALUES ('PK102','Pendidikan Pancasila',2,1,1,'Erlinday, M.Kes','1',6),('PK105','Bahasa Inggris I',2,1,1,'Parmen, SKM, M.Kes','1',6),('PK106','Bahasa Inggris II',2,1,1,'Leo Sardo, S.S','2',3),('PK204','Biomedik IV ( Patologi )',2,1,1,'Erikson, SKM','2',3);
-/*!40000 ALTER TABLE `matakuliah` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `nilaihuruf`
---
-
-DROP TABLE IF EXISTS `nilaihuruf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for nilaihuruf
+-- ----------------------------
 CREATE TABLE `nilaihuruf` (
   `idnilaihuruf` int(2) NOT NULL,
   `batasbawah` double NOT NULL,
   `batasatas` double NOT NULL,
   PRIMARY KEY (`idnilaihuruf`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `nilaihuruf`
---
+-- ----------------------------
+-- Table structure for password_resets
+-- ----------------------------
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY `password_resets_email_index` (`email`),
+  KEY `password_resets_token_index` (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `nilaihuruf` WRITE;
-/*!40000 ALTER TABLE `nilaihuruf` DISABLE KEYS */;
-/*!40000 ALTER TABLE `nilaihuruf` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `pendidikan`
---
-
-DROP TABLE IF EXISTS `pendidikan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for pendidikan
+-- ----------------------------
 CREATE TABLE `pendidikan` (
   `idpendidikan` int(2) NOT NULL,
   `gelar` varchar(2) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`idpendidikan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `pendidikan`
---
-
-LOCK TABLES `pendidikan` WRITE;
-/*!40000 ALTER TABLE `pendidikan` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pendidikan` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `periode`
---
-
-DROP TABLE IF EXISTS `periode`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for periode
+-- ----------------------------
 CREATE TABLE `periode` (
   `idperiode` int(11) NOT NULL AUTO_INCREMENT,
   `sistem` varchar(100) CHARACTER SET latin1 NOT NULL,
@@ -417,24 +207,10 @@ CREATE TABLE `periode` (
   `tglakhir` date NOT NULL,
   PRIMARY KEY (`idperiode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `periode`
---
-
-LOCK TABLES `periode` WRITE;
-/*!40000 ALTER TABLE `periode` DISABLE KEYS */;
-/*!40000 ALTER TABLE `periode` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `persenmk`
---
-
-DROP TABLE IF EXISTS `persenmk`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for persenmk
+-- ----------------------------
 CREATE TABLE `persenmk` (
   `idpersen` int(2) NOT NULL,
   `absensi` double NOT NULL,
@@ -445,81 +221,36 @@ CREATE TABLE `persenmk` (
   `akhir` double NOT NULL,
   PRIMARY KEY (`idpersen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `persenmk`
---
-
-LOCK TABLES `persenmk` WRITE;
-/*!40000 ALTER TABLE `persenmk` DISABLE KEYS */;
-/*!40000 ALTER TABLE `persenmk` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tahunajaran`
---
-
-DROP TABLE IF EXISTS `tahunajaran`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+-- ----------------------------
+-- Table structure for tahunajaran
+-- ----------------------------
 CREATE TABLE `tahunajaran` (
   `idtahunajaran` int(2) NOT NULL,
   `tahun` varchar(15) CHARACTER SET latin1 NOT NULL,
   `semester` varchar(6) CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`idtahunajaran`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `tahunajaran`
---
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+CREATE TABLE `users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-LOCK TABLES `tahunajaran` WRITE;
-/*!40000 ALTER TABLE `tahunajaran` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tahunajaran` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `nama` varchar(45) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  PRIMARY KEY (`nama`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user`
---
-
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('Sartika','tommysuindra7@gmail.com');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping events for database 'apikes'
---
-
---
--- Dumping routines for database 'apikes'
---
-/*!50003 DROP FUNCTION IF EXISTS `fromRoman` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+-- ----------------------------
+-- Function structure for fromRoman
+-- ----------------------------
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `fromRoman`(inRoman varchar(15)) RETURNS int(11)
     DETERMINISTIC
@@ -543,20 +274,47 @@ BEGIN
     END WHILE;
 
     RETURN sum;
-END ;;
+END;;
 DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+-- ----------------------------
+-- Records 
+-- ----------------------------
+INSERT INTO `angkatan` VALUES ('1', '4', '2011');
+INSERT INTO `angkatan` VALUES ('2', '5', '2012');
+INSERT INTO `angkatan` VALUES ('3', '6', '2013');
+INSERT INTO `angkatan` VALUES ('4', '7', '2014');
+INSERT INTO `angkatan` VALUES ('5', '8', '2015');
+INSERT INTO `angkatan` VALUES ('6', '1', '2009');
+INSERT INTO `detailmahasiswa` VALUES ('1100000001', '1', null);
+INSERT INTO `krs` VALUES ('1', '1100000001', 'PK105', '2016-07-27 10:51:12', null);
+INSERT INTO `krs` VALUES ('2', '1100000001', 'PK102', '2016-07-27 15:09:29', null);
+INSERT INTO `krs` VALUES ('3', '1100000001', 'PK106', '2016-07-28 15:01:45', null);
+INSERT INTO `krs` VALUES ('4', '1100000001', 'PK204', '2016-07-28 15:01:46', null);
+INSERT INTO `mahasiswa` VALUES ('1100000001', 'Jokowi', 'Medan', '2016-07-27', 'Medan', 'Sutisna');
+INSERT INTO `matakuliah` VALUES ('PK102', 'Pendidikan Pancasila', '2', '1', '1', 'Erlinday, M.Kes', '1', '6');
+INSERT INTO `matakuliah` VALUES ('PK105', 'Bahasa Inggris I', '2', '1', '1', 'Parmen, SKM, M.Kes', '1', '6');
+INSERT INTO `matakuliah` VALUES ('PK106', 'Bahasa Inggris II', '2', '1', '1', 'Leo Sardo, S.S', '2', '3');
+INSERT INTO `matakuliah` VALUES ('PK204', 'Biomedik IV ( Patologi )', '2', '1', '1', 'Erikson, SKM', '2', '3');
+INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table', '1');
+INSERT INTO `migrations` VALUES ('2014_10_12_100000_create_password_resets_table', '1');
+INSERT INTO `users` VALUES ('1', 'basri', 'muhammadbasri444@gmail.com', '$2y$10$FJMZkrHVUlVammIA.hvgDeGf7OKxs1tHspY5/jS7WDI4mTjSpxLWS', 'k2xFY26R7kazlUNuw8C6a4VKxA4CX0G30BD38MlvyvowZQ0ydQZCr94gHwC6', '2016-07-29 08:30:58', '2016-07-29 12:24:59', '1');
 
--- Dump completed on 2016-07-28 17:47:29
+-- ----------------------------
+-- Trigger structure for tggr_insdetailmhs
+-- ----------------------------
+DELIMITER ;;
+CREATE TRIGGER `tggr_insdetailmhs` AFTER INSERT ON `mahasiswa` FOR EACH ROW BEGIN
+		
+        declare nim varchar(10);
+        declare vidangkatan int(3);
+        declare vtahun varchar(4);
+        
+        set vtahun = concat('20', substr(new.nim, 1,2));
+        
+        select idangkatan into vidangkatan from angkatan where tahun=vtahun;
+        
+        insert into detailmahasiswa (nim, idangkatan) values(new.nim, vidangkatan);
+        
+    END;;
+DELIMITER ;

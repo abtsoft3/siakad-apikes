@@ -29,15 +29,27 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
-
+	
+	 /**
+     * Where to redirect users after logout
+     *
+     * @var string
+     */
+	 protected $redirectAfterLogout = '/login';
+	
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+   /* public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register']]);
+    }*/
+	
+	 public function __construct()
+    {
+        $this->middleware('isAdmin', ['except' => ['logout']]);
     }
 
     /**
@@ -54,6 +66,31 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
     }
+	
+	/**
+	 * Show the application registration form.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getRegister()
+	{
+		// Handle authorization
+
+		return $this->showRegistrationForm();
+	}
+	
+	/**
+	 * Handle a registration request for the application.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function postRegister(Request $request)
+	{
+		// Handle authorization
+		
+		return $this->register($request);
+	}
 
     /**
      * Create a new user instance after a valid registration.
