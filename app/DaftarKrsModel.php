@@ -13,6 +13,25 @@ class DaftarKrsModel extends Model
 
     protected $table = 'krs';
 
+    public function showmk(){
+
+        $data = DB::table('matakuliah')
+                     ->whereNotExists(function($query)
+                     {
+                        $query->select(DB::raw(1))
+                        ->from('krs')
+                        ->whereRaw('matakuliah.kodemk = krs.kodemk and krs.nim = '.$this->nim);
+                     })
+                     ->where('matakuliah.semester', '=', $this->semester)
+                     ->select([
+                                'matakuliah.kodemk',
+                                'matakuliah.matakuliah',
+                                'matakuliah.bobot',
+                                 DB::raw('matakuliah.semester as sem')
+                              ]);
+        return $data;
+    }
+
     public function showkrs(){
 	
     	$data = $this->join('mahasiswa', 'krs.nim', '=', 'mahasiswa.nim')
@@ -20,10 +39,10 @@ class DaftarKrsModel extends Model
     				 ->where('krs.nim', '=', $this->nim)
                      ->where('matakuliah.semester', '=', $this->semester)
     				 ->select([
-    				     		'mahasiswa.nim',
     				     		'matakuliah.kodemk',
     				     		'matakuliah.matakuliah',
     				     		'matakuliah.bobot',
+                                 DB::raw('matakuliah.semester as sem'),
     				     		 DB::raw('year(krs.tanggal) as tahun'),
     				     		'krs.keterangan'
     				     	  ])->get();
@@ -46,11 +65,26 @@ class DaftarKrsModel extends Model
         return $data;
     }
 
-    public function getsemester(){
-        $data = DB::table('krs')
+    public function getsemester($kat){
+        //1 = untuk form add krs
+        //2 = untuk view krs
+        if($kat==1){
+            $data = DB::table('matakuliah')
+                     ->whereNotExists(function($query)
+                     {
+                        $query->select(DB::raw(1))
+                        ->from('krs')
+                        ->whereRaw('matakuliah.kodemk = krs.kodemk and krs.nim = '.$this->nim);
+                     })
+                     ->select(['matakuliah.semester'])->distinct()->get();
+        }else{
+
+            $data = DB::table('krs')
                      ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
                      ->where('krs.nim', '=', $this->nim)
                      ->select(['matakuliah.semester'])->distinct()->get();
+        }
+        
         return $data;
     }
     

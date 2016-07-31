@@ -30,58 +30,25 @@
     </div>
 
     <!--table-->
+    {!! Form::open(array('url' => '/addmahasiswa', 'id'=>'form-daftarkrs')) !!}
     <table id="datatable-krs" class="table table-striped table-bordered" width="100%">
       <thead>
       <tr>
           <th colspan="7">
            <div class="form-horizontal">
-            {!! Form::open(array('url' => '/addmahasiswa', 'id'=>'form-daftarkrs')) !!}
+            
               <div class="form-group">
                 {!! Form::label('semester','Semester',array('class' => 'col-sm-4 control-label')) !!}
                     <div class="col-sm-4">
                       {!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control')) !!}
                     </div>
               </div>
-            {!! Form::close() !!}
-            </div>
-
-            <div class="x_content">
-
-            <div style="display:none;" id="datamhs">
-            <hr>
-
-              <div class="col-md-7">
-              <div class="col-md-4"><p>Tahun Akademik</p></div>
-                <label id="vtahunakademik"></label>
-              </div>
-
-              <div class="col-md-7">
-              <div class="col-md-4"><p>Nim</p></div>
-               <div id="vnim"></div>
-              </div>
-
-              <div class="col-md-7">
-              <div class="col-md-4"><p>Nama Mahasiswa</p></div>
-                <div id="vnama"></div>
-              </div>     
-
-              <div class="col-md-7">
-              <div class="col-md-4"><p>Angkatan / Tahun</p></div>
-                <div id="vangkatan"></div>
-              </div> 
-
-              <div class="col-md-7">
-              <div class="col-md-4"><p>Tingkat / Semester</p></div>
-                <div id="vts"></div>
-              </div>  
-
-            </div>
-
+    
             </div>
           </th>
         </tr>
         <tr>
-          <th>No.</th>
+          <th></th>
           <th>Kode M.K</th>
           <th>Nama Mata Kuliah</th>
           <th>SKS</th>
@@ -93,15 +60,21 @@
       <tfoot>
         <tr>
           <th colspan="3">Total SKS Diambil : </th>          
-          <th></th>
+          <th id="totalsks"></th>
           <th colspan="3"></th>
         </tr>
+        <tr>
+          <th colspan="7"><button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button> </th>          
+        </tr> 
       </tfoot>
-    </table>
-
+    </table>   
+    
+    
+    
+     {!! Form::close() !!}
 <!--endtable-->
   </div>
-  <a href="#" target="_blank" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
+  
 </div>
 
 @endsection
@@ -115,33 +88,19 @@
     <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
 
     <script type='text/javascript'>
-    
+     var gentable=null;
 
 		$(document).ready(function(){
 
-      var gentable=null;
+     
       var url = '';
       var tahun = new Date();
 
       $('#cetakkrs').addClass('disabled');
 
-      $('#cetakkrs').click(function(){
-          window.open("{{url('printkrs')}}/"+$('#semester').val(), "Cetak KRS", "location=1,status=1,scrollbars=1,width=1000,height=600");
-      });
-
       $("#semester").change(function() {
-        
-          $.get('{{"listkrs"}}/'+$('#semester').val(), function(data, status){
 
-            $('#vtahunakademik').text(": "+(tahun.getFullYear()-1)+" / "+tahun.getFullYear());
-            $('#vnim').text(": "+data.nim);
-            $('#vnama').text(": "+data.nama);
-            $('#vangkatan').text(": "+data.angkatan+" / "+data.tahun);
-            $('#vts').text(": "+$('#semester').val()+" / "+$('#semester').val());
-
-          },'json');
-
-          url = '{{"listkrs"}}/'+$('#semester').val();
+          url = '{{"datamk"}}/'+$('#semester').val();
             
           if($('#semester').val()!=0){
             $('#datamhs').show();
@@ -161,56 +120,75 @@
               searching   : false,
               bInfo       : false,
               bPaginate   : false,
-              ajax        : '{{"listkrs"}}/0',
-
-              fnDrawCallback: function ( oSettings ) {
-
-                if ( oSettings.bSorted || oSettings.bFiltered )
-                {
-                    for ( var i=0, iLen=oSettings.aiDisplay.length ; i<iLen ; i++ )
-                    {
-                        $('td:eq(0)', oSettings.aoData[ oSettings.aiDisplay[i] ].nTr ).html( i+1 );
-                    }
-                }
-              },
-              footerCallback: function ( row, data, start, end, display ) {
-                var api = this.api(), data;
-
-                var intVal = function ( i ) {
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,]/g, '')*1 :
-                        typeof i === 'number' ?
-                            i : 0;
-                };
-
-                total = api
-                    .column( 3 )
-                    .data()
-                    .reduce( function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0 );
-
-                $( api.column( 3 ).footer() ).html(
-                     total 
-                );
-              },
+              ajax        : '{{"datamk"}}/0',
               aoColumns: [
-                  {data: null,         name: 'no', bSortable : false,},
+                  {
+                    data:   null,
+                    orderable : false,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                          return '<input type="checkbox" name="kodemk" id="kodemk" class="editor-active" value="'+data.kodemk+'"">';
+                        }
+                        return data;
+                    },
+                    className: "dt-body-center",
+
+                  },
                   {data: 'kodemk',     name: 'kodemk'},
                   {data: 'matakuliah', name: 'matakuliah'},
                   {data: 'bobot',      name: 'bobot'},
                   {data: 'sem',        name: 'sem'},
-                  {data: 'tahun',      name: 'tahun'},
-                  {data: 'keterangan', name: 'keterangan'}
+                  {data: null,         defaultContent: tahun.getFullYear()},
+                  {data:   null,
+                    orderable : false,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="text" name="keterangan" id="keterangan" class="form-control">';
+                        }
+                        return data;
+                    },
+                    className: "dt-body-center",
+                  }
               ],
               aoColumnDefs: [
-                { 
-                  aTargets  : [ -1 ]
-                }],
+                 
+                  { "bSearchable": false, "aTargets": [ -2 ] }
+
+                ],
               
               aaSorting: [[ 1, 'asc' ]]
 
           });
+
+      var sbody = $('#datatable-krs tbody');
+      sbody.on('click','.editor-active',function(){
+        var rowData = new Array(null);
+        $('.editor-active:checked').each(function(index, elem) {    
+          rowData [index] = gentable.row($(this).parents('tr')).data().bobot;
+          
+        });
+
+        $('#totalsks').text(rowData.reduce(getSum));
+        
+      });
+
+      function getSum(total, num) {
+        return total + num;
+      }
+
+      $('#btn-submit').click(function(){
+          /*var row = gentable.$('.editor-active:checked', {'page': 'all'});
+          row.each(function(index, elem){
+              alert($(elem).val());
+          });*/
+
+          var data = gentable.$('input[type=checkbox]:checked, input[type=text]').serialize();
+          alert(
+            "The following data would have been submitted to the server: \n\n"+
+            data
+          );
+          return false;
+      });
 			
 		});
 
