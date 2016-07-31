@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::get('register', 'Auth\AuthController@getRegister');
 	Route::post('register', 'Auth\AuthController@postRegister');
 });
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 //mahasiswa
 Route::get('showmahasiswa','MahasiswaController@index');
 Route::get('deletemahasiswa/{nim}','MahasiswaController@destroy');
@@ -159,4 +159,4 @@ Route::get('503',function(){
 
 
 
->>>>>>> bbe948cc6a1308fe35c98aefd70baea5c620147a
+>>>>>>> bbe948cc6a1308fe35c98aefd70baea5c620147a*/
