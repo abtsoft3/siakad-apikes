@@ -130,13 +130,28 @@
                 </ul>
               </div>
               <div class="menu_section">
-                <h3>Kontrol</h3>
+                <h3>User Management</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> User Management <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bug"></i> Administrator <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-					  <li><a href="{{url('/register')}}">Admin</a></li>
-					  <li><a href="projects.html">Dosen</a></li>
-                      <li><a href="e_commerce.html">Mahasiswa</a></li>
+					  <li><a href="{{url('register_user')}}"> Tambah</a></li>
+					   <li><a href="#">Tampilkan</a></li>
+                      
+                      
+                    </ul>
+                  </li>
+				  <li><a><i class="fa fa-bug"></i> Dosen <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+					  <li><a href="{{url('register_dosen')}}"> Tambah</a></li>
+					   <li><a href="#">Tampilkan</a></li>
+                      
+                      
+                    </ul>
+                  </li>
+				  <li><a><i class="fa fa-bug"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+					  <li><a href="{{url('register_mahasiswa')}}"> Tambah</a></li>
+					  <li><a href="#">Tampilkan</a></li>
                       
                       
                     </ul>

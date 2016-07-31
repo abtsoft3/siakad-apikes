@@ -14,11 +14,6 @@
 
 Route::group(['middleware' => 'web'],function(){
 	Route::auth();
-	//Route::get('/', function () {return view('layouts.app');});
-	
-	
-	
-	
 	
 	//matakuliah
 	Route::get('showmatakuliah','MataKuliahController@index');
@@ -83,12 +78,19 @@ Route::group(['middleware' => 'web'],function(){
 
 	//menu mahasiswa
 	Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
+	
+	//Users
+	
 });
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
    //here 
-   //userregister
-	Route::get('register', 'Auth\AuthController@getRegister');
-	Route::post('register', 'Auth\AuthController@postRegister');
+   //mahasiswa user register
+	Route::get('register_mahasiswa', 'UserController@add_user_mahasiswa');
+	Route::post('/store_register_mahasiswa', 'UserController@store_user_mahasiswa');
+	
+	//dosen user register
+	Route::get('register_dosen', 'UserController@add_user_dosen');
+	Route::post('/store_register_user_dosen', 'UserController@store_user_dosen');
 });
 
 
