@@ -98,12 +98,3 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::get('register_dosen', 'UserController@add_user_dosen');
 	Route::post('/store_register_user_dosen', 'UserController@store_user_dosen');
 });
-
-
-Route::get('addkrs','DaftarKrsController@index');
-
-
-//error
-Route::get('503',function(){
-	abort(503);
-});
