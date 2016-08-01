@@ -16,7 +16,7 @@
 <div class="x_panel">
 	<div class="x_title">
          <h2>Mahasiswa Usermanagement</h2>
-            <a href="{{url('show_adminuser')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+            <a href="{{url('show_users_mahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
            <div class="clearfix"></div>
         </div>
 		<div class="x_content">
@@ -124,6 +124,7 @@
 							dataType: 'json',
 							success: function (data) {
 								response($.map(data, function (obj) {
+									console.log(obj);
 									return {
 										label: obj.nim,
 										value: obj.nim,
@@ -137,13 +138,11 @@
 						if (ui.item != null) {
 							$('#nim').val(ui.item.value);
 							$('#nama').val(ui.item.nama);
-
 						}
 					}
 				}).data('ui-autocomplete')._renderItem = function (ul, item) {
 					//location
-					return ($('<li>').append('<a><strong>' + item.label + '</strong>, <i><strong>' +
-					 ',' + item.nama + '</strong> </i></a>').appendTo(ul));
+					return ($('<li>').append('<a><strong>' + item.label + '</strong>, <i><strong>' + item.nama + '</strong> </i></a>').appendTo(ul));
 				};
 
     }; //end autcomplete

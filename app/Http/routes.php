@@ -93,8 +93,14 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
    //mahasiswa user register
 	Route::get('register_mahasiswa', 'UserController@add_user_mahasiswa');
 	Route::post('/store_register_mahasiswa', 'UserController@store_user_mahasiswa');
-	Route::post('mahasiswa_user_autocomplete','UserController@autocomplete');
-	
+	Route::post('mahasiswa_user_autocomplete','UserController@autocomplete_mahasiswa_checknim');
+	Route::controller('datatables_usermahasiswa', 'UserController', [
+		'getData_usermahasiswa'  => 'datatables_usermahasiswa.data',
+		'getIndex_usermahasiswa' => 'datatables_usermahasiswa',
+	]);
+	Route::get('show_users_mahasiswa',function(){
+		return view('user_mahasiswa.show_users_mahasiswa');
+	});
 	//dosen user register
 	Route::get('register_dosen', 'UserController@add_user_dosen');
 	Route::post('/store_register_user_dosen', 'UserController@store_user_dosen');

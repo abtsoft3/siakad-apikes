@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\ModelUsersMahasiswa;
 use App\ModelUsersDosen;
-use App\ModelMahasiswa;
+use DB;
+use Yajra\Datatables\Datatables;
 class UserController extends Controller
 {
     //
@@ -30,6 +31,49 @@ class UserController extends Controller
 		return response()->json(['return' => $stat]);
 	}
 	
+	
+	//autocomplete mahasiswa
+	public function autocomplete_mahasiswa_checknim(Request $request){
+		$stat=0;
+		$term = $request->get('term');
+		$results = array();
+		$queries = DB::table('mahasiswa')->where('nim', 'LIKE', '%'.$term.'%')->take(5)->get();
+	
+			foreach ($queries as $query){
+				$results[] = ['nim' => $query->nim, 'nama' => $query->nama];
+			}
+		
+		return response()->json($results);
+		
+	
+		
+		//return Response::json($results);
+		if (ModelUsersMahasiswa::where('nim', '=',$term)->exists()) {
+			$statreturn=1;
+			return response()->json($statreturn);
+		}
+	}
+	
+	/**
+	 * Displays datatables front end view
+	 *
+	 * @return \Illuminate\View\View
+	 */
+	public function getIndex_usermahasiswa()
+	{
+		return view('datatables_usermahasiswa.index');
+	}
+	
+	/**
+	 * Process datatables ajax request.
+	 *
+	 * @return \Illuminate\Http\JsonResponse
+	 */
+	public function getData_usermahasiswa()
+	{
+		return Datatables::of(ModelUsersMahasiswa::query())->make(true);
+	}
+	
 	public function add_user_dosen(){
 		return view('user_dosen.register');
 	}
@@ -44,23 +88,7 @@ class UserController extends Controller
 			
 			$model_dosen->save();
 			$stat=1;
-	}
-	
-	public function autocomplete(Request $request){
-		$stat=0;
-		$term = $request->get('term');
-		$model=ModelMahasiswa::where('nim','LIKE','%'.$term.'%')->get();
-		/*$results = array();
-		foreach($model as $datareturn){
-			$results [] = ['nim'=>$datareturn->nim,'nama'=>$datareturn->nama];
-		}
-		if (ModelUsersMahasiswa::where('nim', '=',$term)->exists()) {
-			$stat=0;
-		}else{
-			$model=ModelMahasiswa::find('nim', '=',$term)->first();
-		}*/
-		
-		return response()->json(['return' => $model,'stat'=>$stat]);
+			return response()->json(['return' => $stat]);
 	}
 	
 }

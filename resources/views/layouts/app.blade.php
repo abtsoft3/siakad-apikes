@@ -152,7 +152,7 @@
 				  <li><a><i class="fa fa-bug"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
 					  <li><a href="{{url('register_mahasiswa')}}"> Tambah</a></li>
-					  <li><a href="#">Tampilkan</a></li>
+					  <li><a href="{{url('show_users_mahasiswa')}}">Tampilkan</a></li>
                       
                       
                     </ul>

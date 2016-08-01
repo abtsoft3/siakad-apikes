@@ -15,7 +15,7 @@
 @section('content')
 <div class="x_panel">
 	<div class="x_title">
-         <h2>Mahasiswa Usermanagement</h2>
+         <h2>Dosen Usermanagement</h2>
             <a href="{{url('show_adminuser')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
            <div class="clearfix"></div>
         </div>
