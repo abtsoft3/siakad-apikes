@@ -55,6 +55,15 @@ class MahasiswaController extends Controller
 
 		return Datatables::of($data)->make(true);
 	}
+	
+	public function autocomplete(Request $request){
+		$statreturn = 0;
+		$term = $request->get('term');
+		if (ModelMahasiswa::where('nim', '=',$term)->exists()) {
+			$statreturn=1;
+		}
+		return response()->json(['return' => $statreturn]);
+	}
 
 	public function edit($nim){
 

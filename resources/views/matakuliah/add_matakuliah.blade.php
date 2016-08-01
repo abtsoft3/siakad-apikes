@@ -139,6 +139,7 @@
 			},
             change: function (event, ui) {
 				parseInt(checkkode);
+				fn_check_kodemk_exist(parseInt(checkkode));
             }
         });
 		

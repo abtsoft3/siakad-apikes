@@ -36,7 +36,7 @@
 							<div class="form-group">
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::text('nim', $cdata->nim, array('class' => 'form-control','maxlength'=>'10')) !!}
+									{!! Form::text('nim', $cdata->nim, array('class' => 'form-control','maxlength'=>'10','readonly'=>'true')) !!}
 								</div>
 							</div>
 							
@@ -103,8 +103,12 @@
 
     <script type='text/javascript'>
 		$(document).ready(function(){
+			var startDate = new Date('1985-01-01');
+			
 			$('#tanggallahir').datetimepicker({
-				format:'YYYY-MM-DD'
+				format:'YYYY-MM-DD',
+				locale:'id',
+				minDate:startDate
 			});
 
 			$('#form-mahasiswa').bootstrapValidator({
@@ -183,7 +187,11 @@
 						
 							var returndata=parseInt(data.return);
 							if(returndata==1){
-								alertify.success('Data Berhasil Diubah');
+									alertify.confirm('Berhasil',"Data Berhasil diubah", function () {
+									window.location.href='/showmahasiswa';
+									},function () {
+									window.location.href='/showmahasiswa';
+									});	
 							}else{
 								alertify.alert("Error ","Data Input Tidak Valid");
 							}

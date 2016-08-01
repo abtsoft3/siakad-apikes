@@ -24,10 +24,11 @@
 					<div class="col-lg-6 col-sm-6 col-xs-5">
 
 						{!! Form::open(array('url' => '/addmahasiswa', 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
-							<div class="form-group">
+							<div class="form-group" id="nimgroup">
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
 									{!! Form::text('nim',null,array('class' => 'form-control','maxlength'=>'10')) !!}
+									<small id="status_nim"></small>
 								</div>
 							</div>
 							
@@ -89,11 +90,63 @@
 	<script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
 	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 
+	
     <script type='text/javascript'>
+		var checkkode=0;
+		var fn_check_nim_exist = function(val){
+		if(val==1){
+			$('#nimgroup').removeClass('has-success').addClass('has-error');
+			$('[data-bv-icon-for="nim"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
+			$('#status_nim').text('nim sudah ada!').css('color','#a94442');
+			$('#btn-submit').prop('disabled',true);
+		}else{
+			$('#status_nim').text('');
+			$('#btn-submit').prop('disabled',false);
+		}
+	}
+	
+	
 		$(document).ready(function(){
+			var startDate = new Date('1985-01-01'),
+				endDate = new Date('1996-01-01');
 			$('#tanggallahir').datetimepicker({
-				format:'YYYY-MM-DD'
+				format:'YYYY-MM-DD',
+				locale:'id',
+				minDate:startDate,
+				maxDate:endDate
 			});
+			
+			$('#nim').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/nim_autocomplete",
+                    type: 'POST',
+                    data: {
+                        term: $('#nim').val(),
+						_token : $('input[name="_token"]').val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        response($.map(data, function (obj) {
+							checkkode=parseInt(obj);
+							fn_check_nim_exist(parseInt(obj));
+                        }));
+                    }
+                });
+            },
+			 messages: {
+				noResults:'' ,
+				results: function() {{
+					}
+				}
+			},
+            change: function (event, ui) {
+				parseInt(checkkode);
+				fn_check_nim_exist(parseInt(checkkode));
+            }
+        });
+			
+			
 
 			$('#form-mahasiswa').bootstrapValidator({
 				live: 'enabled',
