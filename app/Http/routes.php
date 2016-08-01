@@ -93,6 +93,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
    //mahasiswa user register
 	Route::get('register_mahasiswa', 'UserController@add_user_mahasiswa');
 	Route::post('/store_register_mahasiswa', 'UserController@store_user_mahasiswa');
+	Route::post('mahasiswa_user_autocomplete','UserController@autocomplete');
 	
 	//dosen user register
 	Route::get('register_dosen', 'UserController@add_user_dosen');
