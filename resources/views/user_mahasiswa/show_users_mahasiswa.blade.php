@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title','MataKuliah')
 @section('css')
@@ -18,7 +18,7 @@
                     <h2>Data User Mahasiswa</h2>
                     
                     <div class="clearfix">
-						<a href="{{url('register_mahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+						<a href="{{url('/home/register_mahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
 					</div>
                   </div>
                   <div class="x_content">

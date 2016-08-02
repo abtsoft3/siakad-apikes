@@ -1,277 +1,82 @@
-@if (!Auth::guest())
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>SIAKAD-APIKES |@yield('title') </title>
-	
-	<!--jquery ui-->
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <!-- Bootstrap -->
-    <link href="{{ URL::asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="{{ URL::asset('vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="{{ URL::asset('vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-	
-	@yield('css')
-	
-    <!-- Custom Theme Style -->
-    <link href="{{ URL::asset('build/css/custom.min.css')}}" rel="stylesheet">
-	
-  </head>
+    <title>Laravel</title>
 
-  <body class="nav-md">
- 
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><span>SIAKAD APIKES</span></a>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+
+    <style>
+        body {
+            font-family: 'Lato';
+        }
+
+        .fa-btn {
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body id="app-layout">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    Laravel
+                </a>
             </div>
 
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2> {{ Auth::user()->name }}</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
-			 @section('sidebar')
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>Administrator</h3>
-                <ul class="nav side-menu">
-                  <li><a href="{{url('/')}}"><i class="fa fa-home"></i> Home </a>
-                  
-                  </li>
-				  <li><a><i class="fa fa-user"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('addmahasiswa')}}">Tambah</a></li>
-                      <li><a href="{{url('showmahasiswa')}}">Tampilkan</a></li>
-                    </ul>
-                  </li>
-				     <li><a><i class="fa fa-clone"></i> MataKuliah <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('addmatakuliah')}}">Tambah</a></li>
-                      <li><a href="{{url('showmatakuliah')}}">Tampilkan</a></li>
-                      
-                    </ul>
-                  </li>
-				   <li><a><i class="fa fa-calendar"></i> Periode <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('addperiode')}}">Tambah</a></li>
-                      <li><a href="{{url('showperiode')}}">Tampilkan</a></li>
-                      
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('add_krs')}}">Pengisian KRS</a></li>
-                      <li><a href="{{url('list_krs')}}">Lihat KRS</a></li>
-					   <li><a href="{{url('list_krs')}}">Lihat KRS 1</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-desktop"></i> KHS <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
-                  </li>
-                  <!--li><a><i class="fa fa-table"></i> DATASET <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                    </ul>
-                  </li>
-				  
-                  <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
-                  </li-->
-                  
-				
-				  
-				   <li><a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Tambah</a>
-                        </li>
-                        <li><a href="#level1_2">Tampilkan</a>
-                        </li>
-                    </ul>
-                  </li> 
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/home') }}">Home</a></li>
                 </ul>
-              </div>
-              <div class="menu_section">
-                <h3>User Management</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Administrator <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-					  <li><a href="{{url('register_user')}}"> Tambah</a></li>
-					   <li><a href="#">Tampilkan</a></li>
-                      
-                      
-                    </ul>
-                  </li>
-				  <li><a><i class="fa fa-bug"></i> Dosen <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-					  <li><a href="{{url('register_dosen')}}"> Tambah</a></li>
-					   <li><a href="#">Tampilkan</a></li>
-                      
-                      
-                    </ul>
-                  </li>
-				  <li><a><i class="fa fa-bug"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-					  <li><a href="{{url('register_mahasiswa')}}"> Tambah</a></li>
-					  <li><a href="{{url('show_users_mahasiswa')}}">Tampilkan</a></li>
-                      
-                      
-                    </ul>
-                  </li>
-				  <!-- tutup dulu
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-				  -->
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
-              </div>
-
             </div>
-            <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
         </div>
+    </nav>
 
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
+    @yield('content')
 
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="img1"> {{ Auth::user()->name }}
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="{{url('/')}}"> Profile</a></li>
-                   
-                    
-                    <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
-                </li>
-
-                <!--li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                </li-->
-              </ul>
-            </nav>
-          </div>
-        </div>
-		 @show
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
-            <div class="row top_tiles">
-			
-            </div>
-            <div class="row">
-              <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                @yield('content')
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            SIAKAD APIKES IMELDA - designed by <a href="#">ABT soft</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="{{ URL::asset('vendors/jquery/dist/jquery.min.js')}}"></script>
-    <!-- Bootstrap -->
-    <script src="{{ URL::asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-    <!-- FastClick -->
-    <script src="{{ URL::asset('vendors/fastclick/lib/fastclick.js')}}"></script>
-    <!-- NProgress -->
-    <script src="{{ URL::asset('vendors/nprogress/nprogress.js')}}"></script>
-	
-	@yield('scripts')
-	
-    <!-- Custom Theme Scripts -->
-    <script src="{{ URL::asset('build/js/custom.min.js')}}"></script>
-	
-  </body>
-
+    <!-- JavaScripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+</body>
 </html>
- @endif

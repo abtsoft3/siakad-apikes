@@ -35,16 +35,38 @@ return [
     |
     */
 
+
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
+        'users'=>[
+            'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'admin'=>[
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+
+        'usermahasiswa'=>[
+            'driver' => 'session',
+            'provider' => 'usermahasiswa',
+        ],
+        'userdosen'=>[
+            'driver' => 'session',
+            'provider' => 'usermahasiswa',
+        ],
+
+       // 'api' => [
+     //       'driver' => 'token',
+      //      'provider' => 'users',
+      //  ],
+
+		
     ],
 
     /*
@@ -69,11 +91,23 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+        'admin'=>[
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+        'usermahasiswa'=>[
+            'driver' => 'eloquent',
+            'model' => App\UserMahasiswa::class,
+        ],
+        'userdosen'=>[
+            'driver' => 'eloquent',
+            'model' => App\UserDosen::class,
+        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         //'users' => [
+        //    'driver' => 'database',
+       //      'table' => 'users',
+       //  ],
     ],
 
     /*
@@ -99,6 +133,12 @@ return [
         'users' => [
             'provider' => 'users',
             'email' => 'auth.emails.password',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'usermahasiswa' => [
+            'provider' => 'user_mahasiswas',
+            'nim' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
         ],

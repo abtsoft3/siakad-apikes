@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title','Mahasiswa')
 @section('css')
@@ -17,7 +17,7 @@
 			<div class="x_panel">
                   <div class="x_title">
                     <h2>Edit Data Mahasiswa</h2>
-                    <a href="{{url('showmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <a href="{{url('/home/showmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -31,7 +31,7 @@
 
 						<!-- @foreach( $data as $key => $cdata ) -->
 		
-						{!! Form::open(array('url' => '/editmahasiswa/'.$cdata->nim, 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
+						{!! Form::open(array('url' => '/home/editmahasiswa/'.$cdata->nim, 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
 						
 							<div class="form-group">
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
@@ -188,9 +188,9 @@
 							var returndata=parseInt(data.return);
 							if(returndata==1){
 									alertify.confirm('Berhasil',"Data Berhasil diubah", function () {
-									window.location.href='/showmahasiswa';
+									window.location.href='/home/showmahasiswa';
 									},function () {
-									window.location.href='/showmahasiswa';
+									window.location.href='/home/showmahasiswa';
 									});	
 							}else{
 								alertify.alert("Error ","Data Input Tidak Valid");

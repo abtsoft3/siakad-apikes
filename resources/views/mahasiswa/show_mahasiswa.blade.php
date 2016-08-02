@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title','MataKuliah')
 @section('css')
@@ -20,7 +20,7 @@
       <h2>Data Mahasiswa</h2>
                     
       <div class="clearfix">
-				<a href="{{url('addmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+				<a href="{{url('/home/addmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
 			</div>
   </div>
   <div class="x_content">
@@ -58,7 +58,7 @@
 		$(document).ready(function(){
 			gentable = $('#datatable-mahasiswa').DataTable({
           processing: true,
-          ajax: '{{url("datamahasiswa")}}',
+          ajax: '{{url("/home/datamahasiswa")}}',
           columns: [
               {data: 'nim', name: 'nim'},
               {data: 'nama', name: 'nama'},

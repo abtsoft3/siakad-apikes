@@ -10,6 +10,7 @@ use Yajra\Datatables\Datatables;
 use NotFoundHttpException;
 class MataKuliahController extends Controller
 {
+	
     //
 	public function index(){
 		return view('matakuliah.show_matakuliah');

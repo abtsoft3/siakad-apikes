@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title','Mahasiswa')
 @section('css')
@@ -17,13 +17,13 @@
 			<div class="x_panel">
                   <div class="x_title">
                     <h2>Tambah Data Mahasiswa</h2>
-                    <a href="{{url('showmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <a href="{{url('/home/showmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 					<div class="col-lg-6 col-sm-6 col-xs-5">
 
-						{!! Form::open(array('url' => '/addmahasiswa', 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
+						{!! Form::open(array('url' => '/home/addmahasiswa', 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
 							<div class="form-group" id="nimgroup">
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
@@ -119,7 +119,7 @@
 			$('#nim').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/nim_autocomplete",
+                    url: "/home/nim_autocomplete",
                     type: 'POST',
                     data: {
                         term: $('#nim').val(),

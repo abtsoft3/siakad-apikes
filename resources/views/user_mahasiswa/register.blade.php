@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('title','User Mahasiswa')
 @section('css')
 
@@ -16,14 +16,14 @@
 <div class="x_panel">
 	<div class="x_title">
          <h2>Mahasiswa Usermanagement</h2>
-            <a href="{{url('show_users_mahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+            <a href="{{url('/home/show_users_mahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
            <div class="clearfix"></div>
         </div>
 		<div class="x_content">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-sm-6 col-xs-5">
-							<form class="form-horizontal" role="form" method="POST" action="{{ url('/store_register_mahasiswa') }}" id="register-form">
+							<form class="form-horizontal" role="form" method="POST" action="{{ url('/home/store_register_mahasiswa') }}" id="register-form">
 								{{ csrf_field() }}
 								
 								<div class="form-group">
@@ -115,7 +115,7 @@
 				$('#nim').autocomplete({
 					source: function (request, response) {
 						$.ajax({
-							url: "{{url('/mahasiswa_user_autocomplete')}}",
+							url: "{{url('/home/mahasiswa_user_autocomplete')}}",
 							type: 'POST',
 							data: {
 								term: $('#nim').val(),

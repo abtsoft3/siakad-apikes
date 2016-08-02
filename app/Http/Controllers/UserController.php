@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\ModelUsersMahasiswa;
-use App\ModelUsersDosen;
+use App\UserMahasiswa;
 use DB;
 use Yajra\Datatables\Datatables;
 class UserController extends Controller
@@ -18,12 +17,12 @@ class UserController extends Controller
 	
 	public function store_user_mahasiswa(Request $request){
 		
-			$model = new ModelUsersMahasiswa;
+			$model = new UserMahasiswa;
 			$model->nim = $request->nim;
 			$model->nama = $request->nama;
 			$model->email = $request->email;
 			$model->password = bcrypt($request->password);
-			
+			$model->remember_token = $request->_token;
 			$model->save();
 			$stat=1;
 			
@@ -48,10 +47,10 @@ class UserController extends Controller
 	
 		
 		//return Response::json($results);
-		if (ModelUsersMahasiswa::where('nim', '=',$term)->exists()) {
+		/*if (UserMahasiswa::where('nim', '=',$term)->exists()) {
 			$statreturn=1;
 			return response()->json($statreturn);
-		}
+		}*/
 	}
 	
 	/**
@@ -71,7 +70,7 @@ class UserController extends Controller
 	 */
 	public function getData_usermahasiswa()
 	{
-		return Datatables::of(ModelUsersMahasiswa::query())->make(true);
+		return Datatables::of(UserMahasiswa::query())->make(true);
 	}
 	
 	public function add_user_dosen(){

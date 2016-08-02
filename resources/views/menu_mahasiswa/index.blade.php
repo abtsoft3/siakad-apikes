@@ -1,4 +1,4 @@
-@extends('layouts.master_mahasiswa')
+@extends('layouts.master')
 
 @section('title','Mahasiswa')
 @section('css')
@@ -16,7 +16,7 @@
 @section('content')
 			<div class="x_panel">
                   <div class="x_title">
-                    <h2>Profile ,</h2>
+                    <h2>Profile ,mahasiswa</h2>
                    
                     <div class="clearfix"></div>
                   </div>

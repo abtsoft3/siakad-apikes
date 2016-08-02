@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
-class AdminMiddleware
+
+class UsersMahasiswa
 {
     /**
      * Handle an incoming request.
@@ -13,12 +13,12 @@ class AdminMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next,$guard='user_mahasiswa')
     {
-		 if (!Auth::guest() && Auth::user()->admin) {
-			 return $next($request);
-           
+        if(!Auth::guard($guard)->check()){
+
+            return redirect('login_users_mahasiswa');
         }
-         return redirect('/home');
+        return $next($request);
     }
 }
