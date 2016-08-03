@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Auth;
-use App\UserMahasiswa;
+use Illuminate\Http\Request;
 class UserMahasiswaController extends Controller
 {
     
@@ -16,6 +12,6 @@ class UserMahasiswaController extends Controller
         $this->middleware('usermahasiswa');
     }
 	public function index(){
-		return view('menu_mahasiswa/index');
+		return view('menu_mahasiswa.index');
 	}
 }

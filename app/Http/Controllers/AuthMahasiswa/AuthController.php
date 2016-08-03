@@ -79,7 +79,7 @@ class AuthController extends Controller
 		if(auth()->guard('usermahasiswa')->attempt(['nim'=>$request->input('nim'),'password'=>$request->input('password')]))
 		{
 			$usermahasiswa = auth()->guard('usermahasiswa')->user();
-			return redirect('/menu_mahasiswa/index');
+			return redirect('/home/menu_mahasiswa');
 		}else
 		{
 			return back()->with('error','your nim dan password salah.');
