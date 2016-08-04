@@ -29,7 +29,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-   // protected $redirectTo = '/home/menu_mahasiswa';
+	protected $guard ='usermahasiswa';
+    protected $redirectTo = '/home/menu_mahasiswa';
 //
     /**
      * Create a new authentication controller instance.
@@ -38,7 +39,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('usermahasiswa', ['except' => 'logoutmahasiswa']);
+        $this->middleware($this->guard, ['except' => 'logoutmahasiswa']);
     }
     
   
@@ -87,8 +88,8 @@ class AuthController extends Controller
 		
 		if(auth()->guard('usermahasiswa')->attempt(['nim'=>$request->input('nim'),'password'=>$request->input('password')]))
 		{
-			$usermahasiswa = auth()->guard('usermahasiswa')->user();
-			return redirect('/home/menu_mahasiswa');
+			$usermahasiswa = auth()->guard()->user();
+			return redirect($this->redirectTo);
 		}else
 		{
 			return back()->with('error','your nim dan password salah.');

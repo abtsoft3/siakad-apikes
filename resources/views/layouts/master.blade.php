@@ -146,7 +146,7 @@
                        <li><a href="{{url('list_krs')}}">Lihat KRS 1</a></li> 
                     </ul>
                   </li> -->
-                  @else
+               
 
 				  
           <!-- tutup dulu
