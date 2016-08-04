@@ -45,6 +45,14 @@ Route::group(['middleware' => 'web'],function(){
 	
 	//menu mahasiswa
 	Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
+
+	// KRS
+	Route::get('/home/addkrs','DaftarKrsController@index');
+	Route::get('/home/listkrs','DaftarKrsController@listkrs');
+	Route::get('/home/listkrs/{sem}','DaftarKrsController@showkrs');
+	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
+	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
+	Route::get('/home/storekrs','DaftarKrsController@store');
 });
 
 
@@ -103,20 +111,13 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/edit_periode/{idperiode}','PeriodeController@edit');
 	//update periode
 	Route::post('/home/updateperiode','PeriodeController@updateperiode');
-
 	
-	// KRS
-	Route::get('/home/addkrs','DaftarKrsController@index');
-	Route::get('/home/listkrs','DaftarKrsController@listkrs');
-	Route::get('/home/listkrs/{sem}','DaftarKrsController@showkrs');
-	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
-	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
-	Route::get('/home/storekrs','DaftarKrsController@store');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
    //here 
    //mahasiswa user register
+
 	Route::get('/home/register_mahasiswa', 'UserController@add_user_mahasiswa');
 	Route::post('/home/store_register_mahasiswa', 'UserController@store_user_mahasiswa');
 	Route::post('/home/mahasiswa_user_autocomplete','UserController@autocomplete_mahasiswa_checknim');

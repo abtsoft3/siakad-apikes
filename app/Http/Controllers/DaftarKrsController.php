@@ -24,7 +24,7 @@ class DaftarKrsController extends Controller
 
         $arrsemester = array();
 
-        $model->nim         = '1100000001';
+        $model->nim         = auth()->guard('usermahasiswa')->user()->nim;
         
         $sem = $model->getsemester(1);
 
@@ -37,7 +37,7 @@ class DaftarKrsController extends Controller
 
     public function datamk($sem){
          $model = new DaftarKrsModel;
-         $model->nim        = '1100000001';
+         $model->nim        = auth()->guard('usermahasiswa')->user()->nim;
          $model->semester   = $sem;
          $datamk = $model->showmk();
          /*foreach ($datamk as $key => $value) {
@@ -52,7 +52,7 @@ class DaftarKrsController extends Controller
 
         $arrsemester = array();
 
-        $model->nim         = '1100000001';
+        $model->nim         = auth()->guard('usermahasiswa')->user()->nim;
         
         $sem = $model->getsemester(2);
        
@@ -70,7 +70,7 @@ class DaftarKrsController extends Controller
 
         $cmhs = array();
 
-        $model->nim = '1100000001';
+        $model->nim = auth()->guard('usermahasiswa')->user()->nim;
         $model->semester = $sem;
 
         $datakrs = $model->showkrs();
@@ -94,7 +94,7 @@ class DaftarKrsController extends Controller
         
         $model = new DaftarKrsModel;
 
-        $model->nim = '1100000001';
+        $model->nim = auth()->guard('usermahasiswa')->user()->nim;
         $model->semester = $sem;
 
         $datakrs = $model->showkrs();
@@ -121,7 +121,7 @@ class DaftarKrsController extends Controller
 
         for($i=0; $i<count($vkdmk); $i++){
             $data [] = array(
-                                'nim' => '1100000001',
+                                'nim' => auth()->guard('usermahasiswa')->user()->nim,
                                 'kodemk' => $vkdmk[$i],
                                 'keterangan' => $vket[$i]
                             );

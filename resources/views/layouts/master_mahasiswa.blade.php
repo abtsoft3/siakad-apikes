@@ -62,8 +62,8 @@
                   </li>
 				  <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="#">Pengisian KRS</a></li>
-                      <li><a href="{{url('listkrs')}}">Lihat KRS</a></li>
+                      <li><a href="{{url('/home/addkrs')}}">Pengisian KRS</a></li>
+                      <li><a href="{{url('/home/listkrs')}}">Lihat KRS</a></li>
                     </ul>
                   </li>
 				  <li><a><i class="fa fa-user"></i> Kemahasiswaan <span class="fa fa-chevron-down"></span></a>

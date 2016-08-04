@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('menu_mahasiswa.index')
 
 @section('title','MataKuliah')
 @section('css')
