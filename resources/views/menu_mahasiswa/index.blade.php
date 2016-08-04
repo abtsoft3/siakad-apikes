@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master_mahasiswa')
 
 @section('title','Mahasiswa')
 @section('css')
@@ -16,13 +16,22 @@
 @section('content')
 			<div class="x_panel">
                   <div class="x_title">
-                    <h2>Profile ,mahasiswa</h2>
+                    <h2>Profile</h2>
                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-					
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td>NIM</td><td>{{ Auth::guard('usermahasiswa')->user()->nim }}</td>
+								</tr>
+								<tr>
+									<td>Nama</td><td>{{ Auth::guard('usermahasiswa')->user()->nama }}</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 					</div>
 					

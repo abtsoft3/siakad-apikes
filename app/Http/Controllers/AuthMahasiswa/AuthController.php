@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
+use Auth;
 class AuthController extends Controller
 {
     /*
@@ -28,9 +29,17 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/menu_mahasiswa/index';
+   // protected $redirectTo = '/home/menu_mahasiswa';
 //
-   
+    /**
+     * Create a new authentication controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('usermahasiswa', ['except' => 'logoutmahasiswa']);
+    }
     
   
 
@@ -86,8 +95,8 @@ class AuthController extends Controller
 		}
 	}
 
-    public function logout(){
+    public function logoutmahasiswa(){
         Auth::guard('usermahasiswa')->logout();
-         return view('user_mahasiswa.login');
+        return redirect('login-mahasiswa');
     }
 }

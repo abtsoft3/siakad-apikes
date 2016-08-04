@@ -55,9 +55,9 @@
 			 @section('sidebar')
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Owner</h3>
+                <h3>Mahasiswa</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home </a>
+                  <li><a href="{{ url('/home/menu_mahasiswa') }}"><i class="fa fa-home"></i> Home </a>
                   
                   </li>
 				  <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
@@ -127,7 +127,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="{{ url('logout-mahasiswa') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
