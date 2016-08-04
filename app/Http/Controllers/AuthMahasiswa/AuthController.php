@@ -98,13 +98,14 @@ class AuthController extends Controller
 				return redirect($this->redirectTo.'/'.$request->nim);
 			}else
 			{
-				return Redirect::back()->withInput()->withErrors('error','your nim dan password salah.');
+				return Redirect::back()->withErrors('error','your nim dan password salah.')->withInput();
 			}
 		//}else{
 			//return Redirect::back()->withInput()->withErrors($validate);
 		//}
 		
 		
+
 	}
 
     public function logoutmahasiswa(){
