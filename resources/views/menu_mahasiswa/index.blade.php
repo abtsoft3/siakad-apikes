@@ -30,6 +30,15 @@
 								<tr>
 									<td>Nama</td><td>{{ Auth::guard('usermahasiswa')->user()->nama }}</td>
 								</tr>
+								<tr>
+									<td>Tempat, Tanggal Lahir</td><td>{{ $model->tempatlahir }}, {{ $model->tanggallahir }}</td>
+								</tr>
+								<tr>
+									<td>Asal Sekolah</td><td>{{ $model->asalsekolah }}</td>
+								</tr>
+								<tr>
+									<td>Nama OrangTua</td><td>{{ $model->namaortu }}</td>
+								</tr>
 							</tbody>
 						</table>
 					</div>

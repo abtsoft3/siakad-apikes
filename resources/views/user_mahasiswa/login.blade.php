@@ -19,22 +19,28 @@
             <div class="input-group">
                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
 			   {{ csrf_field() }}
-               <input type="text" class="form-control" name="nim" id="nim" required />
+               <input type="text" class="form-control" name="nim" id="nim" value="{{ old('nim') }}"  />
 
-                @if ($errors->has('nim'))
+               
+
+            </div>
+			 @if ($errors->has('nim'))
                     <span class="help-block">
                         <strong>{{ $errors->first('nim') }}</strong>
                     </span>
-                @endif
-
-            </div>
+             @endif
          </div>
-         <div class="form-group">
+         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
             <label for="password">Password</label>
             <div class="input-group">
-           <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
-           <input type="password" class="form-control" name="password" required />
-        </div>
+			   <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
+			   <input type="password" class="form-control" name="password"  />
+			</div>
+		@if ($errors->has('password'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+             @endif
          </div>
          <hr/>
          

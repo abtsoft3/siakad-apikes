@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\AuthMahasiswa;
 
 use App\UserMahasiswa;
+use App\ModelMahasiswa;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Redirect;
 class AuthController extends Controller
 {
     /*
@@ -29,7 +31,8 @@ class AuthController extends Controller
      *
      * @var string
      */
-   // protected $redirectTo = '/home/menu_mahasiswa';
+	protected $guard ='usermahasiswa';
+    protected $redirectTo = '/home/menu_mahasiswa';
 //
     /**
      * Create a new authentication controller instance.
@@ -38,7 +41,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('usermahasiswa', ['except' => 'logoutmahasiswa']);
+        $this->middleware($this->guard, ['except' => 'logoutmahasiswa']);
     }
     
   
@@ -82,17 +85,26 @@ class AuthController extends Controller
 	
 	public function mahasiswaLoginPost(Request $request)
 	{
-		$this->validate($request,['nim' => 'required',
-            'password' => 'required',]);
+		//$validate = $this->validate($request,['nim' => 'required|max:11','password' => 'required|min:6|confirmed']);
+		//if($validate->passes()){
+			$credentials =[
+			'nim'=>$request->nim,
+			'password'=>$request->password
+			];
+			
+			$authorized = auth()->guard($this->guard)->attempt($credentials);
+			if($authorized)
+			{
+				return redirect($this->redirectTo.'/'.$request->nim);
+			}else
+			{
+				return Redirect::back()->withInput()->withErrors('error','your nim dan password salah.');
+			}
+		//}else{
+			//return Redirect::back()->withInput()->withErrors($validate);
+		//}
 		
-		if(auth()->guard('usermahasiswa')->attempt(['nim'=>$request->input('nim'),'password'=>$request->input('password')]))
-		{
-			$usermahasiswa = auth()->guard('usermahasiswa')->user();
-			return redirect('/home/menu_mahasiswa');
-		}else
-		{
-			return back()->with('error','your nim dan password salah.');
-		}
+		
 	}
 
     public function logoutmahasiswa(){

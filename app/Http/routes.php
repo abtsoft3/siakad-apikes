@@ -26,7 +26,7 @@ Route::get('/login/userdosen',function(){
 //logout mahasiswa
 
 
-//Route::get('/home/menu_mahasiswa','UserMahasiswaController@index');
+Route::get('/home/menu_mahasiswa/{nim}','UserMahasiswaController@index');
 
 Route::group(['middleware' => 'web'],function(){
 	
@@ -38,7 +38,7 @@ Route::group(['middleware' => 'web'],function(){
 	
 	Route::get('/home/menu_mahasiswa','UserMahasiswaController@index');
 	//error
-	Route::get('503',function(){
+	Route::get('/503',function(){
 		abort(503);
 	});
 	
