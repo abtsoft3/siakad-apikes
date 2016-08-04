@@ -163,10 +163,13 @@
 						validators: {
 							notEmpty: {
 								message: 'Silahkan isi nim'
+							},
+							integer: {
+								message: 'Nim harus angka'
 							}
-							
 						}
 					},
+					
 					nama: {
 						validators: {
 							notEmpty: {

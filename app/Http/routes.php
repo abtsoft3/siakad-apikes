@@ -96,11 +96,12 @@ Route::group(['middleware'=>'auth'],function(){
 
 	
 	// KRS
-	Route::get('/home/add_krs','DaftarKrsController@index');
+	Route::get('/home/addkrs','DaftarKrsController@index');
 	Route::get('/home/listkrs','DaftarKrsController@listkrs');
 	Route::get('/home/listkrs/{sem}','DaftarKrsController@showkrs');
 	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
 	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
+	Route::get('/home/storekrs','DaftarKrsController@store');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {

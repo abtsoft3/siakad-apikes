@@ -20,7 +20,7 @@
       <h2>Kartu Rencana Studi</h2>
                     
       <div class="clearfix">
-				<a href="{{url('')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Pengisian KRS</a>
+				<a href="{{url('home/addkrs')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Pengisian KRS</a>
 			</div>
   </div>
   <div class="x_content">
@@ -39,7 +39,7 @@
               <div class="form-group">
                 {!! Form::label('semester','Semester',array('class' => 'col-sm-4 control-label')) !!}
                     <div class="col-sm-4">
-                      {!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control')) !!}
+                      {!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control', 'style' => 'width:130px;')) !!}
                     </div>
               </div>
             {!! Form::close() !!}
@@ -126,7 +126,7 @@
       $('#cetakkrs').addClass('disabled');
 
       $('#cetakkrs').click(function(){
-          window.open("{{url('printkrs')}}/"+$('#semester').val(), "Cetak KRS", "location=1,status=1,scrollbars=1,width=1000,height=600");
+          window.open("{{url('home/printkrs')}}/"+$('#semester').val(), "Cetak KRS", "location=1,status=1,scrollbars=1,width=1000,height=600");
       });
 
       $("#semester").change(function() {

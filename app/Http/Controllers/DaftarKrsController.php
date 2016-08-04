@@ -13,6 +13,8 @@ use Datatables;
 
 use PDF;
 
+use DB;
+
 class DaftarKrsController extends Controller
 {
     
@@ -105,4 +107,35 @@ class DaftarKrsController extends Controller
         return $pdf->stream();
     }
 
+    public function store(Request $request){
+        $stat = 0;
+        $model = new DaftarKrsModel;
+        $kodemk = $request['kdmk'];
+        $ket    = $request['ket'];
+
+        $vkdmk  = explode(',', $kodemk); 
+        $vket   = explode(',', $ket);
+
+        
+
+
+        for($i=0; $i<count($vkdmk); $i++){
+            $data [] = array(
+                                'nim' => '1100000001',
+                                'kodemk' => $vkdmk[$i],
+                                'keterangan' => $vket[$i]
+                            );
+        }
+
+        $save = $model->insert($data);
+       
+        if($save){
+            $stat = 1;
+        }
+        else{
+            $stat = 2;
+        }
+
+        return response()->json(['return' => $stat]);
+    }
 }

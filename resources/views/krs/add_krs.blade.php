@@ -20,7 +20,7 @@
       <h2>Kartu Rencana Studi</h2>
                     
       <div class="clearfix">
-				<a href="{{url('')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Pengisian KRS</a>
+				<a href="{{url('/home/listkrs')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Lihat KRS</a>
 			</div>
   </div>
   <div class="x_content">
@@ -30,7 +30,7 @@
     </div>
 
     <!--table-->
-    {!! Form::open(array('url' => '/addmahasiswa', 'id'=>'form-daftarkrs')) !!}
+    {!! Form::open(array('url' => '/home/storekrs', 'id'=>'form-daftarkrs')) !!}
     <table id="datatable-krs" class="table table-striped table-bordered" width="100%">
       <thead>
       <tr>
@@ -40,7 +40,7 @@
               <div class="form-group">
                 {!! Form::label('semester','Semester',array('class' => 'col-sm-4 control-label')) !!}
                     <div class="col-sm-4">
-                      {!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control')) !!}
+                      {!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control', 'style' => 'width:130px;')) !!}
                     </div>
               </div>
     
@@ -48,7 +48,7 @@
           </th>
         </tr>
         <tr>
-          <th></th>
+          <th>{!! Form::checkbox('checkall',null,null, array('id'=>'checkall')) !!}</th>
           <th>Kode M.K</th>
           <th>Nama Mata Kuliah</th>
           <th>SKS</th>
@@ -64,7 +64,7 @@
           <th colspan="3"></th>
         </tr>
         <tr>
-          <th colspan="7"><button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button> </th>          
+          <th colspan="7"><button id="btn-submit" type="button" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button> </th>          
         </tr> 
       </tfoot>
     </table>   
@@ -86,12 +86,12 @@
     <script src="{{ URL::asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
     <script src="{{ URL::asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
     <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 
     <script type='text/javascript'>
      var gentable=null;
 
 		$(document).ready(function(){
-
      
       var url = '';
       var tahun = new Date();
@@ -139,11 +139,11 @@
                   {data: 'bobot',      name: 'bobot'},
                   {data: 'sem',        name: 'sem'},
                   {data: null,         defaultContent: tahun.getFullYear()},
-                  {data:   null,
+                  {data: null,         name: 'keterangan',
                     orderable : false,
                     render: function ( data, type, row ) {
                         if ( type === 'display' ) {
-                            return '<input type="text" name="keterangan" id="keterangan" class="form-control">';
+                            return '<input type="text" name="keterangan" id="keterangan'+data.kodemk+'" class="form-control">';
                         }
                         return data;
                     },
@@ -152,7 +152,7 @@
               ],
               aoColumnDefs: [
                  
-                  { "bSearchable": false, "aTargets": [ -2 ] }
+                  { "bSearchable": false, "aTargets": [ 6 ] }
 
                 ],
               
@@ -161,7 +161,25 @@
           });
 
       var sbody = $('#datatable-krs tbody');
+      
       sbody.on('click','.editor-active',function(){
+        
+        $('#checkall').prop('checked', false);
+        
+        var rowData = new Array(null);
+        $('.editor-active:checked').each(function(index, elem) {    
+          rowData [index] = gentable.row($(this).parents('tr')).data().bobot;
+          
+        });
+
+        $('#totalsks').text(rowData.reduce(getSum));
+        
+      });
+
+      var shead = $('#datatable-krs thead');
+       shead.on('click', '#checkall', function(){
+        var cells = gentable.cells( ).nodes();
+         $( cells ).find(':checkbox').prop('checked', $(this).is(':checked'));
         var rowData = new Array(null);
         $('.editor-active:checked').each(function(index, elem) {    
           rowData [index] = gentable.row($(this).parents('tr')).data().bobot;
@@ -182,18 +200,60 @@
               alert($(elem).val());
           });*/
 
-          var data = gentable.$('input[type=checkbox]:checked, input[type=text]').serialize();
+          /*var data = gentable.$('input[type=checkbox]:checked, input[type=text]').serialize();
           alert(
             "The following data would have been submitted to the server: \n\n"+
             data
           );
-          return false;
-      });
+          return false;*/
+
+                var isikodemk;
+                var kdmk;
+                kdmk = $('.editor-active:checked').map(function(index, elem) {    
+                  isikodemk = $(elem).val();
+                  return isikodemk;
+                }).get();
+
+
+
+                var isiket;
+                var ket;
+
+                ket = $('.editor-active:checked').map(function(index, elem) {    
+                  isiket = $('#keterangan'+$(elem).val()).val();
+                  return isiket;
+                }).get();
+
+            var data = "kdmk="+kdmk+"&ket="+ket;
+            //var data = $('#form-daftarkrs').serialize();
+            $('#form-daftarkrs input').attr("disabled", "disabled");
+              $.ajax({
+                type: 'GET',
+                url: '{{"./storekrs"}}',
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                  
+                    var returndata=data.return;
+                    if(returndata==1){
+                      alertify.success('Data Berhasil Disimpan');
+                    }else{
+                      alertify.alert("Error ","Data Input Tidak Valid ");
+                    }
+                    return false;
+                  },
+                  error: function (xhr,textStatus,errormessage) {
+                    alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+                  },
+                  complete: function () {
+                    gentable.ajax.url('{{"datamk"}}/'+$('#semester').val()).load(); 
+                     $('#totalsks').text('');
+                  }
+                });
+
+            });
 			
 		});
-
-    
-
 
    </script>
 @endsection
