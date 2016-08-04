@@ -58,11 +58,12 @@
               <div class="menu_section">
                 <h3>@if(Auth::user()->admin)
                 Administrator
-                @else
+                @elseif(Auth::check('usermahasiswa'))
+				Mahasiswa
                 Guess
                 @endif</h3>
                 <ul class="nav side-menu">
-                @if (!Auth::guest())
+                
                   <li><a><i class="fa fa-user"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/addmahasiswa')}}">Tambah</a></li>
@@ -136,7 +137,7 @@
                       
                     </ul>
                   </li>
-                  @else
+                 
 				  
           <!-- tutup dulu
                   <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
@@ -168,7 +169,7 @@
                     </ul>
                   </li>
                  </ul>
-                 @endif
+                
               </div>
              
 

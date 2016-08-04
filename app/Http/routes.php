@@ -23,6 +23,10 @@ Route::get('/login/userdosen',function(){
 	return "belom ada!";
 });
 
+//logout mahasiswa
+
+
+//Route::get('/home/menu_mahasiswa','UserMahasiswaController@index');
 
 Route::group(['middleware' => 'web'],function(){
 	
@@ -30,18 +34,24 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('/home', 'HomeController@index');
 	Route::get('login-mahasiswa','AuthMahasiswa\AuthController@showLoginForm');
 	Route::post('login-mahasiswa',['as'=>'login-mahasiswa','uses'=>'AuthMahasiswa\AuthController@mahasiswaLoginPost']);
+	Route::get('/logout-mahasiswa','AuthMahasiswa\AuthController@logoutmahasiswa');
+	
+	Route::get('/home/menu_mahasiswa','UserMahasiswaController@index');
 	//error
 	Route::get('503',function(){
 		abort(503);
 	});
-
+	
+	
 	//menu mahasiswa
-	//Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
+	Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
 });
 
+
+	
+
+
 Route::group(['middleware'=>'auth'],function(){
-	//menu mahasiswa
-	Route::get('/menu_mahasiswa','UserMahasiswaController@index');
 	
 	//matakuliah
 	Route::get('/home/showmatakuliah','MataKuliahController@index');

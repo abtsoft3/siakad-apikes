@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Illuminate\Support\Facades\Auth;
 class RedirectIfUserMahasiswaAuthenticated
 {
     /**
@@ -15,10 +15,11 @@ class RedirectIfUserMahasiswaAuthenticated
      */
     public function handle($request, Closure $next,$guard = 'isMahasiswa')
     {
-         if (!Auth::guest() && Auth::guard($guard)->check()) {
-             return $next($request);
+         if (!Auth::guest() && Auth::guard($guard)->check()){
+            
+			 return redirect('/home/menu_mahasiswa');
            
-        }
-         return redirect('/menu_mahasiswa/index');
+			}
+         return $next($request);
     }
 }

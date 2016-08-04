@@ -29,7 +29,9 @@ terima kasih
 #New#basri
 !Notification :
 dompdf sudah dipasang , silahkan dicoba ,jika ingin menggunakan snappy pdf itu ada wkhtmlpdf silahkan install
-
+#New#basri
+!Notification:
+silahkan execute adauser.sql untuk usermahasiswa dan admin untuk mahasiswa login nim dan password jokowi123
 
 'web' => [
             \App\Http\Middleware\EncryptCookies::class,
