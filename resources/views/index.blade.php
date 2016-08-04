@@ -9,10 +9,10 @@
     <!-- Bootstrap -->
     <link href="{{ URL::asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 	 <link href="{{ URL::asset('vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-	  <link href="{{ URL::asset('vendors/temacarousell/carousell.min.css')}}" rel="stylesheet">
-	 <link href="{{ URL::asset('vendors/temacarousell/prettyPhoto.min.css')}}" rel="stylesheet">  
-	<link href="{{ URL::asset('vendors/style/animate.min.css')}}" rel="stylesheet">  
-	<link href="{{ URL::asset('vendors/style/style.min.css')}}" rel="stylesheet">  
+	  <link href="{{ URL::asset('vendors/temacarousell/carousell.css')}}" rel="stylesheet">
+	 <link href="{{ URL::asset('vendors/temacarousell/prettyPhoto.css')}}" rel="stylesheet">  
+	<link href="{{ URL::asset('vendors/animate/animate.min.css')}}" rel="stylesheet">  
+	<link href="{{ URL::asset('vendors/style/style.css')}}" rel="stylesheet">  
 	
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -65,7 +65,7 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item">
-          <img class="first-slide" src="{{ URL::asset('images/slider/index1')}}" alt="First slide">
+          <img class="first-slide" src="{{ URL::asset('images/index1.jpg')}}" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>Medical Record</h1>
@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="{{ URL::asset('images/slider/index4')}}" alt="Second slide">
+          <img class="second-slide" src="{{ URL::asset('images/index4.jpg')}}" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>Akademi Perekam Informasi Kesehatan</h1>
@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="item active">
-          <img src="{{ URL::asset('images/slider/index2')}}" alt="Third slide" height="578" class="third-slide">
+          <img src="{{ URL::asset('images/index2.jpg')}}" alt="Third slide" height="578" class="third-slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>APIKES IMELDA</h1>
@@ -136,12 +136,14 @@
 	
 	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="js/jquery-2.1.1.min.js"></script>	
+
+	<script src="{{ URL::asset('js/cvganadi/jquery-2.1.1.min.js')}}"></script>	
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>  
-	<script src="js/wow.min.js"></script>
-	<script src="js/functions.js"></script>
+ <script src="{{ URL::asset('js/cvganadi/wow.min.js')}}"></script>	
+ <script src="{{ URL::asset('js/cvganadi/bootstrap.min.js')}}"></script>
+<script src="{{ URL::asset('js/cvganadi/functions.js')}}"></script>
+ <script src="{{ URL::asset('js/cvganadi/jquery.isotope.min.js')}}"></script>
+<script src="{{ URL::asset('js/cvganadi/jquery.prettyPhoto.js')}}"></script>
+ 
   </body>
 </html>
