@@ -82,8 +82,7 @@ class AuthController extends Controller
 	
 	public function mahasiswaLoginPost(Request $request)
 	{
-		$this->validate($request,['nim' => 'required',
-            'password' => 'required',]);
+		$this->validator($request);
 		
 		if(auth()->guard('usermahasiswa')->attempt(['nim'=>$request->input('nim'),'password'=>$request->input('password')]))
 		{
