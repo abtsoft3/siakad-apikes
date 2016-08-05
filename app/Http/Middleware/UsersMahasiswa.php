@@ -13,9 +13,9 @@ class UsersMahasiswa
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$guard='user_mahasiswa')
+    public function handle($request, Closure $next,$guard=null)
     {
-        if(!Auth::guard($guard)->check()){
+        if(Auth::guard($guard)->check()){
 
             return redirect('login_users_mahasiswa');
         }

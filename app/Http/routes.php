@@ -26,25 +26,33 @@ Route::get('/login/userdosen',function(){
 //logout mahasiswa
 
 
-//Route::get('/home/menu_mahasiswa','UserMahasiswaController@index');
+
 
 Route::group(['middleware' => 'web'],function(){
 	
 	Route::auth();
 	Route::get('/home', 'HomeController@index');
+	
 	Route::get('login-mahasiswa','AuthMahasiswa\AuthController@showLoginForm');
 	Route::post('login-mahasiswa',['as'=>'login-mahasiswa','uses'=>'AuthMahasiswa\AuthController@mahasiswaLoginPost']);
 	Route::get('/logout-mahasiswa','AuthMahasiswa\AuthController@logoutmahasiswa');
 	
-	Route::get('/home/menu_mahasiswa','UserMahasiswaController@index');
 	//error
-	Route::get('503',function(){
+	Route::get('/503',function(){
 		abort(503);
 	});
 	
 	
 	//menu mahasiswa
 	Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
+
+	// KRS
+	Route::get('/home/addkrs','DaftarKrsController@index');
+	Route::get('/home/listkrs','DaftarKrsController@listkrs');
+	Route::get('/home/listkrs/{sem}','DaftarKrsController@showkrs');
+	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
+	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
+	Route::get('/home/storekrs','DaftarKrsController@store');
 });
 
 
@@ -103,19 +111,13 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/edit_periode/{idperiode}','PeriodeController@edit');
 	//update periode
 	Route::post('/home/updateperiode','PeriodeController@updateperiode');
-
 	
-	// KRS
-	Route::get('/home/add_krs','DaftarKrsController@index');
-	Route::get('/home/listkrs','DaftarKrsController@listkrs');
-	Route::get('/home/listkrs/{sem}','DaftarKrsController@showkrs');
-	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
-	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
    //here 
    //mahasiswa user register
+
 	Route::get('/home/register_mahasiswa', 'UserController@add_user_mahasiswa');
 	Route::post('/home/store_register_mahasiswa', 'UserController@store_user_mahasiswa');
 	Route::post('/home/mahasiswa_user_autocomplete','UserController@autocomplete_mahasiswa_checknim');
@@ -131,4 +133,10 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::post('/home/store_register_user_dosen', 'UserController@store_user_dosen');
 });
 
-
+Route::group(['middleware' => ['usermahasiswas']],function(){
+	Route::get('/home/menu_mahasiswa/{nim}','UserMahasiswaController@index');
+	Route::get('/home/menu_mahasiswa/changepassword/{nim}',
+	['uses'=>'UserMahasiswaController@changepassword',
+	'as'=>'mahasiswa-changepassword']);
+	Route::post('/home/mahasiswa/changepasswords','UserMahasiswaController@postchangepassword');
+});

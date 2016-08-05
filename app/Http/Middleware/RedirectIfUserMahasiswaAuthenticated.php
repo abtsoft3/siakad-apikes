@@ -13,13 +13,16 @@ class RedirectIfUserMahasiswaAuthenticated
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$guard = 'isMahasiswa')
+    public function handle($request, Closure $next,$guard = null)
     {
-         if (!Auth::guest() && Auth::guard($guard)->check()){
+       
+         if (Auth::guard($guard)->check()){
             
 			 return redirect('/home/menu_mahasiswa');
            
 			}
          return $next($request);
+   
+         
     }
 }
