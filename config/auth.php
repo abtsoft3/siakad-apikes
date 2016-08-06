@@ -52,9 +52,9 @@ return [
             'provider' => 'admin',
         ],
 
-        'usermahasiswa'=>[
+        'usermahasiswas'=>[
             'driver' => 'session',
-            'provider' => 'usermahasiswa',
+            'provider' => 'usermahasiswas',
         ],
         'userdosen'=>[
             'driver' => 'session',
@@ -95,7 +95,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
         ],
-        'usermahasiswa'=>[
+        'usermahasiswas'=>[
             'driver' => 'eloquent',
             'model' => App\UserMahasiswa::class,
         ],
@@ -136,8 +136,8 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-        'usermahasiswa' => [
-            'provider' => 'user_mahasiswas',
+        'usermahasiswas' => [
+            'provider' => 'usermahasiswas',
             'nim' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,

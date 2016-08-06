@@ -26,17 +26,17 @@ Route::get('/login/userdosen',function(){
 //logout mahasiswa
 
 
-Route::get('/home/menu_mahasiswa/{nim}','UserMahasiswaController@index');
+
 
 Route::group(['middleware' => 'web'],function(){
 	
 	Route::auth();
 	Route::get('/home', 'HomeController@index');
+	
 	Route::get('login-mahasiswa','AuthMahasiswa\AuthController@showLoginForm');
 	Route::post('login-mahasiswa',['as'=>'login-mahasiswa','uses'=>'AuthMahasiswa\AuthController@mahasiswaLoginPost']);
 	Route::get('/logout-mahasiswa','AuthMahasiswa\AuthController@logoutmahasiswa');
 	
-	Route::get('/home/menu_mahasiswa','UserMahasiswaController@index');
 	//error
 	Route::get('/503',function(){
 		abort(503);
@@ -133,4 +133,10 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::post('/home/store_register_user_dosen', 'UserController@store_user_dosen');
 });
 
-
+Route::group(['middleware' => ['usermahasiswas']],function(){
+	Route::get('/home/menu_mahasiswa/{nim}','UserMahasiswaController@index');
+	Route::get('/home/menu_mahasiswa/changepassword/{nim}',
+	['uses'=>'UserMahasiswaController@changepassword',
+	'as'=>'mahasiswa-changepassword']);
+	Route::post('/home/mahasiswa/changepasswords','UserMahasiswaController@postchangepassword');
+});

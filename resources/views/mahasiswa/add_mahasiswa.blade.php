@@ -72,7 +72,7 @@
 										<div class="col-lg-offset-4 col-sm-3">
 										  <button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button>
 										</div>
-									  </div>
+							</div>
 							    {!! Form::close() !!}
 							</div>
 					</div>

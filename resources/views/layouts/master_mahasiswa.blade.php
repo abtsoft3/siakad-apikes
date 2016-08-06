@@ -24,7 +24,7 @@
     <link href="{{ URL::asset('build/css/custom.min.css')}}" rel="stylesheet">
 	
   </head>
-
+	<?php $nim =Auth::guard('usermahasiswas')->user()->nim;  ?>
   <body class="nav-md">
  
     <div class="container body">
@@ -36,28 +36,25 @@
             </div>
 
             <div class="clearfix"></div>
-
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
                 <img src="{{ URL::asset('images/img.jpg')}}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2> {{ Auth::guard('usermahasiswa')->user()->nama }}</h2>
+                <span>Selamat Datang,</span>
               </div>
             </div>
             <!-- /menu profile quick info -->
 
             <br />
-
             <!-- sidebar menu -->
 			 @section('sidebar')
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Mahasiswa</h3>
+			  <h3>{{ Auth::guard('usermahasiswas')->user()->nama }}</h3>
                 <ul class="nav side-menu">
-                  <li><a href="{{ url('/home/menu_mahasiswa') }}"><i class="fa fa-home"></i> Home </a>
+                  <li><a href="{{ url('/home/menu_mahasiswa',['nim'=>$nim]) }}"><i class="fa fa-home"></i> Home </a>
                   
                   </li>
 				  <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
@@ -115,28 +112,23 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ URL::asset('images/img.jpg')}}" alt="">dr. Imelda
+                    <img src="{{ URL::asset('images/img.jpg')}}" alt="">{{ Auth::guard('usermahasiswas')->user()->nama }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="{{ route('mahasiswa-changepassword',['nim'=>$nim]) }}"><i class="fa fa-cog pull-right"></i> Ganti Password</a></li>
+                    
+                    <li><a href="javascript:;"><i class="fa fa-battery-1 pull-right"></i> Bantuan</a></li>
                     <li><a href="{{ url('logout-mahasiswa') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
-                <li role="presentation" class="dropdown">
+                <!--li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
                   </a>
-                </li>
+                </li-->
               </ul>
             </nav>
           </div>

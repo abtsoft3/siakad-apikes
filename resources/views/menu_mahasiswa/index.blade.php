@@ -1,66 +1,64 @@
 @extends('layouts.master_mahasiswa')
-
 @section('title','Mahasiswa')
-@section('css')
-	<link href="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
-
-	<link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
- 
- 	<link href="{{ URL::asset('vendors/alertify/css/alertify.min.css')}}" rel="stylesheet">
- 
- 	<link href="{{ URL::asset('vendors/alertify/css/default.min.css')}}" rel="stylesheet">
-@endsection
 @section('sidebar')
 @parent
 @endsection
 @section('content')
-			<div class="x_panel">
-                  <div class="x_title">
-                    <h2>Profile</h2>
-                   
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-					<div class="col-lg-6 col-sm-6 col-xs-5">
-						<table class="table table-condensed">
-							<tbody>
-								<tr>
-									<td>NIM</td><td>{{ Auth::guard('usermahasiswa')->user()->nim }}</td>
-								</tr>
-								<tr>
-									<td>Nama</td><td>{{ Auth::guard('usermahasiswa')->user()->nama }}</td>
-								</tr>
-								<tr>
-									<td>Tempat, Tanggal Lahir</td><td>{{ $model->tempatlahir }}, {{ $model->tanggallahir }}</td>
-								</tr>
-								<tr>
-									<td>Asal Sekolah</td><td>{{ $model->asalsekolah }}</td>
-								</tr>
-								<tr>
-									<td>Nama OrangTua</td><td>{{ $model->namaortu }}</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					</div>
-					
-					
-                  </div>
-               </div>
-@endsection
-@section('scripts')
-	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment.min.js')}}"></script>
-	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment-with-locales.min.js')}}"></script>
-	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
-	
-	<script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}"></script>
-	<script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
-	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-
-    <script type='text/javascript'>
-		$(document).ready(function(){
-			
-		});
+<div class="x_panel">
+    <div class="x_title">
+        <h2>Biodata</h2>
+         <div class="filter">
+           <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+		   Create at :
+            
+                 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->created_at)) }}</span> 
+				 
+            </div>
+          </div>
+     <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+		<div class="col-lg-6 col-sm-6 col-xs-5">
 		
-   </script>
+			<div  class="form form-horizontal" > 
+			<div class="row">
+					<div class="form-group">
+						<label class="col-md-5 control-label">Nim</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ Auth::guard('usermahasiswas')->user()->nim }}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-5 control-label">Nama</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ Auth::guard('usermahasiswas')->user()->nama }}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-5 control-label">Tempat, Tanggal Lahir</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ $model->tempatlahir }}, {{ $model->tanggallahir }}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-5 control-label">Nama Orang Tua</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ $model->namaortu }}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-5 control-label">Asal Sekolah</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ $model->asalsekolah }}</label>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+		   Last login :
+				 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->updated_at)) }}</span> 
+            </div>
+	</div>		
+ </div>
 @endsection

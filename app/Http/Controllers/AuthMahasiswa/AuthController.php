@@ -31,7 +31,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-	protected $guard ='usermahasiswa';
+	protected $guard ='usermahasiswas';
     protected $redirectTo = '/home/menu_mahasiswa';
 //
     /**
@@ -56,8 +56,8 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'nama' => 'required|max:255',
-            'nim' => 'required|max:255|unique:user_mahasiswas',
-            'email' => 'required|email|max:255|unique:user_mahasiswas',
+            'nim' => 'required|max:255',
+            'email' => 'required|email|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -85,8 +85,12 @@ class AuthController extends Controller
 	
 	public function mahasiswaLoginPost(Request $request)
 	{
+<<<<<<< HEAD
 		$validate = $this->validate($request,['nim' => 'required|max:11','password' => 'required|min:6|confirmed']);
 		if($validate->passes()){
+=======
+		
+>>>>>>> fc3ceb9780288452931f11bc0ed94f76db4afa36
 			$credentials =[
 			'nim'=>$request->nim,
 			'password'=>$request->password
@@ -98,18 +102,22 @@ class AuthController extends Controller
 				return redirect($this->redirectTo.'/'.$request->nim);
 			}else
 			{
-				return Redirect::back()->withErrors('error','your nim dan password salah.')->withInput();
+				
+				return Redirect::back()->with('AuthErr','Nim atau Password Salah!')->withInput($request->except('password'));
 			}
+<<<<<<< HEAD
 		}else{
 			return Redirect::back()->withErrors($validate)->withInput();
 		}
+=======
+>>>>>>> fc3ceb9780288452931f11bc0ed94f76db4afa36
 		
 		
 
 	}
 
     public function logoutmahasiswa(){
-        Auth::guard('usermahasiswa')->logout();
+        Auth::guard($this->guard)->logout();
         return redirect('login-mahasiswa');
     }
 }
