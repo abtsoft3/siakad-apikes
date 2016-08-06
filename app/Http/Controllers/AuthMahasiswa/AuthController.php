@@ -85,8 +85,8 @@ class AuthController extends Controller
 	
 	public function mahasiswaLoginPost(Request $request)
 	{
-		//$validate = $this->validate($request,['nim' => 'required|max:11','password' => 'required|min:6|confirmed']);
-		//if($validate->passes()){
+		$validate = $this->validate($request,['nim' => 'required|max:11','password' => 'required|min:6|confirmed']);
+		if($validate->passes()){
 			$credentials =[
 			'nim'=>$request->nim,
 			'password'=>$request->password
@@ -100,9 +100,9 @@ class AuthController extends Controller
 			{
 				return Redirect::back()->withErrors('error','your nim dan password salah.')->withInput();
 			}
-		//}else{
-			//return Redirect::back()->withInput()->withErrors($validate);
-		//}
+		}else{
+			return Redirect::back()->withErrors($validate)->withInput();
+		}
 		
 		
 
