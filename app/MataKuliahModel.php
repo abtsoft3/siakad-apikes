@@ -10,7 +10,7 @@ class MataKuliahModel extends Model
     //
 	protected $table ='matakuliah';
 	protected $primaryKey ='kodemk';
-	
+	public $incrementing = false;
 	public $timestamps = false;
 	
 	protected $filltable=[
