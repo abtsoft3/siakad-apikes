@@ -104,7 +104,7 @@
 				</div>
 			</div>	
 		</div>
-		<div class="col-lg-5 col-sm-5 col-xs-5">
+		<!--div class="col-lg-5 col-sm-5 col-xs-5">
 
 			<div class="container-here">
 				<div class="row">
@@ -124,7 +124,7 @@
 				</div>
 			</div>
 			
-		</div>
+		</div-->
 		<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
 		   Last login :
 				 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->updated_at)) }}</span> 
