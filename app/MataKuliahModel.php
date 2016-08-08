@@ -20,14 +20,11 @@ class MataKuliahModel extends Model
 			'teori' ,
 			'praktek'  ,
 			'kadep' ,
-			'bobotnilai'
+			'bobotnilai',
+			'semester'
     ];
 
-    public function show(){
-    	$data = $this->select(['*']);
-    	return $data;
-    }
-	
+   
 	public static function validate($input){
 		$rules = array(
 			'kodemk' => 'Required',
@@ -36,9 +33,9 @@ class MataKuliahModel extends Model
 			'teori' => 'Required|Max:1' ,
 			'praktek' => 'Required|Max:1' ,
 			'kadep' => 'Required|Max:100',
-			'bobotnilai' => 'Required|Max:2'
+			'bobotnilai' => 'Required|Max:2',
+			'semester' => 'Required'
 		);
-		
 		return Validator::make($input, $rules);
 	}
 }

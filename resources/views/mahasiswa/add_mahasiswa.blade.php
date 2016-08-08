@@ -93,7 +93,7 @@
 	
 	<script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}"></script>
 	<script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
-	<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+	<script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
 
 	
     <script type='text/javascript'>

@@ -121,7 +121,7 @@ class MataKuliahController extends Controller
 	 *
 	 * @return \Illuminate\View\View
 	 */
-	/*public function getIndex()
+	public function getIndex()
 	{
 		return view('datatablesmatakuliah.index');
 	}
@@ -137,11 +137,11 @@ class MataKuliahController extends Controller
 	 */
 	
 
-	public function show(){
+	/*public function show(){
 
 		$model = new MataKuliahModel;
 		$data = $model->show();
 
 		return Datatables::of($data)->make(true);
-	}
+	}*/
 }

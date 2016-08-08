@@ -62,7 +62,7 @@
 					],
 					
 				 //serverSide: true,
-					ajax: '{{url("/home/datamatakuliah")}}',
+					ajax: "{!! route('datatablesmatakuliah.data') !!}",
 					columns: [
 						{ data: 'kodemk', name: 'kodemk',"className": "text-center" },
 						{ data: 'matakuliah', name: 'matakuliah' },

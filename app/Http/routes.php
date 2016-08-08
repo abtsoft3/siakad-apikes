@@ -69,11 +69,11 @@ Route::group(['middleware'=>'auth'],function(){
 	//autocomplete cek kode mata kuliah
 	Route::post('/home/kodemk_autocomplete','MataKuliahController@autocomplete');
 	//getdatatable matakuliah
-	/*Route::controller('/home/datatablesmatakuliah', 'MataKuliahController', [
+	Route::controller('/home/datatablesmatakuliah', 'MataKuliahController', [
 		'getData'  => 'datatablesmatakuliah.data',
 		'getIndex' => 'datatablesmatakuliah',
-	]);*/
-	Route::get('/home/datamatakuliah','MataKuliahController@show');
+	]);
+	//Route::get('/home/datamatakuliah','MataKuliahController@show');
 	//hapus matakuliah
 	Route::post('/home/deletematakuliah','MataKuliahController@destroy');
 	//edit matakuliah
