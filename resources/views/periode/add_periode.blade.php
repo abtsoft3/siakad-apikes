@@ -16,12 +16,12 @@
 			<div class="x_panel">
                   <div class="x_title">
                     <h2>Tambah Data Periode</h2>
-                    <a href="{{url('showperiode')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <a href="{{url('/home/showperiode')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-						{!! Form::open(array('url' => '/storeperiode','class'=>'form-horizontal','id'=>'form-periode')) !!}
+						{!! Form::open(array('url' => '/home/storeperiode','class'=>'form-horizontal','id'=>'form-periode')) !!}
 							
 							
 							<div class="form-group">

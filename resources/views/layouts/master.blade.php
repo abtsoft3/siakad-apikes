@@ -63,21 +63,27 @@
                 Guess
                 @endif</h3>
                 <ul class="nav side-menu">
-                
-                  <li><a><i class="fa fa-user"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
+				<li><a href="{{url('/home')}}"><i class="fa fa-home"></i> Home </a></li>
+                  <li><a><i class="fa fa-users"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/addmahasiswa')}}">Tambah</a></li>
                       <li><a href="{{url('/home/showmahasiswa')}}">Tampilkan</a></li>
                     </ul>
                   </li>
-             <li><a><i class="fa fa-clone"></i> MataKuliah <span class="fa fa-chevron-down"></span></a>
+				  <li><a><i class="fa fa-user"></i> Dosen <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('/home/adddosen')}}">Tambah</a></li>
+                      <li><a href="{{url('/home/showdosen')}}">Tampilkan</a></li>
+                    </ul>
+                  </li>
+				 <li><a><i class="fa fa-clone"></i> MataKuliah <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/addmatakuliah')}}">Tambah</a></li>
                       <li><a href="{{url('/home/showmatakuliah')}}">Tampilkan</a></li>
                       
                     </ul>
                   </li>
-           <li><a><i class="fa fa-calendar"></i> Periode <span class="fa fa-chevron-down"></span></a>
+				<li><a><i class="fa fa-calendar"></i> Periode <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/addperiode')}}">Tambah</a></li>
                       <li><a href="{{url('/home/showperiode')}}">Tampilkan</a></li>
@@ -104,7 +110,7 @@
                   
         
           
-           <li><a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
+				  <li><a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#level1_1">Tambah</a>
                         </li>
@@ -113,28 +119,17 @@
                     </ul>
                   </li> 
                 
-                  <li><a><i class="fa fa-bug"></i> Administrator <span class="fa fa-chevron-down"></span></a>
+                 
+				 <li><a><i class="fa fa-bug"></i> Dosen <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-            <li><a href="{{url('register_user')}}"> Tambah</a></li>
-             <li><a href="#">Tampilkan</a></li>
-                      
-                      
+						<li><a href="{{url('/home/register_dosen')}}"> Tambah</a></li>
+						 <li><a href="#">Tampilkan</a></li>
                     </ul>
                   </li>
-          <li><a><i class="fa fa-bug"></i> Dosen <span class="fa fa-chevron-down"></span></a>
+				<li><a><i class="fa fa-bug"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-            <li><a href="{{url('/home/register_dosen')}}"> Tambah</a></li>
-             <li><a href="#">Tampilkan</a></li>
-                      
-                      
-                    </ul>
-                  </li>
-          <li><a><i class="fa fa-bug"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-            <li><a href="{{url('/home/register_mahasiswa')}}"> Tambah</a></li>
-            <li><a href="{{url('/home/show_users_mahasiswa')}}">Tampilkan</a></li>
-                      
-                      
+						<li><a href="{{url('/home/register_mahasiswa')}}"> Tambah</a></li>
+						<li><a href="{{url('/home/show_users_mahasiswa')}}">Tampilkan</a></li>
                     </ul>
                   </li>
 
@@ -164,25 +159,16 @@
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
           -->
 
-                <li><a href="{{url('/home')}}"><i class="fa fa-home"></i> Home </a></li>
+            
                   <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/add_krs')}}">Pengisian KRS</a></li>
                       <li><a href="{{url('/home/list_krs')}}">Lihat KRS</a></li>
-             <li><a href="{{url('list_krs')}}">Lihat KRS 1</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> KHS <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      
-                    </ul>
-                  </li>
-                 </ul>
                 
+                 </ul>
               </div>
-             
-
             </div>
             <!-- /sidebar menu -->
 

@@ -18,7 +18,7 @@
                     <h2>Data MataKuliah</h2>
                     
                     <div class="clearfix">
-						<a href="{{url('addmatakuliah')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+						<a href="{{url('/home/addmatakuliah')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
 					</div>
                   </div>
                   <div class="x_content">
@@ -60,8 +60,9 @@
 				  columnDefs: [
 						{ "visible": false, "targets": 6 }
 					],
+					
 				 //serverSide: true,
-					ajax: "{!! route('datatables.data') !!}",
+					ajax: '{{url("/home/datamatakuliah")}}',
 					columns: [
 						{ data: 'kodemk', name: 'kodemk',"className": "text-center" },
 						{ data: 'matakuliah', name: 'matakuliah' },
@@ -105,13 +106,14 @@
 		var sbody = $('#datatable-mk tbody');
 		sbody.on('click','.edit',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			window.location.href='/edit_matakuliah/'+data.kodemk;
+			window.location.href='/home/edit_matakuliah/'+data.kodemk;
+			console.log(data.kodemk);
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
 			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
-					$.post("/deletematakuliah",{'kodemk':data.kodemk,_token:$('#token').val()},function(data,status){
+					$.post("/home/deletematakuliah",{'kodemk':data.kodemk,_token:$('#token').val()},function(data,status){
 							if(parseInt(data.return)==1){
 								alertify.success('Data berhasil dihapus');
 								gentable.ajax.reload();

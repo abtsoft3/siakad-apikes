@@ -43,4 +43,10 @@ class UserMahasiswaController extends Controller
 			return Redirect::back()->with('AuthErr','Password lama tidak cocok')->withInput($request->except('password'));
 		}
 	}
+	
+	public function TempUpload()
+	{
+		$imageTemp =Input::file('image_user');
+		return response()->json(['return' => $imageTemp]);
+	}
 }

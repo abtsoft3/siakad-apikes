@@ -121,9 +121,13 @@ class MataKuliahController extends Controller
 	 *
 	 * @return \Illuminate\View\View
 	 */
-	public function getIndex()
+	/*public function getIndex()
 	{
-		return view('datatables.index');
+		return view('datatablesmatakuliah.index');
+	}
+	public function getData()
+	{
+		return Datatables::of(MataKuliahModel::query())->make(true);
 	}
 	
 	/**
@@ -131,8 +135,13 @@ class MataKuliahController extends Controller
 	 *
 	 * @return \Illuminate\Http\JsonResponse
 	 */
-	public function getData()
-	{
-		return Datatables::of(MataKuliahModel::query())->make(true);
+	
+
+	public function show(){
+
+		$model = new MataKuliahModel;
+		$data = $model->show();
+
+		return Datatables::of($data)->make(true);
 	}
 }

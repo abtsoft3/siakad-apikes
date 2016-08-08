@@ -23,7 +23,7 @@
                   <div class="x_content">
 					<div class="col-lg-6 col-sm-6 col-xs-5">
 
-						{!! Form::open(array('url' => '/home/addmahasiswa', 'class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
+						{!! Form::open(array('url' => '/home/addmahasiswa','class'=>'form-horizontal', 'id'=>'form-mahasiswa')) !!}
 							<div class="form-group" id="nimgroup">
 								{!! Form::label('nim','Nim',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
@@ -72,8 +72,13 @@
 										<div class="col-lg-offset-4 col-sm-3">
 										  <button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button>
 										</div>
-							</div>
+								</div>
+								 
+								
 							    {!! Form::close() !!}
+							</div>
+							<div class="col-lg-6 col-sm-6 col-xs-5">
+								<img class="img-thumbnail" style="width: 150px;height: 200px; display:none;" src="#" alt="myimg"  id="blah" />
 							</div>
 					</div>
 					
@@ -92,6 +97,23 @@
 
 	
     <script type='text/javascript'>
+		/*function readURL(input) {
+		var a=$(input)[0].files;
+        if (a) {
+			$('#blah').show();
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL($(input)[0].files[0]);
+        }
+		else{
+			$('#blah').hide();
+		}
+    }*/
+	
 		var checkkode=0;
 		var fn_check_nim_exist = function(val){
 		if(val==1){
@@ -107,6 +129,7 @@
 	
 	
 		$(document).ready(function(){
+			
 			var startDate = new Date('1985-01-01'),
 				endDate = new Date('1996-01-01');
 			$('#tanggallahir').datetimepicker({
@@ -243,6 +266,11 @@
 						}
 					});
 				});
+				
+			/*$('#image').change(function(){
+				readURL($(this));
+			});*/
+			
 		});
 		
    </script>

@@ -17,13 +17,13 @@
 			<div class="x_panel">
                   <div class="x_title">
                     <h2>Tambah Data MataKuliah</h2>
-                    <a href="{{url('/home/showmatakuliah')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <a href="{{url('showmatakuliah')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-						{!! Form::open(array('url' => '/home/storematakuliah','class'=>'form-horizontal','id'=>'form-matakuliah','autocomplete'=>'off')) !!}
+						{!! Form::open(array('url' => '/storematakuliah','class'=>'form-horizontal','id'=>'form-matakuliah','autocomplete'=>'off')) !!}
 							<div class="form-group" id="mkkd">
 								{!! Form::label('kodemk','Kode MataKuliah',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
@@ -116,7 +116,7 @@
 		$('#kodemk').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/home/kodemk_autocomplete",
+                    url: "/kodemk_autocomplete",
                     type: 'POST',
                     data: {
                         term: $('#kodemk').val(),

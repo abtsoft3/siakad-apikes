@@ -84,13 +84,13 @@
       var sbody = $('#datatable-mahasiswa tbody');
       sbody.on('click','.edit',function(){
         var data = gentable.row($(this).parents('tr')).data();
-        window.location.href='./editmahasiswa/'+data.nim;
+        window.location.href='/home/editmahasiswa/'+data.nim;
       }).
       on('click','.delete',function(){
         var data = gentable.row($(this).parents('tr')).data();
         alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
           if (e) {
-            $.get("./deletemahasiswa/"+data.nim, function(data, status){
+            $.get("/home/deletemahasiswa/"+data.nim, function(data, status){
               //alert(data)
                 if(parseInt(data.return)==1){
                   alertify.success('Data berhasil dihapus');

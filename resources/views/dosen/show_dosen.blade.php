@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','Periode')
+@section('title','Dosen')
 @section('css')
   <!-- Datatables -->
     <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
@@ -15,22 +15,25 @@
 @section('content')
 			<div class="x_panel">
                   <div class="x_title">
-                    <h2>Data Periode</h2>
+                    <h2>Data Dosen</h2>
                     
                     <div class="clearfix">
-						<a href="{{url('/home/addperiode')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+						<a href="{{url('/home/adddosen')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
 					</div>
                   </div>
                   <div class="x_content">
 				  <input type="hidden" name="_token" value="{{ csrf_token() }}" id='token'>
 					<!--table-->
-					<table id="datatable-periode" class="table table-striped table-bordered">
+					<table id="datatable-mk" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                <th>Sistem</th>
-                                <th>Tanggal awal</th>
-								<th>Tanggal akhir</th>
-															<th></th>
+                                <th>Nama</th>
+                                <th>Nidn</th>
+                                <th>Jabatan</th>
+								<th>Bidang</th>
+								<th>Keahlian</th>
+								<th>Status</th>
+								<th></th>
                               </tr>
                             </thead>
 					</table>
@@ -48,18 +51,23 @@
 	<script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
    <script type='text/javascript'>
-			var gentable=null;
+		var gentable=null;
 		$(document).ready(function(){
-			gentable=$('#datatable-periode').DataTable({
+			gentable=$('#datatable-mk').DataTable({
 				  processing: true,
-				 
+				  columnDefs: [
+						{ "visible": false, "targets": 6 }
+					],
 				 //serverSide: true,
-					ajax: "{!! route('datatablesperiode.data') !!}",
+					ajax: "",
 					columns: [
-						{ data: 'sistem', name: 'sistem' },
-						{ data: 'tglawal', name: 'tglawal'},
-						{ data: 'tglakhir', name: 'tglakhir'},
-							{"className": "action text-center",
+						{ data: 'kodemk', name: 'kodemk',"className": "text-center" },
+						{ data: 'matakuliah', name: 'matakuliah' },
+						{ data: 'bobot', name: 'bobot',"className": "text-right"  },
+						{ data: 'teori', name: 'teori' ,"className": "text-right" },
+						{ data: 'praktek', name: 'praktek' ,"className": "text-center" },
+						{
+							"className": "action text-center",
 							"data": null,
 							"bSortable": false,
 							"defaultContent": "" +
@@ -71,19 +79,34 @@
 							"</div>"
 						}
 					
-				]
+				],
+				 drawCallback: function ( settings ) {
+						var api = this.api();
+						var rows = api.rows( {page:'current'} ).nodes();
+						var last=null;
+			 
+						api.column(6, {page:'current'} ).data().each( function ( group, i ) {
+							if ( last !== group ) {
+								$(rows).eq( i ).before(
+									'<tr class="group"><td colspan="5">'+'Semester '+group+'</td></tr>'
+								);
+			 
+								last = group;
+							}
+						});
+				}
 			});
 			
-		var sbody = $('#datatable-periode tbody');
+		var sbody = $('#datatable-mk tbody');
 		sbody.on('click','.edit',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			window.location.href='/home/edit_periode/'+data.idperiode;
+			window.location.href='/edit_matakuliah/'+data.kodemk;
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
 			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
-					$.post("/home/deleteperiode",{'idperiode':data.idperiode,_token:$('#token').val()},function(data,status){
+					$.post("/deletematakuliah",{'kodemk':data.kodemk,_token:$('#token').val()},function(data,status){
 							if(parseInt(data.return)==1){
 								alertify.success('Data berhasil dihapus');
 								gentable.ajax.reload();
@@ -95,10 +118,10 @@
 				}
 			});		
 		});
+		});
 			//tooltip
 			$('body').tooltip({
 				selector: '[rel=tooltip]'
 			});
-		});
    </script>
 @endsection

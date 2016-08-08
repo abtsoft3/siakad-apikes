@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Input;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -69,10 +69,11 @@ Route::group(['middleware'=>'auth'],function(){
 	//autocomplete cek kode mata kuliah
 	Route::post('/home/kodemk_autocomplete','MataKuliahController@autocomplete');
 	//getdatatable matakuliah
-	Route::controller('/home/datatables', 'MataKuliahController', [
-		'getData'  => 'datatables.data',
-		'getIndex' => 'datatables',
-	]);
+	/*Route::controller('/home/datatablesmatakuliah', 'MataKuliahController', [
+		'getData'  => 'datatablesmatakuliah.data',
+		'getIndex' => 'datatablesmatakuliah',
+	]);*/
+	Route::get('/home/datamatakuliah','MataKuliahController@show');
 	//hapus matakuliah
 	Route::post('/home/deletematakuliah','MataKuliahController@destroy');
 	//edit matakuliah
@@ -139,4 +140,20 @@ Route::group(['middleware' => ['usermahasiswas']],function(){
 	['uses'=>'UserMahasiswaController@changepassword',
 	'as'=>'mahasiswa-changepassword']);
 	Route::post('/home/mahasiswa/changepasswords','UserMahasiswaController@postchangepassword');
+	
 });
+Route::post('/home/mahasiswa/TempUpload',function(){
+	print_r(Input::all());
+		/*foreach(Input::file('image_user') as $image){
+			$imagename = time().$image->getClientOriginalName();
+			
+			//upload
+			$uploadflag = $image->move('public/images',$imagename);
+			
+			if($uploadflag){
+				$uploadedimages[] =$imagename;
+			}
+			
+		}
+		return Response::json(['success'=>true,'message'=>'berhasil diupload','images'=>uploadedimages]);*/
+	});//'UserMahasiswaController@TempUpload');

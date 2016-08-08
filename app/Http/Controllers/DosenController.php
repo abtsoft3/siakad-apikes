@@ -7,7 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class Menu_DosenController extends Controller
+class DosenController extends Controller
 {
     //
+	public function index(){
+		return ('dosen.show_dosen');
+	}
+	
 }

@@ -14,7 +14,7 @@ class MataKuliahModel extends Model
 	public $timestamps = false;
 	
 	protected $filltable=[
-	'kodemk' ,
+			'kodemk' ,
 			'matakuliah',
 			'bobot' ,
 			'teori' ,
@@ -22,10 +22,15 @@ class MataKuliahModel extends Model
 			'kadep' ,
 			'bobotnilai'
     ];
+
+    public function show(){
+    	$data = $this->select(['*']);
+    	return $data;
+    }
 	
 	public static function validate($input){
 		$rules = array(
-			'kodemk' => 'Required|Max:6',
+			'kodemk' => 'Required',
 			'matakuliah' => 'Required|Max:100',
 			'bobot' => 'Required|Max:1',
 			'teori' => 'Required|Max:1' ,

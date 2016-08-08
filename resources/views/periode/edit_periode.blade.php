@@ -17,20 +17,16 @@
 			<div class="x_panel">
                   <div class="x_title">
                     <h2>Tambah Data Periode</h2>
-                    <a href="{{url('showperiode')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <a href="{{url('/home/showperiode')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-						{!! Form::open(array('url' => '/updateperiode','class'=>'form-horizontal','id'=>'form-periode','autocomplete'=>'off')) !!}
-							<div class="form-group">
-								{!! Form::label('idperiode','Id Periode',array('class' => 'col-sm-4 control-label')) !!}
-								<div class="col-sm-5">
-									{!! Form::text('idperiode',$periode->idperiode,array('class' => 'form-control','readonly'=>'true')) !!}
-									<span id="status_idperiode"></span>
-								</div>
-							</div>
+						{!! Form::open(array('url' => '/home/updateperiode','class'=>'form-horizontal','id'=>'form-periode','autocomplete'=>'off')) !!}
+								
+									{!! Form::hidden('idperiode',$periode->idperiode,array('class' => 'form-control','readonly'=>'true')) !!}
+							
 							
 							<div class="form-group">
 								{!! Form::label('sistem','Sistem',array('class' => 'col-sm-4 control-label')) !!}	
@@ -172,9 +168,9 @@
 							var returndata=parseInt(data.return);
 							if(returndata==1){
 								alertify.confirm('Berhasil',"Data Berhasil diupdate", function () {
-									window.location.href='/showperiode';
+									window.location.href='/home/showperiode';
 									},function () {
-									window.location.href='/showperiode';
+									window.location.href='/home/showperiode';
 									});	
 								
 							}else{
