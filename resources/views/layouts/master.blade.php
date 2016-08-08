@@ -157,7 +157,7 @@
                   </li>
                                   
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-          -->
+         
 
             
                   <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
@@ -165,7 +165,7 @@
                       <li><a href="{{url('/home/add_krs')}}">Pengisian KRS</a></li>
                       <li><a href="{{url('/home/list_krs')}}">Lihat KRS</a></li>
                     </ul>
-                  </li>
+                  </li> -->
                 
                  </ul>
               </div>
