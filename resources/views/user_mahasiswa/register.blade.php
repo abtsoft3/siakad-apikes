@@ -94,7 +94,8 @@
 </script>
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
+
 <script type='text/javascript'>
 	var checkkode=0;
 	var fn_check_kodemk_exist = function(val){

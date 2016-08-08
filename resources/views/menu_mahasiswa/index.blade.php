@@ -86,7 +86,7 @@
 					<div class="form-group">
 						<label class="col-md-5 control-label">Tempat, Tanggal Lahir</label>
 						<div class="col-md-5">
-							<label class="control-label">{{ $model->tempatlahir }}, {{ $model->tanggallahir }}</label>
+							<label class="control-label">{{ $model->tempatlahir }}, {{ date('d F, Y', strtotime($model->tanggallahir)) }}</label>
 						</div>
 					</div>
 					<div class="form-group">
@@ -104,19 +104,25 @@
 				</div>
 			</div>	
 		</div>
-		<!--div class="col-lg-5 col-sm-5 col-xs-5">
+		<div class="col-lg-5 col-sm-5 col-xs-5">
 
 			<div class="container-here">
 				<div class="row">
 				  <div class="col col-6 img-container">
-						<img src="#" alt="img-profile" style="max-width: 100%;" id="newimg" />
+				  	@if (Auth::guard('usermahasiswas')->user()->image_user===null)
 						<img id="image" style="max-width: 100%;" src="{{ URL::asset('images/cropper.jpg')}}" alt="profile-picture">
+					@else
+					<img id="image" style="max-width: 100%;" src="#" alt="profile-picture">
+					@endif
 						{!! Form::open(array('url' => '/home/mahasiswa/TempUpload','id'=>'form-image','autocomplete'=>'off','enctype'=>'multipart/form-data')) !!}
 						<span class="btn btn-success fileinput-button">
 							<i class="fa fa-camera"></i>
 								<span>Ganti</span>
+								<input type="hidden" name="nim" id="nim" 
+								value="{{ Auth::guard('usermahasiswas')->user()->nim }}" />
 								{!! Form::file('image_user',array('id'=>'image_user')) !!}
 						</span>
+						<button type="submit" style="display:none;">Simpan</button>
 						 {!! Form::close() !!}
 						
 				  </div>
@@ -124,7 +130,7 @@
 				</div>
 			</div>
 			
-		</div-->
+		</div>
 		<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
 		   Last login :
 				 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->updated_at)) }}</span> 
@@ -152,34 +158,16 @@
 	<script type="text/javascript">
 	function readURL(input) {
 		var a=$(input)[0].files;
-		form = $('#form-image');
-		var fd = new FormData(form);
-		fd.append('image_user',a);
-		console.log(fd);
-		$.ajax({
-		  url: $('#form-image').attr('action'),
-		  data: fd,
-		  processData: false,
-		  contentType: false,
-		  type: 'POST',
-		  headers: {
-			'X-CSRF-TOKEN': $('input[name="_token"]').val()
-		 },
-		  success: function(data){
-			console.log(data);
-		  }
-		});/*
+		
         if (a) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#image').remove();
-				$('#newimg').attr('src', e.target.result);
+                $('#image').attr('src', e.target.result);
             }
 
             reader.readAsDataURL($(input)[0].files[0]);
-			check=1;
-        }*/
+        }
     }
 	
 	$(document).ready(function(){
