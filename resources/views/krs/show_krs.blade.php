@@ -86,7 +86,7 @@
         <td>: {{ $cdatamhs->nama }}</td>
       </tr>
       <tr>
-        <td>Angkatan / tahun</td>
+        <td>Angkatan / Tahun</td>
         <td>: {{ $cdatamhs->angkatan }} / {{ $cdatamhs->tahun }}</td>
       </tr>
       <tr>
