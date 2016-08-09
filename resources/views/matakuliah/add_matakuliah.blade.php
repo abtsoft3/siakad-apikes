@@ -59,11 +59,25 @@
 									{!! Form::text('praktek',1,array('class' => 'form-control','maxlength'=>'1')) !!}
 								</div>
 							</div>
+
+							<div class="form-group">
+								{!! Form::label('klinik','Klinik',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-3">
+									{!! Form::text('klinik',0,array('class' => 'form-control','maxlength'=>'1')) !!}
+								</div>
+							</div>
 							
 							<div class="form-group">
 								{!! Form::label('kadep','Kadep',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('kadep',null,array('class' => 'form-control')) !!}
+								</div>
+							</div>
+
+							<div class="form-group">
+								{!! Form::label('dosen_pengampu','Dosen Pengampu',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-7">
+									{!! Form::textarea('dosen_pengampu',null,array('class' => 'form-control','rows'=>'4', 'cols'=>'20')) !!}
 								</div>
 							</div>
 							
