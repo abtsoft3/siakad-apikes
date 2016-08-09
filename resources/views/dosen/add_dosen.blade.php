@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','MataKuliah')
+@section('title','Dosen')
 @section('css')
 
  <link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
@@ -16,68 +16,81 @@
 @section('content')
 			<div class="x_panel">
                   <div class="x_title">
-                    <h2>Tambah Data MataKuliah</h2>
-                    <a href="{{url('showmatakuliah')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <h2>Tambah Data Dosen</h2>
+                    <a href="{{url('/home/showdosen')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-						{!! Form::open(array('url' => '/storematakuliah','class'=>'form-horizontal','id'=>'form-matakuliah','autocomplete'=>'off')) !!}
-							<div class="form-group" id="mkkd">
-								{!! Form::label('kodemk','Kode MataKuliah',array('class' => 'col-sm-4 control-label')) !!}
+						{!! Form::open(array('url' => '/home/storedosen','class'=>'form-horizontal','id'=>'form-dosen','autocomplete'=>'off')) !!}
+							<div class="form-group" id="niddn">
+								{!! Form::label('nidn','NIDN',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::text('kodemk',null,array('class' => 'form-control','maxlength'=>'6')) !!}
-									<small id="status_kdmk"></small>
+									{!! Form::text('nidn',null,array('class' => 'form-control','maxlength'=>'11')) !!}
+									<small id="status_nidn"></small>
 								</div>
 							</div>
 							
 							<div class="form-group">
-								{!! Form::label('matakuliah','MataKuliah',array('class' => 'col-sm-4 control-label')) !!}	
+								{!! Form::label('nama','Nama',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
-									{!! Form::text('matakuliah',null,array('class' => 'form-control')) !!}
+									{!! Form::text('nama',null,array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
-								{!! Form::label('bobot','Bobot',array('class' => 'col-sm-4 control-label')) !!}	
+								{!! Form::label('jeniskelamin','Jenis Kelamin',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-4">
+									{!! Form::select('jeniskelamin',$arrjeniskelamin,'Pilih',array('class' => 'form-control')) !!}
+								</div>
+							</div>
+							
+							<div class="form-group">
+								{!! Form::label('tempatlahir','Tempat Lahir',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-6">
+									{!! Form::text('tempatlahir',null,array('class' => 'form-control')) !!}
+								</div>
+							</div>
+							
+							<div class="form-group">
+								{!! Form::label('tanggallahir','Tanggal Lahir',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-3">
-									{!! Form::text('bobot',2,array('class' => 'form-control','maxlength'=>'1')) !!}
+									{!! Form::date('name', \Carbon\Carbon::now()) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
-								{!! Form::label('teori','Teori',array('class' => 'col-sm-4 control-label')) !!}	
-								<div class="col-sm-3">
-									{!! Form::text('teori',1,array('class' => 'form-control','maxlength'=>'1')) !!}
-								</div>
-							</div>
-							
-							<div class="form-group">
-								{!! Form::label('praktek','Praktek',array('class' => 'col-sm-4 control-label')) !!}	
-								<div class="col-sm-3">
-									{!! Form::text('praktek',1,array('class' => 'form-control','maxlength'=>'1')) !!}
-								</div>
-							</div>
-							
-							<div class="form-group">
-								{!! Form::label('kadep','Kadep',array('class' => 'col-sm-4 control-label')) !!}	
+								{!! Form::label('idjabatanstruktural','Jabatan Struktural',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
 									{!! Form::text('kadep',null,array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
-								{!! Form::label('semester','Semester',array('class' => 'col-sm-4 control-label')) !!}	
+								{!! Form::label('idjabatanfungsional','Jabatan Fungsional',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-5">
-									{!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
-								{!! Form::label('bobotnilai','Bobot Nilai',array('class' => 'col-sm-4 control-label')) !!}	
+								{!! Form::label('pendidikanakhir','Pendidikan',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-3">
-									{!! Form::text('bobotnilai',0,array('class' => 'form-control','maxlength'=>'2')) !!}
+									{!! Form::select('pendidikanakhir',$pendidikan,'Pendidikan',array('class' => 'form-control')) !!}
+								</div>
+							</div>
+
+							<div class="form-group">
+								{!! Form::label('agama','Agama',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-3">
+									{!! Form::select('agama',$arrAgama,'Agama',array('class' => 'form-control')) !!}
+								</div>
+							</div>
+
+							<div class="form-group">
+								{!! Form::label('status','Status',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-3">
+									
 								</div>
 							</div>
 							

@@ -40,3 +40,8 @@ silahkan execute adauser.sql untuk usermahasiswa dan admin untuk mahasiswa login
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
         ],
+
+#New#basri
+!Notification
+untuk bisa membuat foto
+tambahkan field 'image_user' type data longblob pada tabel user_mahasiswas

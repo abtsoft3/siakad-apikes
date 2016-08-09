@@ -1,13 +1,14 @@
 @extends('layouts.master')
 
-@section('title','periode')
+@section('title','Kelas Mahasiswa')
 @section('css')
+
  <link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
  
  <link href="{{ URL::asset('vendors/alertify/css/alertify.min.css')}}" rel="stylesheet">
  
  <link href="{{ URL::asset('vendors/alertify/css/default.min.css')}}" rel="stylesheet">
-	<link href="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+ 	<link href="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
 @endsection
 @section('sidebar')
 @parent
@@ -15,50 +16,42 @@
 @section('content')
 			<div class="x_panel">
                   <div class="x_title">
-                    <h2>Tambah Data Periode</h2>
-                    <a href="{{url('/home/showperiode')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <h2>Tambah Data Kelas Mahasiswa</h2>
+                    <a href="{{url('/home/showkelas')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-						{!! Form::open(array('url' => '/home/storeperiode','class'=>'form-horizontal','id'=>'form-periode')) !!}
-							
-							
-							<div class="form-group">
-								{!! Form::label('sistem','Sistem',array('class' => 'col-sm-4 control-label')) !!}	
-								<div class="col-sm-7">
-									{!! Form::text('sistem',null,array('class' => 'form-control')) !!}
+						{!! Form::open(array('url' => '/home/storekelasmahasiswa','class'=>'form-horizontal','id'=>'form-kelas','autocomplete'=>'off')) !!}
+							<div class="form-group" id="kdkl">
+								{!! Form::label('kode_kelas','Kelas',array('class' => 'col-sm-4 control-label')) !!}
+								<div class="col-sm-5">
+									{!! Form::select('kode_kelas',$datakelas,'Pilih',array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
-											
-							<div class="form-group">
-								{!! Form::label('tglawal','Tanggal Awal',array('class' => 'col-sm-4 control-label')) !!}	
+							 <div class="form-group">
+								{!! Form::label('tahun_ajaran','Tahun Ajaran',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-5">
 									 <div class="input-group dtpicker">
 										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-											{!! Form::text('tglawal',null,array('class' => 'form-control')) !!}
+											{!! Form::text('tahun_ajaran',null,array('class' => 'form-control','maxlength'=>'4')) !!}
 										
 									</div>
 									</div>
 								</div>
-								
+
 							<div class="form-group">
-								{!! Form::label('tglakhir','Tanggal Akhir',array('class' => 'col-sm-4 control-label')) !!}	
-								<div class="col-sm-5">
-									 <div class="input-group dtpicker">
-										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-											{!! Form::text('tglakhir',null,array('class' => 'form-control')) !!}
-										
-									</div>
-									</div>
+								{!! Form::label('semester','Semester',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-7">
+									{!! Form::select('semester',$arrsemester,'Pilih',array('class' => 'form-control')) !!}
 								</div>
-								
-						
-								
+							</div>
+							
 								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">
-										  <button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Simpan</button>
+										  <button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button>
 										</div>
 									  </div>
 									  {!! Form::close() !!}
@@ -67,27 +60,41 @@
 					
 					
                   </div>
-               </div>
 @endsection
 @section('scripts')
 <script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}">
 </script>
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
+<script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
 
-	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment.min.js')}}">
+<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment.min.js')}}">
 	</script>
 	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment-with-locales.min.js')}}">
 	</script>
 	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.js')}}">
 	</script>
-   <script type='text/javascript'>
-		$(document).ready(function(){
-			$('.dtpicker').datetimepicker({
-				format:'YYYY-MM-DD'
+<script type='text/javascript'>
+	var checkkode=0;
+	var fn_check_kodemk_exist = function(val){
+		if(val==1){
+			$('#kdkl').removeClass('has-success').addClass('has-error');
+			$('[data-bv-icon-for="kode_kelas"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
+			$('#status_kdkelas').text('kode sudah ada!').css('color','#a94442');
+			$('#btn-submit').prop('disabled',true);
+		}else{
+			$('#status_kdkelas').text('');
+			$('#btn-submit').prop('disabled',false);
+		}
+	}
+	$(document).ready(function(){
+
+		$('.dtpicker').datetimepicker({
+				format:'YYYY'
 			});
-			
-			$('#form-periode').bootstrapValidator({
+		
+		
+		$('#form-kelas').bootstrapValidator({
 				live: 'enabled',
 				message: 'This value is not Valid',
 				feedbackIcons: {
@@ -98,28 +105,22 @@
 				excluded:'disabled',
 				fields: {
 					
-					sistem: {
+					kode_kelas: {
 						validators: {
 							notEmpty: {
-								message: 'Silahkan isi sistem'
+								message: 'Silahkan isi kode'
 							}
 							
 						}
 					},
-					tglawal: {
+					nama_kelas: {
 						validators: {
 							notEmpty: {
-								message: 'Silahkan isi tanggal awal'
+								message: 'Silahkan isi kelas'
 							}
 						}
-					},
-					tglakhir: {
-						validators: {
-							notEmpty: {
-								message: 'Silahkan isi tanggal akhir'
-							}	
-						}
 					}
+					
 				}
 			}).on('success.form.bv', function (e) {
         // Prevent form submission
@@ -132,7 +133,7 @@
 				
 				//formData.append('file','file);
 				var data = $form.serialize();
-				$('#form-periode input').attr("disabled", "disabled");
+				$('#form-kelas input').attr("disabled", "disabled");
 				$.ajax({
 					type: 'POST',
 					url: $form.attr('action'),
@@ -152,13 +153,12 @@
 							alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
 						},
 						complete: function () {
-							$('#form-periode').bootstrapValidator('resetForm',true);
+							$('#form-kelas').bootstrapValidator('resetForm',true);
 							$('#btn-submit').removeAttr('disabled');
-							$('#form-periode input').removeAttr("disabled");
+							$('#form-kelas input').removeAttr("disabled");
 						}
 					});
 				});
 		});
-		
-   </script>
+</script>
 @endsection

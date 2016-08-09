@@ -44,9 +44,18 @@ class UserMahasiswaController extends Controller
 		}
 	}
 	
-	public function TempUpload()
+	public function TempUpload(Request $request)
 	{
-		$imageTemp =Input::file('image_user');
-		return response()->json(['return' => $imageTemp]);
+		$models = UserMahasiswa::where('nim',$request->nim)->first();
+		$imgpath = $request->file('image_user');
+		$img_data = file_get_contents($imgpath);
+		$base64 = base64_encode($img_data);
+
+		$models->image_user = $base64;
+		$execute = $models->save();
+		if($execute){
+			return Redirect::back();
+		}
+		
 	}
 }

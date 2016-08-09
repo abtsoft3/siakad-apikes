@@ -114,6 +114,31 @@ Route::group(['middleware'=>'auth'],function(){
 	//update periode
 	Route::post('/home/updateperiode','PeriodeController@updateperiode');
 	
+	//dosen
+	Route::get('/home/showdosen','DosenController@index');
+	Route::get('/home/editdosen/{id}','DosenController@edit');
+	Route::get('/home/adddosen','DosenController@add');
+	Route::post('/home/adddosen','DosenController@store');
+
+	//kelas
+	Route::get('/home/showkelas','KelasController@index');
+	Route::get('/home/edit_kelas/{id}','KelasController@edit');
+	Route::post('/home/editkelas','KelasController@update');
+	Route::get('/home/addkelas','KelasController@add');
+	Route::post('/home/storekelas','KelasController@store');
+	Route::post('/home/kode_kelas_autocomplete','KelasController@autocomplete');
+	Route::controller('/home/datatableskelas', 'KelasController', [
+		'getData'  => 'datatableskelas.data',
+		'getIndex' => 'datatableskelas',
+	]);
+	Route::post('/home/deletekelas','KelasController@destroy');
+	//kelas mahasiswa
+	Route::get('/home/showkelasmahasiswa','KelasMahasiswaController@index');
+	Route::get('/home/addkelasmahasiswa','KelasMahasiswaController@add');
+	Route::post('/home/storekelasmahasiswa','KelasMahasiswaController@store');
+	Route::get('/home/editkelasmahasiswa','KelasMahasiswaController@edit');
+	Route::post('/home/updatekelasmahasiswa','KelasMahasiswaController@update');
+	Route::post('/home/deletekelasmahasiswa','KelasMahasiswaController@destroy');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
@@ -142,19 +167,5 @@ Route::group(['middleware' => ['usermahasiswas']],function(){
 	'as'=>'mahasiswa-changepassword']);
 	Route::post('/home/mahasiswa/changepasswords','UserMahasiswaController@postchangepassword');
 	
+	Route::post('/home/mahasiswa/TempUpload','UserMahasiswaController@TempUpload');
 });
-Route::post('/home/mahasiswa/TempUpload',function(){
-	print_r(Input::all());
-		/*foreach(Input::file('image_user') as $image){
-			$imagename = time().$image->getClientOriginalName();
-			
-			//upload
-			$uploadflag = $image->move('public/images',$imagename);
-			
-			if($uploadflag){
-				$uploadedimages[] =$imagename;
-			}
-			
-		}
-		return Response::json(['success'=>true,'message'=>'berhasil diupload','images'=>uploadedimages]);*/
-	});//'UserMahasiswaController@TempUpload');

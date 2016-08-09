@@ -39,7 +39,15 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="{{ URL::asset('images/img.jpg')}}" alt="..." class="img-circle profile_img">
+                  @if (Auth::guard('usermahasiswas')->user()->image_user===null)
+                    <img class="img-circle profile_img" 
+                    src="{{ URL::asset('images/user.png')}}" alt="profil-picture" />
+                    @else
+                    <img class="img-circle profile_img" 
+                    src="data:image/jpg;base64,{{ Auth::guard('usermahasiswas')->user()->image_user}}" 
+                    alt="profile-picture" />
+                    
+                    @endif
               </div>
               <div class="profile_info">
                 <span>Selamat Datang,</span>
@@ -112,7 +120,15 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ URL::asset('images/img.jpg')}}" alt="">{{ Auth::guard('usermahasiswas')->user()->nama }}
+                   
+                     @if (Auth::guard('usermahasiswas')->user()->image_user===null)
+                    <img src="{{ URL::asset('images/user.png')}}" alt="profil-picture" />
+                    @else
+                    <img src="data:image/jpg;base64,{{ Auth::guard('usermahasiswas')->user()->image_user}}" 
+                    alt="profile-picture" />
+                    
+                    @endif
+                    {{ Auth::guard('usermahasiswas')->user()->nama }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

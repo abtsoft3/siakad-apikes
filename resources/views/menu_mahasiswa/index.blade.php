@@ -109,10 +109,12 @@
 			<div class="container-here">
 				<div class="row">
 				  <div class="col col-6 img-container">
+
 				  	@if (Auth::guard('usermahasiswas')->user()->image_user===null)
-						<img id="image" style="max-width: 100%;" src="{{ URL::asset('images/cropper.jpg')}}" alt="profile-picture">
+					<img class="img-rounded" style="max-width: 100%;" id="image" src="{{ URL::asset('images/user.png')}}" alt="profil-picture" >
 					@else
-					<img id="image" style="max-width: 100%;" src="#" alt="profile-picture">
+					<img class="img-rounded" id="image" style="max-width: 100%;" src="data:image/jpg;base64,{{ Auth::guard('usermahasiswas')->user()->image_user}}" alt="profile-picture">
+					
 					@endif
 						{!! Form::open(array('url' => '/home/mahasiswa/TempUpload','id'=>'form-image','autocomplete'=>'off','enctype'=>'multipart/form-data')) !!}
 						<span class="btn btn-success fileinput-button">
@@ -122,7 +124,8 @@
 								value="{{ Auth::guard('usermahasiswas')->user()->nim }}" />
 								{!! Form::file('image_user',array('id'=>'image_user')) !!}
 						</span>
-						<button type="submit" style="display:none;">Simpan</button>
+						<button class="btn btn-primary" id="btn-submit" type="submit" style="display:none;">
+							<i class="fa fa-send"></i> Simpan</button>
 						 {!! Form::close() !!}
 						
 				  </div>
@@ -175,6 +178,7 @@
 		$('#image_user').change(function(){
 			readURL($(this));
 			var image=document.getElementById('newimg');
+			$('#btn-submit').show();
 			/*var cropper = new Cropper(image, {
 				aspectRatio: 1,
 				viewMode: 1,
