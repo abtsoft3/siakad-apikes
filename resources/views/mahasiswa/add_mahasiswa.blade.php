@@ -55,7 +55,14 @@
 										</div>
 									</div>
 								</div>
-								
+
+								<div class="form-group">
+									{!! Form::label('agama','Agama',array('class' => 'col-sm-4 control-label')) !!}
+									<div class="col-sm-4">
+										{!! Form::select('agama', $arragama, 'Pilih', array('class' => 'form-control')) !!}
+									</div>
+								</div>
+		
 								<div class="form-group">
 									{!! Form::label('asalsekolah','Asal Sekolah',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('asalsekolah',null,array('class' => 'form-control')) !!}
@@ -69,12 +76,18 @@
 								</div>
 								
 								<div class="form-group">
+									{!! Form::label('status','Status',array('class' => 'col-sm-4 control-label')) !!}
+									<div class="col-sm-4">
+										{!! Form::select('status', $arrstatus, 'Pilih', array('class' => 'form-control')) !!}
+									</div>
+								</div>
+
+								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">
 										  <button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button>
 										</div>
 								</div>
-								 
-								
+
 							    {!! Form::close() !!}
 							</div>
 							<div class="col-lg-6 col-sm-6 col-xs-5">
@@ -130,13 +143,14 @@
 	
 		$(document).ready(function(){
 			
-			var startDate = new Date('1985-01-01'),
-				endDate = new Date('1996-01-01');
+			/*var startDate = new Date('1985-01-01'),
+				endDate = new Date('1996-01-01');*/
 			$('#tanggallahir').datetimepicker({
 				format:'YYYY-MM-DD',
 				locale:'id',
-				minDate:startDate,
-				maxDate:endDate
+				/*minDate:startDate,
+				maxDate:endDate,
+				defaultDate: '01/26/2014'*/
 			});
 			
 			$('#nim').autocomplete({

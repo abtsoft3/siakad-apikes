@@ -20,13 +20,6 @@ class DaftarKrsModel extends Model
         'keterangan'
     ];
 
-   
-
-   /* public function simpan(){
-        $simpan = DB::insert('insert into krs (nim, kodemk, keterangan) values (?, ?, ?)', [1=>$this->nim, 2=>$this->kodemk, 3 => $this->keterangan]);
-        return simpan;
-    }*/
-
     public function showmk(){
 
         $data = DB::table('matakuliah')
@@ -98,6 +91,29 @@ class DaftarKrsModel extends Model
                      ->where('krs.nim', '=', $this->nim)
                      ->select(['matakuliah.semester'])->distinct()->get();
         }
+        
+        return $data;
+    }
+
+    public function showperiodekrs(){
+        $data = DB::table('periode')
+                                 ->where('idperiode', '=', '4')
+                                 ->select([
+                                            DB::raw("
+                                                        date_format(tglawal, '%d-%m-%Y') as tglawal,
+                                                        date_format(tglakhir, '%d-%m-%Y') as tglakhir
+                                                    ")
+                                        ])->get();
+                
+        return $data;
+    }
+
+    public function showstatusmhs(){
+         $data = DB::table('mahasiswa')
+                         ->where('nim', '=', $this->nim)
+                         ->select([
+                                    'status'
+                                ])->get();
         
         return $data;
     }
