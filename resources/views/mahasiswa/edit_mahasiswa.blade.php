@@ -65,6 +65,13 @@
 								</div>
 								
 								<div class="form-group">
+									{!! Form::label('agama','Agama',array('class' => 'col-sm-4 control-label')) !!}
+									<div class="col-sm-4">
+										{!! Form::select('agama', $arragama, $cdata->agama, array('class' => 'form-control')) !!}
+									</div>
+								</div>
+
+								<div class="form-group">
 									{!! Form::label('asalsekolah','Asal Sekolah',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('asalsekolah', $cdata->asalsekolah, array('class' => 'form-control')) !!}
 									</div>
@@ -73,6 +80,13 @@
 								<div class="form-group">
 									{!! Form::label('namaortu','Nama Orang Tua',array('class' => 'col-sm-4 control-label')) !!}<div class="col-sm-7">
 										{!! Form::text('namaortu', $cdata->namaortu, array('class' => 'form-control')) !!}
+									</div>
+								</div>
+
+								<div class="form-group">
+									{!! Form::label('status','Status',array('class' => 'col-sm-4 control-label')) !!}
+									<div class="col-sm-4">
+										{!! Form::select('status', $arrstatus, $cdata->status, array('class' => 'form-control')) !!}
 									</div>
 								</div>
 

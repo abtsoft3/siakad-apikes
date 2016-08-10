@@ -84,6 +84,7 @@ Route::group(['middleware'=>'auth'],function(){
 	//mahasiswa
 	Route::get('/home/showmahasiswa','MahasiswaController@index');
 	Route::get('/home/deletemahasiswa/{nim}','MahasiswaController@destroy');
+	Route::get('/home/detailmahasiswa/{nim}','MahasiswaController@detail');
 	
 	
 	Route::post('/home/nim_autocomplete','MahasiswaController@autocomplete');

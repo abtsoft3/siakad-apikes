@@ -20,13 +20,6 @@ class DaftarKrsModel extends Model
         'keterangan'
     ];
 
-   
-
-   /* public function simpan(){
-        $simpan = DB::insert('insert into krs (nim, kodemk, keterangan) values (?, ?, ?)', [1=>$this->nim, 2=>$this->kodemk, 3 => $this->keterangan]);
-        return simpan;
-    }*/
-
     public function showmk(){
 
         $data = DB::table('matakuliah')
@@ -36,12 +29,12 @@ class DaftarKrsModel extends Model
                         ->from('krs')
                         ->whereRaw('matakuliah.kodemk = krs.kodemk and krs.nim = '.$this->nim);
                      })
-                     ->where('matakuliah.semester', '=', $this->semester)
+                     ->whereRaw("matakuliah.semester = fromroman('".$this->semester."')")
                      ->select([
                                 'matakuliah.kodemk',
                                 'matakuliah.matakuliah',
                                 'matakuliah.bobot',
-                                DB::raw('matakuliah.semester as sem')
+                                DB::raw('toroman(matakuliah.semester) as sem')
                               ]);
         return $data;
     }
@@ -51,12 +44,12 @@ class DaftarKrsModel extends Model
     	$data = $this->join('mahasiswa', 'krs.nim', '=', 'mahasiswa.nim')
     				 ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
     				 ->where('krs.nim', '=', $this->nim)
-                     ->where('matakuliah.semester', '=', $this->semester)
+                     ->whereRaw("matakuliah.semester = fromroman('".$this->semester."')")
     				 ->select([
     				     		'matakuliah.kodemk',
     				     		'matakuliah.matakuliah',
     				     		'matakuliah.bobot',
-                                 DB::raw('matakuliah.semester as sem'),
+                                 DB::raw('toroman(matakuliah.semester) as sem'),
     				     		 DB::raw('year(krs.tanggal) as tahun'),
     				     		'krs.keterangan'
     				     	  ])->get();
@@ -72,7 +65,7 @@ class DaftarKrsModel extends Model
                          ->select([
                                     'mahasiswa.nim',
                                     'mahasiswa.nama',
-                                    'angkatan.angkatan',
+                                    DB::raw('toroman(angkatan.angkatan) as angkatan'),
                                     'angkatan.tahun'
                                 ])->get();
         
@@ -96,45 +89,33 @@ class DaftarKrsModel extends Model
             $data = DB::table('krs')
                      ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
                      ->where('krs.nim', '=', $this->nim)
-                     ->select(['matakuliah.semester'])->distinct()->get();
+                     ->select(DB::raw('toroman(matakuliah.semester) as semester'))->distinct()->get();
         }
         
         return $data;
     }
 
-    public function toroman($num){
-        $n = intval($num); 
-    $res = ''; 
+    public function showperiodekrs(){
+        $data = DB::table('periode')
+                                 ->where('idperiode', '=', '4')
+                                 ->select([
+                                            DB::raw("
+                                                        date_format(tglawal, '%d-%m-%Y') as tglawal,
+                                                        date_format(tglakhir, '%d-%m-%Y') as tglakhir
+                                                    ")
+                                        ])->get();
+                
+        return $data;
+    }
 
-    /*** roman_numerals array  ***/ 
-    $roman_numerals = array( 
-        'M'  => 1000, 
-        'CM' => 900, 
-        'D'  => 500, 
-        'CD' => 400, 
-        'C'  => 100, 
-        'XC' => 90, 
-        'L'  => 50, 
-        'XL' => 40, 
-        'X'  => 10, 
-        'IX' => 9, 
-        'V'  => 5, 
-        'IV' => 4, 
-        'I'  => 1); 
-
-    foreach ($roman_numerals as $roman => $number){ 
-        /*** divide to get  matches ***/ 
-        $matches = intval($n / $number); 
-
-        /*** assign the roman char * $matches ***/ 
-        $res .= str_repeat($roman, $matches); 
-
-        /*** substract from the number ***/ 
-        $n = $n % $number; 
-    } 
-
-    /*** return the res ***/ 
-    return $res; 
+    public function showstatusmhs(){
+         $data = DB::table('mahasiswa')
+                         ->where('nim', '=', $this->nim)
+                         ->select([
+                                    'status'
+                                ])->get();
+        
+        return $data;
     }
 
     public $timestamps = false;

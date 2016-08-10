@@ -21,7 +21,19 @@ class MahasiswaController extends Controller
 	}
 	
 	public function add(){
-		return view('mahasiswa.add_mahasiswa');
+		$arragama = array();
+	 	$arragama[''] 			= 'Pilih';
+	 	$arragama['Islam'] 		= 'Islam';
+	 	$arragama['Katholik'] 	= 'Katholik';
+	 	$arragama['Protestan'] 	= 'Protestan';
+	 	$arragama['Hindu'] 		= 'Hindu';
+	 	$arragama['Budha']		= 'Budha';
+
+	 	$arrstatus = array();
+	 	$arrstatus['1']		= 'Berhak';
+	 	$arrstatus['2']		= 'Tidak Berhak';
+
+		return view('mahasiswa.add_mahasiswa', ['arragama'=>$arragama, 'arrstatus'=>$arrstatus]);
 	}
 
 	public function store(MahasiswaRequests $requests){
@@ -33,8 +45,10 @@ class MahasiswaController extends Controller
 		$model->nama 			= $requests['nama'];
 		$model->tempatlahir 	= $requests['tempatlahir'];
 		$model->tanggallahir 	= $requests['tanggallahir'];
+		$model->agama 			= $requests['agama'];
 		$model->asalsekolah 	= $requests['asalsekolah'];
 		$model->namaortu 		= $requests['namaortu'];
+		$model->status 			= $requests['status'];
 		$save = $model->save();
 		
 
@@ -69,9 +83,21 @@ class MahasiswaController extends Controller
 
 		$model = new ModelMahasiswa;
 
+		$arragama = array();
+	 	$arragama[''] 			= 'Pilih';
+	 	$arragama['Islam'] 		= 'Islam';
+	 	$arragama['Katholik'] 	= 'Katholik';
+	 	$arragama['Protestan'] 	= 'Protestan';
+	 	$arragama['Hindu'] 		= 'Hindu';
+	 	$arragama['Budha']		= 'Budha';
+
+	 	$arrstatus = array();
+	 	$arrstatus['1']		= 'Berhak';
+	 	$arrstatus['2']		= 'Tidak Berhak';
+
 		$model->nim = $nim;
 		$data = $model->edit();
-		return view('mahasiswa.edit_mahasiswa', ['data'=>$data]);
+		return view('mahasiswa.edit_mahasiswa', ['data'=>$data, 'arragama'=>$arragama, 'arrstatus'=>$arrstatus]);
 	}
 
 	public function update(MahasiswaRequests $requests){
@@ -84,9 +110,11 @@ class MahasiswaController extends Controller
 		$data->nim 			= $requests['nim'];
 		$data->nama 		= $requests['nama'];
 		$data->tempatlahir 	= $requests['tempatlahir'];
-		$data->tanggallahir = $requests['tanggallahir'];
+		$data->tanggallahir	= $requests['tanggallahir'];
+		$data->agama 		= $requests['agama'];
 		$data->asalsekolah 	= $requests['asalsekolah'];
 		$data->namaortu 	= $requests['namaortu'];
+		$data->status 		= $requests['status'];
 
 		$update = $data->save();
 
@@ -111,9 +139,21 @@ class MahasiswaController extends Controller
 		return response()->json(['return' => $statreturn]);
 	}
 
+
 	public function getdatamahasiswa()
 	{
 		$getmodel = ModelMahasiswa::all('nama','nim');
 		return Datatables::of($getmodel)->make(true);
+	}
+
+	public function detail($nim){
+		$model = new ModelMahasiswa;
+		$model->nim = $nim;
+		$datadetail = $model->detail();
+		/*foreach ($datadetail as $key => $value) {
+			echo $value->nama;
+		}*/
+		return view('mahasiswa.detail_mahasiswa', ['datadetail'=>$datadetail]);
+
 	}
 }

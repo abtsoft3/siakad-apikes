@@ -15,6 +15,10 @@ use PDF;
 
 use DB;
 
+use App;
+
+use View;
+
 class DaftarKrsController extends Controller
 {
     
@@ -32,7 +36,39 @@ class DaftarKrsController extends Controller
         foreach ($sem as $key => $csem) {
             $arrsemester[$csem->semester] = "Semester ".$csem->semester;
         }
-        return view('krs.add_krs',  ['arrsemester'=> $arrsemester]);
+
+
+        $periodekrs = $model->showperiodekrs();
+        $periodeawal ='';
+        $periodeakhir='';
+
+        foreach ($periodekrs as $key => $cperiodekrs) {
+            $periodeawal = $cperiodekrs->tglawal;
+            $periodeakhir = $cperiodekrs->tglakhir;
+        }
+
+        $statusmhs = $model->showstatusmhs();
+        $status = '';
+        foreach ($statusmhs as $key => $cstatusmhs) {
+            $status = $cstatusmhs->status;
+        }
+
+        if (date('d-m-Y') < $periodeawal) {
+            $pesan = 'Pengisian KRS akan dilaksanankan pada tanggal : '.$periodeawal.' s/d '.$periodeakhir;
+            return view('errors.errorkrs', ['pesan'=>$pesan]);
+        }
+        elseif (date('d-m-Y') > $periodeakhir) {
+            $pesan = 'Pengisian KRS telah berakhir';
+            return view('errors.errorkrs', ['pesan'=>$pesan]);
+        }
+        elseif ($status>1) {
+            $pesan = 'Anda tidak berhak mengisi KRS, silahkan konfirmasi ke bagian administrasi';
+            return view('errors.errorkrs', ['pesan'=>$pesan]);
+        }
+        else{
+            return view('krs.add_krs', ['arrsemester'=> $arrsemester]);
+        }
+        
     }
 
     public function datamk($sem){
