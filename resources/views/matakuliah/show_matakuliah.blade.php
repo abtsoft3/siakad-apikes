@@ -70,7 +70,7 @@
 						{ data: 'teori', name: 'teori' ,"className": "text-right" },
 						{ data: 'praktek', name: 'praktek' ,"className": "text-center" },
 						{ data: 'kadep', name: 'kadep' },
-						{ data: 'semester', name: 'semester',"className": "text-right"  },
+						{ data: 'semester', name: 'semester',bSortable:false,"className": "text-right"  },
 						{ data: 'bobotnilai', name: 'bobotnilai' ,"className": "text-right" },
 						{
 							"className": "action text-center",

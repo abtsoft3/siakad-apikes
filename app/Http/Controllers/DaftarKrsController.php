@@ -100,11 +100,12 @@ class DaftarKrsController extends Controller
         $datakrs = $model->showkrs();
         $datamhs = $model->showmahasiswa();
 
-        $pdf = PDF::loadView('krs.show_krs', ['datamhs'=>$datamhs, 'datakrs'=>$datakrs, 'vts'=>$sem])
+        /*$pdf = PDF::loadView('krs.show_krs', ['datamhs'=>$datamhs, 'datakrs'=>$datakrs, 'vts'=>$sem])
                     ->setPaper('a4')
                     ->setOrientation('potrait');
 
-        return $pdf->stream();
+        return $pdf->stream();*/
+		return view('krs.show_krs', ['datamhs'=>$datamhs, 'datakrs'=>$datakrs, 'vts'=>$sem]);
     }
 
     public function store(Request $request){
