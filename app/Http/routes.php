@@ -138,6 +138,8 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/editkelasmahasiswa','KelasMahasiswaController@edit');
 	Route::post('/home/updatekelasmahasiswa','KelasMahasiswaController@update');
 	Route::post('/home/deletekelasmahasiswa','KelasMahasiswaController@destroy');
+	Route::get('/home/getdatamahasiswa','MahasiswaController@getdatamahasiswa');
+	Route::post('/home/check_kelasmahasiswa','KelasMahasiswaController@checking');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {

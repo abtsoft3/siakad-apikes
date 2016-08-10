@@ -110,4 +110,10 @@ class MahasiswaController extends Controller
 		}
 		return response()->json(['return' => $statreturn]);
 	}
+
+	public function getdatamahasiswa()
+	{
+		$getmodel = ModelMahasiswa::all('nama','nim');
+		return Datatables::of($getmodel)->make(true);
+	}
 }

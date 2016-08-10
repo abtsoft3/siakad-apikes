@@ -2,7 +2,8 @@
 
 @section('title','Kelas Mahasiswa')
 @section('css')
-
+ <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
  <link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
  
  <link href="{{ URL::asset('vendors/alertify/css/alertify.min.css')}}" rel="stylesheet">
@@ -23,7 +24,9 @@
                   <div class="x_content">
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-						{!! Form::open(array('url' => '/home/storekelasmahasiswa','class'=>'form-horizontal','id'=>'form-kelas','autocomplete'=>'off')) !!}
+						{!! Form::open(array('url' => '/home/storekelasmahasiswa','class'=>'form-horizontal','id'=>'form-kelasmahasiswa','autocomplete'=>'off')) !!}
+						
+						{!! Form::hidden('temp_nim',0,array('class' => 'form-control','id'=>'temp_nim')) !!}
 							<div class="form-group" id="kdkl">
 								{!! Form::label('kode_kelas','Kelas',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
@@ -37,7 +40,7 @@
 									 <div class="input-group dtpicker">
 										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 											{!! Form::text('tahun_ajaran',null,array('class' => 'form-control','maxlength'=>'4')) !!}
-										
+											
 									</div>
 									</div>
 								</div>
@@ -56,12 +59,32 @@
 									  </div>
 									  {!! Form::close() !!}
 							</div>
+							<div class="col-lg-6 col-sm-6 col-xs-5">
+								<!--table-->
+					<table id="datatable-getmahasiswa" class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                              <th></th>
+                                <th style="text-align:center;">Nim</th>
+                                <th>Nama</th>
+                              </tr>
+                            </thead>
+					</table>
+					<!--endtable-->
+							</div>
 					</div>
-					
-					
                   </div>
 @endsection
 @section('scripts')
+
+<!-- Datatables -->
+    <script src="{{ URL::asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    
+    <script src="{{ URL::asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <!--datatable-->
+
 <script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}">
 </script>
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
@@ -75,26 +98,88 @@
 	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/bootstrap-datetimepicker.min.js')}}">
 	</script>
 <script type='text/javascript'>
-	var checkkode=0;
-	var fn_check_kodemk_exist = function(val){
-		if(val==1){
-			$('#kdkl').removeClass('has-success').addClass('has-error');
-			$('[data-bv-icon-for="kode_kelas"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
-			$('#status_kdkelas').text('kode sudah ada!').css('color','#a94442');
-			$('#btn-submit').prop('disabled',true);
-		}else{
-			$('#status_kdkelas').text('');
-			$('#btn-submit').prop('disabled',false);
-		}
-	}
+var genTable = null;
 	$(document).ready(function(){
 
 		$('.dtpicker').datetimepicker({
 				format:'YYYY'
+			}).on('dp.change dp.show', function(e) {
+				$('#form-kelasmahasiswa').bootstrapValidator('revalidateField','tahun_ajaran');
 			});
 		
+		//datatables
+		genTable = $('#datatable-getmahasiswa').DataTable({
+          processing: true,
+          ajax: '{{url("/home/getdatamahasiswa")}}',
+          paging:false,
+          ordering:false,
+          info:false,
+          searching:false,
+          columns: [
+	          {
+
+	              "className": "text-center",
+	              "data": null,
+	              "bSortable": false,
+	              "orderable":false,
+	              'mRender': function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                          return '<input type="checkbox" name="kodemk" class="chkbox" value="'+data.nim+'"">';
+                        }
+                        return data;
+                    }
+	              
+	            },
+              {data: 'nim', name: 'nim',"className":"text-right"},
+              {data: 'nama', name: 'nama',"className":"text-center"}
+          ]
+      });
+
+	var sbody = $('#datatable-getmahasiswa tbody');
+      sbody.on('click','.chkbox',function(){
+      	if ($('#tahun_ajaran').val()!='') {
+      		var data = genTable.row($(this).parents('tr')).data();
+      		if($(this).is(':checked')){
+      				var this_checkbox = this;
+		      		var kode_kelas = $('#kode_kelas').val();
+		      		var tahun_ajaran = $('#tahun_ajaran').val();
+		      		var semester = $('#semester').val();
+	      			var strInput ='<input type="hidden" name="nim[]" value="'+data.nim+'" id="'+data.nim+'" />';
+	      			$.ajax({
+						type: 'POST',
+						url: "{{ url('/home/check_kelasmahasiswa') }}",
+						data: {'semester':semester,'nim':data.nim,'kodekelas':kode_kelas,
+						'tahun_ajaran':tahun_ajaran,'_token' : $('input[name="_token"]').val()},
+						dataType: 'json',
+						success: function (returndata) {
+								if(parseInt(returndata.return)==1){
+									alertify.error('Data sudah ada!!');
+									this_checkbox.checked=false;
+								}else{
+									$('#temp_nim').val(1);
+									$(strInput).appendTo('#form-kelasmahasiswa');
+									alertify.success(data.nim+' : '+data.nama+' ditambahkan');
+								}
+								return false;
+							},
+						error: function (xhr,textStatus,errormessage) {
+								alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+							}
+						});
+	      	}else{
+	      		var idfind ="#"+data.nim+"";
+	      		$('#form-kelasmahasiswa').find(idfind).remove();
+	      		alertify.error(data.nim+' : '+data.nama+' dibuang');
+	      	}
+      }else{
+      		this.checked=false;
+      		alertify.alert('Info!!','Data Belum Lengkap!');
+      	}
+      	/**/
+        
+      });
 		
-		$('#form-kelas').bootstrapValidator({
+		$('#form-kelasmahasiswa').bootstrapValidator({
 				live: 'enabled',
 				message: 'This value is not Valid',
 				feedbackIcons: {
@@ -102,21 +187,41 @@
 					invalid: 'glyphicon glyphicon-remove',
 					validating: 'glyphicon glyphicon-refresh'
 				},
-				excluded:'disabled',
+				excluded:'enabled',
 				fields: {
 					
 					kode_kelas: {
 						validators: {
 							notEmpty: {
-								message: 'Silahkan isi kode'
+								message: 'Silahkan isi kelas'
 							}
 							
 						}
 					},
-					nama_kelas: {
+					tahun_ajaran: {
 						validators: {
 							notEmpty: {
-								message: 'Silahkan isi kelas'
+								message: 'Silahkan isi tahun'
+							},
+								numeric: {
+	                            message: 'tahun salah!',
+	                            // The default separators
+	                            thousandsSeparator: '',
+	                            decimalSeparator: ''
+                        	}
+						}
+					},
+					semester: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi semester'
+							}
+						}
+					},
+					temp_nim:{
+						validators:{
+							notEmpty:{
+								message: 'Silahkan isi nim'
 							}
 						}
 					}
@@ -124,6 +229,7 @@
 				}
 			}).on('success.form.bv', function (e) {
         // Prevent form submission
+        
 				e.preventDefault();
 				// Get the form instance
 				var $form = $(e.target);
@@ -133,7 +239,7 @@
 				
 				//formData.append('file','file);
 				var data = $form.serialize();
-				$('#form-kelas input').attr("disabled", "disabled");
+				$('#form-kelasmahasiswa input').attr("disabled", "disabled");
 				$.ajax({
 					type: 'POST',
 					url: $form.attr('action'),
@@ -150,12 +256,13 @@
 							return false;
 						},
 						error: function (xhr,textStatus,errormessage) {
-							alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+							alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!,Periksa Kembali Data Anda!!");
 						},
 						complete: function () {
-							$('#form-kelas').bootstrapValidator('resetForm',true);
+							$('#form-kelasmahasiswa').bootstrapValidator('resetForm',false);
 							$('#btn-submit').removeAttr('disabled');
-							$('#form-kelas input').removeAttr("disabled");
+							$('#form-kelasmahasiswa input').removeAttr("disabled");
+							$('.chkbox').prop('checked',false);
 						}
 					});
 				});
