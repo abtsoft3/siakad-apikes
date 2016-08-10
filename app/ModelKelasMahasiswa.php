@@ -17,4 +17,13 @@ class ModelKelasMahasiswa extends Model
 		);
 		return Validator::make($input, $rules);
 	}
+
+	public function relasi_kelas()
+	{
+		return $this->hasOne('App\ModelKelas','kode_kelas','kode_kelas');
+	}
+	public function relasi_mahasiswa()
+	{
+		return $this->hasOne('App\ModelMahasiswa','nim','nim');
+	}
 }

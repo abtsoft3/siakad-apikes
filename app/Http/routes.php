@@ -139,11 +139,13 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/showkelasmahasiswa','KelasMahasiswaController@index');
 	Route::get('/home/addkelasmahasiswa','KelasMahasiswaController@add');
 	Route::post('/home/storekelasmahasiswa','KelasMahasiswaController@store');
-	Route::get('/home/editkelasmahasiswa','KelasMahasiswaController@edit');
+	Route::get('/home/editkelasmahasiswa/{id}','KelasMahasiswaController@edit');
 	Route::post('/home/updatekelasmahasiswa','KelasMahasiswaController@update');
-	Route::post('/home/deletekelasmahasiswa','KelasMahasiswaController@destroy');
+	Route::get('/home/deletekelasmahasiswa/{id}','KelasMahasiswaController@destroy');
 	Route::get('/home/getdatamahasiswa','MahasiswaController@getdatamahasiswa');
 	Route::post('/home/check_kelasmahasiswa','KelasMahasiswaController@checking');
+	Route::get('/home/datakelasmahasiswa','KelasMahasiswaController@getKelasMahasiswa');
+
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {

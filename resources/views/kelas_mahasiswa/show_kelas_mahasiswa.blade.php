@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','MataKuliah')
+@section('title','Kelas Mahasiswa')
 @section('css')
   <!-- Datatables -->
     <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
@@ -17,24 +17,24 @@
 
 <div class="x_panel">
   <div class="x_title">
-      <h2>Data Mahasiswa</h2>
+      <h2>Data Kelas Mahasiswa</h2>
                     
       <div class="clearfix">
-				<a href="{{url('/home/addmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+				<a href="{{url('/home/addkelasmahasiswa')}}" class="btn btn-success pull-right">
+          <i class="fa fa-plus"></i> Tambah</a>
 			</div>
   </div>
   <div class="x_content">
 				  
   <!--table-->
-    <table id="datatable-mahasiswa" class="table table-striped table-bordered">
+    <table id="datatable-kelasmahasiswa" class="table table-striped table-bordered">
       <thead>
         <tr>
+          <th>Tahun Ajaran</th>
+          <th>Semester</th>
+          <th>Kelas</th>
           <th>Nim</th>
           <th>Nama</th>
-          <th>Tempat Lahir</th>
-          <th>Tanggal Lahir</th>
-          <th>Asal Sekolah</th>
-          <th>Nama Orang Tua</th>
           <th></th>
         </tr>
       </thead>
@@ -55,16 +55,97 @@
     <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
     <script type='text/javascript'>
     var gentable=null;
-		$(document).ready(function(){
-			gentable = $('#datatable-mahasiswa').DataTable();
+    $(document).ready(function(){
+      gentable = $('#datatable-kelasmahasiswa').DataTable({
+          processing: true,
 
-     
+          ajax: '{{url("/home/datakelasmahasiswa")}}',
+          columns: [
+              {data: 'tahun_ajaran', name: 'tahun_ajaran'},
+              {data: 'semester', name: 'semester'},
+              {data: 'relasi_kelas.nama_kelas', name: 'relasi_kelas.ke'},
+              {data: 'nim', name: 'nim'},
+              {data: 'relasi_mahasiswa.nama', name: 'relasi_mahasiswa.nama'},
+              {
+              "className": "action text-center",
+              "data": null,
+              "bSortable": false,
+              "defaultContent": "" +
+              "<div class='btn-group' role='group'>" +
+              "  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='left' title='Edit'><i class='fa fa-edit'></i></button>" +
+              "  <button class='delete btn btn-danger btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='right' title='Hapus'><i class='fa fa-trash-o'></i></button>" +
+              "<button type=\"button\" class=\"btn btn-success btn-xs detail\" rel='tooltip' data-toggle='tooltip' data-placement='right' title='Detail'><i class='fa fa-list'></i>" +
+              "<span class=\"sr-only\">Action</span></button>" +
+              "</div>"
+            }
+          ],
+          drawCallback: function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+
+            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
+              if ( last !== group ) {
+                $(rows).eq( i ).before(
+                  '<tr class="group"><td colspan="5">'+'Kelas '+group+'</td></tr>'
+                );
+                last = group;
+              }
+            });
+
+              api.column(1, {page:'current'} ).data().each( function ( group, i ) {
+              if ( last !== group ) {
+                $(rows).eq( i ).before(
+                  '<tr class="group"><td colspan="3">'+'Semester '+group+'</td></tr>'
+                );
+                last = group;
+              }
+            });
+
+            api.column(0, {page:'current'} ).data().each( function ( group, i ) {
+              if ( last !== group ) {
+                $(rows).eq( i ).before(
+                  '<tr class="group"><td colspan="3">'+'Tahun Ajaran '+group+'</td></tr>'
+                );
+                last = group;
+              }
+            });
+           
+             
+        },
+        columnDefs: [
+            { "visible": false, "targets": [0,1,2] }
+          ],
+      });
+
+      var sbody = $('#datatable-kelasmahasiswa tbody');
+      sbody.on('click','.edit',function(){
+        var data = gentable.row($(this).parents('tr')).data();
+        window.location.href='/home/editkelasmahasiswa/'+data.id;
+      }).
+      on('click','.delete',function(){
+        var data = gentable.row($(this).parents('tr')).data();
+        alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
+          if (e) {
+            $.get("/home/deletekelasmahasiswa/"+data.id, function(data, status){
+              //alert(data)
+                if(parseInt(data.return)==1){
+                  alertify.success('Data berhasil dihapus');
+                  gentable.ajax.reload();
+                }else{
+                  alertify.error('Gagal menghapus');
+                }
+                
+            },'json');
+          }
+        });   
+      });
       //tooltip
       $('body').tooltip({
         selector: '[rel=tooltip]'
       });
 
-		});
+    });
 
     
 

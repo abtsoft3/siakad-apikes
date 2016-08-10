@@ -125,7 +125,6 @@
 							dataType: 'json',
 							success: function (data) {
 								response($.map(data, function (obj) {
-									console.log(obj);
 									return {
 										label: obj.nim,
 										value: obj.nim,
