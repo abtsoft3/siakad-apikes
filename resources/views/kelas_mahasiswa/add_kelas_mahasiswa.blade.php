@@ -18,7 +18,7 @@
 			<div class="x_panel">
                   <div class="x_title">
                     <h2>Tambah Data Kelas Mahasiswa</h2>
-                    <a href="{{url('/home/showkelas')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+                    <a href="{{url('/home/showkelasmahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -30,7 +30,7 @@
 							<div class="form-group" id="kdkl">
 								{!! Form::label('kode_kelas','Kelas',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::select('kode_kelas',$datakelas,'Pilih',array('class' => 'form-control')) !!}
+									{!! Form::select('kode_kelas',$datakelas,$model_edit->kode_kelas,array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
@@ -187,7 +187,7 @@ var genTable = null;
 					invalid: 'glyphicon glyphicon-remove',
 					validating: 'glyphicon glyphicon-refresh'
 				},
-				excluded:'enabled',
+				excluded:'disabled',
 				fields: {
 					
 					kode_kelas: {
@@ -215,13 +215,6 @@ var genTable = null;
 						validators: {
 							notEmpty: {
 								message: 'Silahkan isi semester'
-							}
-						}
-					},
-					temp_nim:{
-						validators:{
-							notEmpty:{
-								message: 'Silahkan isi nim'
 							}
 						}
 					}
