@@ -16,7 +16,7 @@
            <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
 		   Create at :
             
-                 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswa')->user()->created_at)) }}</span> 
+                 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->created_at)) }}</span> 
             </div>
           </div>
      <div class="clearfix"></div>
@@ -31,7 +31,7 @@
 					<div class="form-group">
 						<label class="col-md-5 control-label">Password Lama</label>
 						<div class="col-md-5">
-						<input type="hidden" name="nim" value="{{Auth::guard('usermahasiswa')->user()->nim}}" />
+						<input type="hidden" name="nim" value="{{Auth::guard('usermahasiswas')->user()->nim}}" />
 							{!! Form::password('LastPassword',array('class' => 'form-control')) !!}
 						</div>
 					</div>
@@ -58,7 +58,7 @@
 		</div>
 		<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
 		   Last login :
-				 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswa')->user()->updated_at)) }}</span> 
+				 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->updated_at)) }}</span> 
             </div>
 	</div>		
  </div>
