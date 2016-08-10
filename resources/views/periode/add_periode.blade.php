@@ -75,7 +75,7 @@
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
 
-<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment.min.js')}}">
+	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment.min.js')}}">
 	</script>
 	<script src="{{ URL::asset('vendors/bootstrapdatetimepicker/moment-with-locales.min.js')}}">
 	</script>

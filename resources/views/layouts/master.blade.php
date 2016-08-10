@@ -91,22 +91,19 @@
                     </ul>
                   </li>
                  
-                  <!--li><a><i class="fa fa-table"></i> DATASET <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> Kelas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                      <li><a href="{{ url('/home/addkelas') }}"> Tambah</a></li>
+                      <li><a href="{{ url('/home/showkelas') }}"> Tampilkan</a></li>
                     </ul>
                   </li>
           
-                  <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> Kelas Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
+                      <li><a href="{{ url('/home/addkelasmahasiswa') }}"> Tambah</a></li>
+                      <li><a href="{{ url('/home/showkelasmahasiswa') }}"> Tampilkan</a></li>
                     </ul>
-                  </li-->
+                  </li>
                   
         
           

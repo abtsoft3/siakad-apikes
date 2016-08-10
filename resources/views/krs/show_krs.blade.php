@@ -54,10 +54,14 @@
   <tr>
     <td height="27" colspan="7" valign="top"><table width="100%" border="0">
       <tr>
-        <td width="15%" valign="top" align="center"><img src="{{url('images/logoapikes.png')}}" width="70" height="80"></td>
-        <td width="85%" valign="top" align="center"><p>AKADEMI   PEREKAM  DAN INFORMASI  KESEHATAN  IMELDA MEDAN<br />
-          Program Pendidikan Diploma – III <br />
-          Jl. Bilal No. 24 Telp. :   6630210 P. Brayan Darat Medan</p></td>
+        <td width="15%" valign="top" align="center"><img src="images/logoapikes.png" width="70" height="80"></td>
+        <td width="85%" valign="top" align="center">
+        <p>
+          <b style="color:#00C;">AKADEMI   PEREKAM MEDIK DAN INFOKES (APIKES) IMELDA</b><br />
+          Jl. Bilal No. 52 Kelurahan Pulo Brayan Darat I Kecamatan Medan Timur, Kode Pos 20239<br>
+          Tel. (061) 6630210-6610072-6631380<br>
+          Fax. (061) 6618457
+        </p></td>
       </tr>
     </table>
     </td>
@@ -82,7 +86,7 @@
         <td>: {{ $cdatamhs->nama }}</td>
       </tr>
       <tr>
-        <td>Angkatan / tahun</td>
+        <td>Angkatan / Tahun</td>
         <td>: {{ $cdatamhs->angkatan }} / {{ $cdatamhs->tahun }}</td>
       </tr>
       <tr>
@@ -130,7 +134,7 @@
       <tr>
         <td width="34%" valign="top">
         	Disetujui Oleh :<br />
-            PUDIR I Bidang Akademik<br /><br /><br /><br />
+            WADIR I Bidang Akademik<br /><br /><br /><br />
             
             
             

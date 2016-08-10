@@ -84,6 +84,7 @@ Route::group(['middleware'=>'auth'],function(){
 	//mahasiswa
 	Route::get('/home/showmahasiswa','MahasiswaController@index');
 	Route::get('/home/deletemahasiswa/{nim}','MahasiswaController@destroy');
+	Route::get('/home/detailmahasiswa/{nim}','MahasiswaController@detail');
 	
 	
 	Route::post('/home/nim_autocomplete','MahasiswaController@autocomplete');
@@ -119,6 +120,27 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/adddosen','DosenController@add');
 	Route::post('/home/adddosen','DosenController@store');
 
+	//kelas
+	Route::get('/home/showkelas','KelasController@index');
+	Route::get('/home/edit_kelas/{id}','KelasController@edit');
+	Route::post('/home/editkelas','KelasController@update');
+	Route::get('/home/addkelas','KelasController@add');
+	Route::post('/home/storekelas','KelasController@store');
+	Route::post('/home/kode_kelas_autocomplete','KelasController@autocomplete');
+	Route::controller('/home/datatableskelas', 'KelasController', [
+		'getData'  => 'datatableskelas.data',
+		'getIndex' => 'datatableskelas',
+	]);
+	Route::post('/home/deletekelas','KelasController@destroy');
+	//kelas mahasiswa
+	Route::get('/home/showkelasmahasiswa','KelasMahasiswaController@index');
+	Route::get('/home/addkelasmahasiswa','KelasMahasiswaController@add');
+	Route::post('/home/storekelasmahasiswa','KelasMahasiswaController@store');
+	Route::get('/home/editkelasmahasiswa','KelasMahasiswaController@edit');
+	Route::post('/home/updatekelasmahasiswa','KelasMahasiswaController@update');
+	Route::post('/home/deletekelasmahasiswa','KelasMahasiswaController@destroy');
+	Route::get('/home/getdatamahasiswa','MahasiswaController@getdatamahasiswa');
+	Route::post('/home/check_kelasmahasiswa','KelasMahasiswaController@checking');
 });
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {

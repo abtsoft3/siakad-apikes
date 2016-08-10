@@ -33,8 +33,8 @@
           <th>Nama</th>
           <th>Tempat Lahir</th>
           <th>Tanggal Lahir</th>
-          <th>Asal Sekolah</th>
-          <th>Nama Orang Tua</th>
+          <th>Agama</th>
+          <th>Status</th>
           <th></th>
         </tr>
       </thead>
@@ -64,14 +64,15 @@
               {data: 'nama', name: 'nama'},
               {data: 'tempatlahir', name: 'tempatlahir'},
               {data: 'tanggallahir', name: 'tanggallahir'},
-              {data: 'asalsekolah', name: 'asalsekolah'},
-              {data: 'namaortu', name: 'namaortu'},
+              {data: 'agama', name: 'agama'},
+              {data: 'status', name: 'status'},
               {
               "className": "action text-center",
               "data": null,
               "bSortable": false,
               "defaultContent": "" +
               "<div class='btn-group' role='group'>" +
+               "  <button class='list btn btn-success btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='right' title='Detail'><i class='fa fa-list'></i></button>" +
               "  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='left' title='Edit'><i class='fa fa-edit'></i></button>" +
               "  <button class='delete btn btn-danger btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='right' title='Hapus'><i class='fa fa-trash-o'></i></button>" +
               "<button type=\"button\" class=\"btn btn-success btn-xs detail\" rel='tooltip' data-toggle='tooltip' data-placement='right' title='Detail'><i class='fa fa-list'></i>" +
@@ -85,6 +86,10 @@
       sbody.on('click','.edit',function(){
         var data = gentable.row($(this).parents('tr')).data();
         window.location.href='/home/editmahasiswa/'+data.nim;
+      }).
+      on('click','.list', function(){
+        var data = gentable.row($(this).parents('tr')).data();
+        window.location.href='/home/detailmahasiswa/'+data.nim;
       }).
       on('click','.delete',function(){
         var data = gentable.row($(this).parents('tr')).data();
