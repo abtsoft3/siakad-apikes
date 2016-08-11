@@ -30,7 +30,7 @@
 							<div class="form-group" id="kdkl">
 								{!! Form::label('kode_kelas','Kelas',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::select('kode_kelas',$datakelas,$model_edit->kode_kelas,array('class' => 'form-control')) !!}
+									{!! Form::select('kode_kelas',$datakelas,'',array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							

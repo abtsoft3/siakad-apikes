@@ -120,7 +120,7 @@ CREATE TABLE `kelas` (
   `kode_kelas` varchar(6) NOT NULL,
   `nama_kelas` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `kelas_mahasiswa`
@@ -133,7 +133,7 @@ CREATE TABLE `kelas_mahasiswa` (
   `tahun_ajaran` year(4) DEFAULT NULL,
   `semester` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `khs`
