@@ -15,10 +15,10 @@
 @section('content')
 			<div class="x_panel">
                   <div class="x_title">
-                    <h2>Data User Mahasiswa</h2>
+                    <h2>Data User Dosen</h2>
                     
                     <div class="clearfix">
-						<a href="{{url('/home/register_mahasiswa')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+						<a href="{{url('/home/register_dosen')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
 					</div>
                   </div>
                   <div class="x_content">
@@ -27,7 +27,7 @@
 					<table id="datatable-mk" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                <th>NIM</th>
+                                <th>NIDN</th>
                                 <th>Nama</th>
                                 <th>E-mail</th>
 								<th>Tanggal Pembuatan</th>
@@ -56,9 +56,9 @@
 			gentable=$('#datatable-mk').DataTable({
 				  processing: true,
 				 //serverSide: true,
-					ajax: "{!! route('datatables_usermahasiswa.data') !!}",
+					ajax: "{{ url('/home/getdata_userdosen') }}",
 					columns: [
-						{ data: 'nim', name: 'nim',"className": "text-center" },
+						{ data: 'nidn', name: 'nidn',"className": "text-center" },
 						{ data: 'nama', name: 'nama' },
 						{ data: 'email', name: 'email' },
 						{ data: 'created_at', name: 'created_at' ,"className": "text-center" },
@@ -82,13 +82,13 @@
 		var sbody = $('#datatable-mk tbody');
 		sbody.on('click','.edit',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			window.location.href='/home/edit_usermahasiswa/'+data.id;
+			window.location.href='/home/edit_users_dosen/'+data.id;
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
 			alertify.confirm("Konfirmasi","Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
-					$.post("/home/delete_usermahasiswa",{'id':data.id,_token:$('#token').val()},function(data,status){
+					$.post("/home/delete_userdosen",{'id':data.id,_token:$('#token').val()},function(data,status){
 							if(parseInt(data.return)==1){
 								alertify.success('Data berhasil dihapus');
 								gentable.ajax.reload();

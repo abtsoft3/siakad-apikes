@@ -140,21 +140,7 @@
             </div>
 	</div>		
  </div>
- <!-- Modal -->
-<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Upload</h4>
-      </div>
-      <div class="modal-body">
-			
-      </div>
-      
-    </div>
-  </div>
-</div>
+
 @endsection
 @section('scripts')
 	<script src="{{ URL::asset('vendors/cropper-master/dist/cropper.min.js')}}"></script>

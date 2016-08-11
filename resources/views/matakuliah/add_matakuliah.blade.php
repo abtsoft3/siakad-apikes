@@ -127,6 +127,43 @@
 		}
 	}
 	$(document).ready(function(){
+
+		if ($("#nim").length>0) {
+
+				$('#nim').autocomplete({
+					source: function (request, response) {
+						$.ajax({
+							url: "{{url('/home/mahasiswa_user_autocomplete')}}",
+							type: 'POST',
+							data: {
+								term: $('#nim').val(),
+								_token : $('input[name="_token"]').val()
+							},
+							dataType: 'json',
+							success: function (data) {
+								response($.map(data, function (obj) {
+									return {
+										label: obj.nim,
+										value: obj.nim,
+										nama: obj.nama
+									}
+								}));
+							}
+						});
+					},
+					change: function (event, ui) {
+						if (ui.item != null) {
+							$('#nim').val(ui.item.value);
+							$('#nama').val(ui.item.nama);
+						}
+					}
+				}).data('ui-autocomplete')._renderItem = function (ul, item) {
+					//location
+					return ($('<li>').append('<a><strong>' + item.label + '</strong>, <i><strong>' + item.nama + '</strong> </i></a>').appendTo(ul));
+				};
+
+    }; //end autcomplete
+
 		$('#kodemk').autocomplete({
             source: function (request, response) {
                 $.ajax({

@@ -41,7 +41,13 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="{{ URL::asset('images/img.jpg')}}" alt="img-profile" class="img-circle profile_img">
+                 @if (Auth::user()->imageuser===null)
+                   <img src="{{ URL::asset('images/user.png')}}" alt="img-profile" class="img-circle profile_img">
+                    @else
+                    <img class="img-circle profile_img" src="data:image/jpg;base64,{{ Auth::user()->imageuser}}" alt="profile-picture">
+                    
+                    @endif
+                
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -209,13 +215,18 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ URL::asset('images/img.jpg')}}" alt="img1"> {{ Auth::user()->name }}
+                     @if (Auth::user()->imageuser===null)
+                         <img src="{{ URL::asset('images/user.png')}}" alt="img1">
+                    @else
+                        <img src="data:image/jpg;base64,{{ Auth::user()->imageuser}}" alt="profile-picture">
+                    
+                    @endif
+                    {{ Auth::user()->name }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="{{url('/')}}"> Profile</a></li>
-                   
-                    
+                    <li><a href="{{url('/home')}}"> <i class="fa fa-user pull-right"></i>Profile</a></li>
+                    <li><a href="{{ url('/home/changepassword_admin') }}"><i class="fa fa-cog pull-right"></i>Ganti Password</a></li>                 
                     <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>

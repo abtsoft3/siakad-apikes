@@ -146,7 +146,13 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/home/check_kelasmahasiswa','KelasMahasiswaController@checking');
 	Route::get('/home/datakelasmahasiswa','KelasMahasiswaController@getKelasMahasiswa');
 
+	//ganti password admin
+	Route::get('/home/changepassword_admin','UserController@changepassword_admin');
+	Route::post('/home/changepassword_admin','UserController@post_changepassword_admin');
+	Route::post('/home/admin/TempUpload','UserController@uploadimage');
 });
+
+	
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
    //here 
@@ -162,9 +168,21 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::get('/home/show_users_mahasiswa',function(){
 		return view('user_mahasiswa.show_users_mahasiswa');
 	});
+
+	Route::post('/home/delete_usermahasiswa','UserController@delete_usermahasiswa');
+	Route::get('/home/edit_usermahasiswa/{id}','UserController@edit_usermahasiswa');
+	Route::post('/home/update_user_mahasiswa','UserController@update_usermahasiswa');
+
 	//dosen user register
 	Route::get('/home/register_dosen', 'UserController@add_user_dosen');
 	Route::post('/home/store_register_user_dosen', 'UserController@store_user_dosen');
+	Route::get('/home/show_users_dosen','UserController@show_user_dosen');
+	Route::get('/home/getdata_userdosen','UserController@getDataDosen');
+	Route::get('/home/edit_users_dosen/{id}','UserController@edit_user_dosen');
+	Route::post('/home/update_users_dosen','UserController@update_dosen');
+	Route::post('/home/delete_userdosen','UserController@destroy_dosen');
+	Route::post('/home/dosen_user_autocomplete','UserController@autocomplete_dosen');
+
 
 	//administrator user
 	Route::get('/home/show_useradmin','UserController@show_admin');
