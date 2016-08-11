@@ -6,11 +6,94 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\UserMahasiswa;
+use App\ModelUser;
 use DB;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Redirect;
 class UserController extends Controller
 {
     //
+    public function show_admin(){
+    	return view('user_admin.show');
+    }
+
+      public function add_user_admin()
+    {
+        return view('user_admin.register');
+    }
+
+    public function store_user_admin(Request $request)
+    {
+    	
+        $validasi = $this->validate($request,[
+        		'name'=>'required',
+        		'email'=>'required|email',
+        		'password' => 'required|min:6|confirmed'
+        	]);
+        	$model = new ModelUser;
+            $model->name = $request->name;
+			$model->email = $request->email;
+			$model->password = bcrypt($request->password);
+			$model->remember_token = $request->_token;
+			$model->admin = $request->admin;
+			$execute=$model->save();
+            if($execute)
+            {
+                return redirect('/home/show_useradmin');
+            }else{
+            	return Redirect::back()->withInput($request->except('password'));
+        	}
+            
+    }
+
+    public function update_admin(Request $request)
+    {
+    	 $validasi = $this->validate($request,[
+        		'name'=>'required',
+        		'email'=>'required|email',
+        		'password' => 'required|min:6|confirmed'
+        	]);
+    	 $id=$request->id;
+    	$model_update = ModelUser::find($id);
+    	if($model_update)
+    	{
+    		$model_update->name = $request->name;
+			$model_update->email = $request->email;
+			$model_update->password = bcrypt($request->password);
+			$model_update->remember_token = $request->_token;
+			$model_update->admin = $request->admin;
+			$execute=$model_update->save();
+			 if($execute)
+            {
+                return redirect('/home/show_useradmin');
+            }else{
+            	return Redirect::back()->withInput($request->except('password'));
+        	}
+    	}
+    }
+
+    public function edit_admin($id)
+    {
+    	$modeledit = ModelUser::find($id);
+    	return view('user_admin.edit',array('modeledit'=>$modeledit));
+    }
+
+    public function getDataAdmin()
+    {
+    	return Datatables::of(ModelUser::query())->make(true);
+    }
+
+    public function destroy_admin(Request $request)
+    {
+    	$statreturn = 0;
+		$term = $request->get('id');
+		if(ModelUser::destroy($term)){
+			$statreturn=1;
+		}
+		return response()->json(['return' => $statreturn]);
+    }
+
+
 	public function add_user_mahasiswa(){
 		return view('user_mahasiswa.register');
 	}

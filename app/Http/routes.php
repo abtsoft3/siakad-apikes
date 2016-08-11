@@ -168,6 +168,16 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	//dosen user register
 	Route::get('/home/register_dosen', 'UserController@add_user_dosen');
 	Route::post('/home/store_register_user_dosen', 'UserController@store_user_dosen');
+
+	//administrator user
+	Route::get('/home/show_useradmin','UserController@show_admin');
+	Route::get('/home/register_admin', 'UserController@add_user_admin');
+	Route::post('/home/store_register_user_admin', 'UserController@store_user_admin');
+	Route::get('/home/edit_useradmin/{id}','UserController@edit_admin');
+	Route::post('/home/update_useradmin','UserController@update_admin');
+	Route::get('/home/data_user_admin','UserController@getDataAdmin');
+
+	Route::post('/home/delete_user_admin','UserController@destroy_admin');
 });
 
 Route::group(['middleware' => ['usermahasiswas']],function(){
