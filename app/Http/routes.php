@@ -123,6 +123,9 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/home/adddosen','DosenController@store');
 	Route::get('/home/deletedosen/{iddosen}','DosenController@destroy');
 
+	//kelas dosen
+	Route::get('/home/addkelasdosen','KelasDosenController@index');
+
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');
 	Route::get('/home/edit_kelas/{id}','KelasController@edit');

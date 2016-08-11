@@ -76,6 +76,12 @@
                       <li><a href="{{url('/home/showdosen')}}">Tampilkan</a></li>
                     </ul>
                   </li>
+          <li><a><i class="fa fa-table"></i> Kelas Dosen <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('/home/addkelasdosen')}}">Tambah</a></li>
+                      <li><a href="{{url('/home/showdosen')}}">Tampilkan</a></li>
+                    </ul>
+                  </li>
 				 <li><a><i class="fa fa-clone"></i> MataKuliah <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/addmatakuliah')}}">Tambah</a></li>
