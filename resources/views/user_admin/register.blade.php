@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/home/store_register_user_admin') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -67,10 +67,17 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-md-4 control-label">Administrator</label>
+                            <div class="col-md-6">
+                            <?php echo Form::checkbox('admin',1,false); ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-btn fa-user"></i> Register
                                 </button>
+                                 <a href="{{ url('/home/show_useradmin') }}" class="btn btn-success"><i class="fa fa-long-arrow-left"></i> Kembali</a>
                             </div>
                         </div>
                     </form>

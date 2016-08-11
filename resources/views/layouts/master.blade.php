@@ -107,28 +107,38 @@
                   
         
           
-				  <li><a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
+				         <li>
+                  <a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#level1_1">Tambah</a>
                         </li>
                         <li><a href="#level1_2">Tampilkan</a>
                         </li>
                     </ul>
+                  </li>
+
+                 <h3>User Management</h3>
+              <li>
+                <a><i class="fa fa-bug"></i> Admin <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('/home/register_admin')}}"> Tambah</a></li>
+                       <li><a href="{{url('/home/show_useradmin')}}">Tampilkan</a></li>
+                    </ul>
                   </li> 
-                
-                 
-				 <li><a><i class="fa fa-bug"></i> Dosen <span class="fa fa-chevron-down"></span></a>
+				     <li>
+                <a><i class="fa fa-bug"></i> Dosen <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-						<li><a href="{{url('/home/register_dosen')}}"> Tambah</a></li>
-						 <li><a href="#">Tampilkan</a></li>
+          						<li><a href="{{url('/home/register_dosen')}}"> Tambah</a></li>
+          						 <li><a href="{{url('/home/show_users_dosen')}}">Tampilkan</a></li>
                     </ul>
                   </li>
-				<li><a><i class="fa fa-bug"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
+				      <li>
+              <a><i class="fa fa-bug"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-						<li><a href="{{url('/home/register_mahasiswa')}}"> Tambah</a></li>
-						<li><a href="{{url('/home/show_users_mahasiswa')}}">Tampilkan</a></li>
+          						<li><a href="{{url('/home/register_mahasiswa')}}"> Tambah</a></li>
+          						<li><a href="{{url('/home/show_users_mahasiswa')}}">Tampilkan</a></li>
                     </ul>
-                  </li>
+               </li>
 
 
                   <!-- <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
