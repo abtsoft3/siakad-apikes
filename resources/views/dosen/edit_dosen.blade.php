@@ -23,11 +23,14 @@
                   <div class="x_content">
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
-						{!! Form::open(array('url' => '/home/adddosen','class'=>'form-horizontal','id'=>'form-dosen')) !!}
+
+						@foreach($datadosen as $key=>$cdatadosen)
+
+						{!! Form::open(array('url' => '/home/editdosen/'.$cdatadosen->iddosen,'class'=>'form-horizontal','id'=>'form-dosen')) !!}
 							<div class="form-group">
 								{!! Form::label('nidn','NIDN',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::text('nidn',null,array('class' => 'form-control','maxlength'=>'11')) !!}
+									{!! Form::text('nidn', $cdatadosen->nidn, array('class' => 'form-control','maxlength'=>'10')) !!}
 									<!-- <small id="status_nidn"></small> -->
 								</div>
 							</div>
@@ -35,7 +38,7 @@
 							<div class="form-group">
 								{!! Form::label('nama','Nama',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
-									{!! Form::text('nama',null,array('class' => 'form-control')) !!}
+									{!! Form::text('nama', $cdatadosen->nama,array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
@@ -44,7 +47,7 @@
 								<div class="col-sm-5">
 									 <div class="input-group" id="dtpicker">
 										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-											{!! Form::text('tanggallahir', null, array('class' => 'form-control')) !!}
+											{!! Form::text('tanggallahir', $cdatadosen->tgllahir, array('class' => 'form-control')) !!}
 										</div>
 									</div>
 								</div>
@@ -52,44 +55,45 @@
 							<div class="form-group">
 								{!! Form::label('jabatanakademik','Jabatan Akademik',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-4">
-									{!! Form::select('jabatanakademik', $arrjabakademik,'Pilih',array('class' => 'form-control')) !!}
+									{!! Form::select('jabatanakademik', $arrjabakademik, $cdatadosen->jabatanakademik,array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
 								{!! Form::label('sertifikat','Sertifikat',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
-									{!! Form::text('sertifikat',null, array('class' => 'form-control')) !!}
+									{!! Form::text('sertifikat', $cdatadosen->sertifikat, array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
 								{!! Form::label('pendidikan','Pendidikan',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-3">
-									{!! Form::select('pendidikan', $arrpendidikan, 'Pilih', array('class' => 'form-control')) !!}
+									{!! Form::select('pendidikan', $arrpendidikan, $cdatadosen->pendidikan, array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
 								{!! Form::label('asalpt','Asal PT',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
-									{!! Form::text('asalpt',null, array('class' => 'form-control')) !!}
+									{!! Form::text('asalpt', $cdatadosen->asalpt, array('class' => 'form-control')) !!}
 								</div>
 							</div>
 
 							<div class="form-group">
 								{!! Form::label('bidang','Bidang',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
-									{!! Form::text('bidang',null, array('class' => 'form-control')) !!}
+									{!! Form::text('bidang', $cdatadosen->bidang, array('class' => 'form-control')) !!}
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="col-lg-offset-4 col-sm-3">
-									<button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Tambah</button>
+									<button id="btn-submit" type="submit" class="btn btn-success"><i class="fa fa-send"></i> Ubah</button>
 								</div>
 							</div>
 					{!! Form::close() !!}
+					@endforeach
 
 							</div>
 					</div>
@@ -241,7 +245,7 @@
 				//formData.append('file','file);
 				var data = $form.serialize();
 				$('#form-dosen input').attr("disabled", "disabled");
-				//alert(data);
+				//alert($form.attr('action'));
 				$.ajax({
 					type: 'POST',
 					url: $form.attr('action'),
@@ -251,7 +255,11 @@
 						
 							var returndata=parseInt(data.return);
 							if(returndata==1){
-								alertify.success('Data Berhasil Disimpan');
+								alertify.confirm('Berhasil',"Data Berhasil diubah", function () {
+									window.location.href='/home/showdosen';
+									},function () {
+									window.location.href='/home/showdosen';
+									});	
 							}else{
 								alertify.alert("Error ","Data Input Tidak Valid");
 							}

@@ -116,9 +116,12 @@ Route::group(['middleware'=>'auth'],function(){
 	
 	//dosen
 	Route::get('/home/showdosen','DosenController@index');
-	Route::get('/home/editdosen/{id}','DosenController@edit');
+	Route::get('/home/showdatadosen','DosenController@show');
+	Route::get('/home/editdosen/{iddosen}','DosenController@edit');
+	Route::post('/home/editdosen/{iddosen}','DosenController@update');
 	Route::get('/home/adddosen','DosenController@add');
 	Route::post('/home/adddosen','DosenController@store');
+	Route::get('/home/deletedosen/{iddosen}','DosenController@destroy');
 
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');

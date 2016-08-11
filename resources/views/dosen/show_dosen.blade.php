@@ -24,15 +24,18 @@
                   <div class="x_content">
 				  <input type="hidden" name="_token" value="{{ csrf_token() }}" id='token'>
 					<!--table-->
-					<table id="datatable-mk" class="table table-striped table-bordered">
+					<table id="datatable-dosen" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                <th>Nama</th>
+                              	<th>Iddosen</th>
                                 <th>Nidn</th>
-                                <th>Jabatan</th>
+                                <th>Nama</th>
+                                <th>Tanggal Lahir</th>
+								<th>Jabatan Akademik</th>
+								<th>Sertifikat</th>
+								<th>Pendidikan</th>
+								<th>Asal PT</th>
 								<th>Bidang</th>
-								<th>Keahlian</th>
-								<th>Status</th>
 								<th></th>
                               </tr>
                             </thead>
@@ -53,19 +56,23 @@
    <script type='text/javascript'>
 		var gentable=null;
 		$(document).ready(function(){
-			gentable=$('#datatable-mk').DataTable({
+			gentable=$('#datatable-dosen').DataTable({
 				  processing: true,
 				  columnDefs: [
-						{ "visible": false, "targets": 6 }
+						{ "visible": false, "targets": 0}
 					],
 				 //serverSide: true,
-					ajax: "",
+					ajax: '{{url("/home/showdatadosen")}}',
 					columns: [
-						{ data: 'kodemk', name: 'kodemk',"className": "text-center" },
-						{ data: 'matakuliah', name: 'matakuliah' },
-						{ data: 'bobot', name: 'bobot',"className": "text-right"  },
-						{ data: 'teori', name: 'teori' ,"className": "text-right" },
-						{ data: 'praktek', name: 'praktek' ,"className": "text-center" },
+						{ data: 'iddosen', 			name: 'iddosen'},
+						{ data: 'nidn', 			name: 'nidn'},
+						{ data: 'nama', 			name: 'nama'},
+						{ data: 'tgllahir', 		name: 'tgllahir'},
+						{ data: 'jabatanakademik', 	name: 'jabatanakademik'},
+						{ data: 'sertifikat', 		name: 'sertifikat'},
+						{ data: 'pendidikan', 		name: 'pendidikan'},
+						{ data: 'asalpt', 			name: 'asalpt'},
+						{ data: 'bidang', 			name: 'bidang'},
 						{
 							"className": "action text-center",
 							"data": null,
@@ -79,7 +86,7 @@
 							"</div>"
 						}
 					
-				],
+				]/*,
 				 drawCallback: function ( settings ) {
 						var api = this.api();
 						var rows = api.rows( {page:'current'} ).nodes();
@@ -94,19 +101,19 @@
 								last = group;
 							}
 						});
-				}
+				}*/
 			});
 			
-		var sbody = $('#datatable-mk tbody');
+		var sbody = $('#datatable-dosen tbody');
 		sbody.on('click','.edit',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			window.location.href='/edit_matakuliah/'+data.kodemk;
+			window.location.href='/home/editdosen/'+data.iddosen;
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
 			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
-					$.post("/deletematakuliah",{'kodemk':data.kodemk,_token:$('#token').val()},function(data,status){
+					$.get("/home/deletedosen/"+data.iddosen,function(data,status){
 							if(parseInt(data.return)==1){
 								alertify.success('Data berhasil dihapus');
 								gentable.ajax.reload();
@@ -120,8 +127,8 @@
 		});
 		});
 			//tooltip
-			$('body').tooltip({
+			/*$('body').tooltip({
 				selector: '[rel=tooltip]'
-			});
+			});*/
    </script>
 @endsection
