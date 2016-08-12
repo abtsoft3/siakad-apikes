@@ -70,9 +70,24 @@ class MataKuliahController extends Controller
 			$tbmatakuliah->kadep = $request->kadep;
 			$tbmatakuliah->semester = $request->semester;
 			$tbmatakuliah->bobotnilai = $request->bobotnilai;
-			$tbmatakuliah->save();
+			//looping nidn to input
+			$model = array();
+	        $arrnidn = $request->nidn;
+	        foreach ($arrnidn as $key => $value) {
+	            # code...
+	            $data = array(
+	                'kodemk'=>$request->kodemk,
+	                'nidn'=>$value
+	            );
+	            array_push($model, $data);
+	        }
+	        $tbmatakuliah->save();
 			$stat=1;
-			
+	        $execute = ModelDetailMatakuliah::insert($model);
+	        if($execute)
+	        {
+	            $stat=1;
+	        }
 		}else{
 			$stat=2;
 		}
@@ -137,11 +152,15 @@ class MataKuliahController extends Controller
 	 */
 	
 
-	/*public function show(){
+	public function check(Request $request){
 
-		$model = new MataKuliahModel;
-		$data = $model->show();
-
-		return Datatables::of($data)->make(true);
-	}*/
+		$statreturn = 0;
+        $kodemk = $request->get('kodemk');
+        $nidn = $request->get('nidn');
+        $where_group =['nidn'=>$nidn,'kodemk'=>$kodemk];
+        if (ModelDetailMatakuliah::where($where_group)->exists()) {
+            $statreturn=1;
+        }
+        return response()->json(['return' => $statreturn]);
+	}
 }

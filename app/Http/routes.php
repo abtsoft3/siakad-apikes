@@ -73,7 +73,7 @@ Route::group(['middleware'=>'auth'],function(){
 		'getData'  => 'datatablesmatakuliah.data',
 		'getIndex' => 'datatablesmatakuliah',
 	]);
-	//Route::get('/home/datamatakuliah','MataKuliahController@show');
+	Route::get('/home/check_kodekmk','MataKuliahController@check');
 	//hapus matakuliah
 	Route::post('/home/deletematakuliah','MataKuliahController@destroy');
 	//edit matakuliah
@@ -122,7 +122,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/adddosen','DosenController@add');
 	Route::post('/home/adddosen','DosenController@store');
 	Route::get('/home/deletedosen/{iddosen}','DosenController@destroy');
-
+	Route::get('/home/getdosenpengampu','DosenController@getDataDosenPengampu');
 	//kelas dosen
 	Route::get('/home/addkelasdosen','KelasDosenController@index');
 
