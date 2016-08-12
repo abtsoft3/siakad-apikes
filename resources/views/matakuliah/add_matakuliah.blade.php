@@ -162,7 +162,7 @@
 	              "orderable":false,
 	              'mRender': function ( data, type, row ) {
                         if ( type === 'display' ) {
-                          return '<input type="checkbox" name="nidn" class="chkbox" value="'+data.nidn+'"">';
+                          return '<input type="checkbox" name="nidn" class="chkbox" value="'+data.iddosen+'"">';
                         }
                         return data;
                     }
@@ -179,13 +179,13 @@
       		var data = genTable.row($(this).parents('tr')).data();
       		if($(this).is(':checked')){
       				var this_checkbox = this;
-      				var nidn = data.nidn;
+      				var iddosen = data.iddosen;
 		      		var kodemk = $('#kodemk').val();
-	      			var strInput ='<input type="hidden" name="nidn[]" value="'+data.nidn+'" id="'+data.nidn+'" />';
+	      			var strInput ='<input type="hidden" name="iddosen[]" value="'+data.iddosen+'" id="'+data.nidn+'" />';
 	      			$.ajax({
 						type: 'POST',
 						url: "{{ url('/home/check_kodekmk') }}",
-						data: {'nidn':nidn,'kodemk':kodemk,'_token' : $('input[name="_token"]').val()},
+						data: {'nidn':iddosen,'kodemk':kodemk,'_token' : $('input[name="_token"]').val()},
 						dataType: 'json',
 						success: function (returndata) {
 								if(parseInt(returndata.return)==1){

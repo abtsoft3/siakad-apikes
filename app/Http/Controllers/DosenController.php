@@ -138,7 +138,7 @@ class DosenController extends Controller
 
 	public function getDataDosenPengampu()
 	{
-		$getmodel = ModelDosen::all('nama','nidn');
+		$getmodel = ModelDosen::all('nama','nidn','iddosen');
 		return Datatables::of($getmodel)->make(true);
 	}
 

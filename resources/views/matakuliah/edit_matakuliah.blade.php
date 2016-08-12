@@ -2,7 +2,8 @@
 
 @section('title','MataKuliah')
 @section('css')
-
+<link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
  <link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
  
  <link href="{{ URL::asset('vendors/alertify/css/alertify.min.css')}}" rel="stylesheet">
@@ -59,6 +60,15 @@
 									{!! Form::text('praktek',$matakuliah->praktek,array('class' => 'form-control','maxlength'=>'1')) !!}
 								</div>
 							</div>
+
+							<div class="form-group">
+								{!! Form::label('klinik','Klinik',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-3">
+									{!! Form::text('klinik',$matakuliah->klinik,array('class' => 'form-control','maxlength'=>'1')) !!}
+								</div>
+							</div>
+
+
 							
 							<div class="form-group">
 								{!! Form::label('kadep','Kadep',array('class' => 'col-sm-4 control-label')) !!}	
@@ -80,6 +90,26 @@
 									{!! Form::text('bobotnilai',$matakuliah->bobotnilai,array('class' => 'form-control','maxlength'=>'2')) !!}
 								</div>
 							</div>
+
+							@if($detailmatakuliah->isEmpty())
+								<div class="form-group">
+									{!! Form::label('kosong','Tidak Ada Dosen',array('class' => 'col-sm-6 control-label')) !!}	
+								</div>
+							@else
+								<div class="form-group">
+									{!! Form::label('dosen','Dosen',array('class' => 'col-sm-4 control-label')) !!}	
+									<div class="col-sm-8">
+										@foreach($detailmatakuliah as $value)
+										<div class="input-group">
+										{!! Form::text('nama',$value->relasi_dosen->nama,array('class' => 'form-control','id'=>'nama')) !!}
+											<input type="hidden" name="iddetailmatakuliah[]" value="{{ $value->id }}"  />
+											<div class="input-group-addon btn-removedosen"><i class="fa fa-remove"></i></div>
+										</div>
+										@endforeach
+										
+									</div>
+								</div>
+							@endif
 							
 								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">
@@ -88,6 +118,19 @@
 									  </div>
 									  {!! Form::close() !!}
 							</div>
+
+								<div class="col-lg-6 col-sm-6 col-xs-5">
+							<table id="datatable-dosen" class="table table-striped table-bordered">
+	                            <thead>
+	                              <tr>
+	                              <th></th>
+	                                <th style="text-align:center;">NIDN</th>
+	                                <th>Nama</th>
+	                              </tr>
+	                            </thead>
+							</table>
+					<!--endtable-->
+						</div>
 					</div>
 					
 					
@@ -95,13 +138,111 @@
                </div>
 @endsection
 @section('scripts')
+<!-- Datatables -->
+    <script src="{{ URL::asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    
+    <script src="{{ URL::asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <!--datatable-->
 <script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}">
 </script>
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
 <script type='text/javascript'>
+
+	var genTable=null;
 	$(document).ready(function(){
 		
+		//datatables
+		genTable = $('#datatable-dosen').DataTable({
+          processing: true,
+          ajax: '{{url("/home/getdosenpengampu")}}',
+          paging:false,
+          ordering:false,
+          info:false,
+          searching:false,
+          columns: [
+	          {
+
+	              "className": "text-center",
+	              "data": null,
+	              "bSortable": false,
+	              "orderable":false,
+	              'mRender': function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                          return '<input type="checkbox" name="nidn" class="chkbox" value="'+data.iddosen+'"">';
+                        }
+                        return data;
+                    }
+	              
+	            },
+              {data: 'nidn', name: 'nidn',"className":"text-right"},
+              {data: 'nama', name: 'nama',"className":"text-center"}
+          ]
+      });
+
+	var sbody = $('#datatable-dosen tbody');
+      sbody.on('click','.chkbox',function(){
+      	if ($('#kodemk').val()!='' && $('#matakuliah').val()!='' && $('#kadep').val()!='') {
+      		var data = genTable.row($(this).parents('tr')).data();
+      		if($(this).is(':checked')){
+      				var this_checkbox = this;
+      				var iddosen = data.iddosen;
+		      		var kodemk = $('#kodemk').val();
+	      			var strInput ='<input type="hidden" name="iddosen[]" value="'+data.iddosen+'" id="'+data.nidn+'" />';
+	      			$.ajax({
+						type: 'POST',
+						url: "{{ url('/home/check_kodekmk') }}",
+						data: {'nidn':iddosen,'kodemk':kodemk,'_token' : $('input[name="_token"]').val()},
+						dataType: 'json',
+						success: function (returndata) {
+								if(parseInt(returndata.return)==1){
+									alertify.error('Data sudah ada!!');
+									this_checkbox.checked=false;
+								}else{
+									$(strInput).appendTo('#form-matakuliah');
+									alertify.success(data.nidn+' : '+data.nama+' ditambahkan');
+								}
+								return false;
+							},
+						error: function (xhr,textStatus,errormessage) {
+								alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+							}
+						});
+	      	}else{
+	      		var idfind ="#"+data.nidn+"";
+	      		$('#form-matakuliah').find(idfind).remove();
+	      		alertify.error(data.nidn+' : '+data.nama+' dibuang');
+	      	}
+      }else{
+      		this.checked=false;
+      		alertify.alert('Info!!','Data Belum Lengkap!');
+      	}
+      	/**/
+        
+      });
+
+	$(document).on('click','.btn-removedosen',function(){
+		$(this).parents('.input-group').remove();
+		var iddetailmatakuliah = $(this).prev('input').val();
+		$.ajax({
+			type: 'POST',
+			url: "{{ url('/home/delete_dosen_detailmatakuliah') }}",
+			data: {'id':iddetailmatakuliah,'_token' : $('input[name="_token"]').val()},
+			dataType: 'json',
+			success: function (returndata) {
+						if(parseInt(returndata.return)==1){
+							alertify.success(' berhasil dihapus');
+						}
+					return false;
+					},
+			error: function (xhr,textStatus,errormessage) {
+						alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+					}
+		});
+	});
+
 		
 		$('#form-matakuliah').bootstrapValidator({
 				live: 'enabled',
