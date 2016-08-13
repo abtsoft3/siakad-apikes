@@ -68,10 +68,8 @@
 						{ data: 'matakuliah', name: 'matakuliah' },
 						{ data: 'bobot', name: 'bobot',"className": "text-right"  },
 						{ data: 'teori', name: 'teori' ,"className": "text-right" },
-
 						{ data: 'praktek', name: 'praktek' ,"className": "text-right" },
 						{ data: 'klinik', name: 'klinik' ,"className": "text-right"},
-
 						{ data: 'kadep', name: 'kadep' },
 						{ data: 'semester', name: 'semester',bSortable:false,"className": "text-right" },
 						{
@@ -104,6 +102,9 @@
 						});
 				}
 			});
+			
+			
+   
 			
 		var sbody = $('#datatable-mk tbody');
 		sbody.on('click','.edit',function(){
