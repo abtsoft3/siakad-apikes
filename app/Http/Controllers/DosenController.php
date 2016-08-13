@@ -136,4 +136,10 @@ class DosenController extends Controller
 		return response()->json(['return' => $stat]);
 	}
 
+	public function getDataDosenPengampu()
+	{
+		$getmodel = ModelDosen::all('nama','nidn','iddosen');
+		return Datatables::of($getmodel)->make(true);
+	}
+
 }

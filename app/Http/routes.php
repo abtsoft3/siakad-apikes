@@ -73,14 +73,15 @@ Route::group(['middleware'=>'auth'],function(){
 		'getData'  => 'datatablesmatakuliah.data',
 		'getIndex' => 'datatablesmatakuliah',
 	]);
-	//Route::get('/home/datamatakuliah','MataKuliahController@show');
+	Route::post('/home/check_kodekmk','MataKuliahController@check');
 	//hapus matakuliah
 	Route::post('/home/deletematakuliah','MataKuliahController@destroy');
 	//edit matakuliah
 	Route::get('/home/edit_matakuliah/{kodemk}','MataKuliahController@edit');
 	//update matakuliah
 	Route::post('/home/updatematakuliah','MataKuliahController@updatematakuliah');
-
+	//delete detail matakuliah
+	Route::post('/home/delete_dosen_detailmatakuliah','MataKuliahController@delete_dosen_detailmatakuliah');
 	//mahasiswa
 	Route::get('/home/showmahasiswa','MahasiswaController@index');
 	Route::get('/home/deletemahasiswa/{nim}','MahasiswaController@destroy');
@@ -122,7 +123,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/adddosen','DosenController@add');
 	Route::post('/home/adddosen','DosenController@store');
 	Route::get('/home/deletedosen/{iddosen}','DosenController@destroy');
-
+	Route::get('/home/getdosenpengampu','DosenController@getDataDosenPengampu');
 	//kelas dosen
 	Route::get('/home/addkelasdosen','KelasDosenController@add');
 	Route::get('/home/showkelasdosen','KelasDosenController@index');
@@ -160,7 +161,13 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/home/check_kelasmahasiswa','KelasMahasiswaController@checking');
 	Route::get('/home/datakelasmahasiswa','KelasMahasiswaController@getKelasMahasiswa');
 
+	//ganti password admin
+	Route::get('/home/changepassword_admin','UserController@changepassword_admin');
+	Route::post('/home/changepassword_admin','UserController@post_changepassword_admin');
+	Route::post('/home/admin/TempUpload','UserController@uploadimage');
 });
+
+	
 
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
    //here 
@@ -176,9 +183,21 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::get('/home/show_users_mahasiswa',function(){
 		return view('user_mahasiswa.show_users_mahasiswa');
 	});
+
+	Route::post('/home/delete_usermahasiswa','UserController@delete_usermahasiswa');
+	Route::get('/home/edit_usermahasiswa/{id}','UserController@edit_usermahasiswa');
+	Route::post('/home/update_user_mahasiswa','UserController@update_usermahasiswa');
+
 	//dosen user register
 	Route::get('/home/register_dosen', 'UserController@add_user_dosen');
 	Route::post('/home/store_register_user_dosen', 'UserController@store_user_dosen');
+	Route::get('/home/show_users_dosen','UserController@show_user_dosen');
+	Route::get('/home/getdata_userdosen','UserController@getDataDosen');
+	Route::get('/home/edit_users_dosen/{id}','UserController@edit_user_dosen');
+	Route::post('/home/update_users_dosen','UserController@update_dosen');
+	Route::post('/home/delete_userdosen','UserController@destroy_dosen');
+	Route::post('/home/dosen_user_autocomplete','UserController@autocomplete_dosen');
+
 
 	//administrator user
 	Route::get('/home/show_useradmin','UserController@show_admin');

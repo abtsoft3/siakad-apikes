@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\MataKuliahModel;
+use App\ModelDetailMatakuliah;
 use Yajra\Datatables\Datatables;
 use NotFoundHttpException;
 class MataKuliahController extends Controller
@@ -28,8 +29,10 @@ class MataKuliahController extends Controller
 					'7'=>'Semester 7',
 					'8'=>'Semester 8');
 				
-			$matakuliah = MataKuliahModel::findOrfail($kodemk);
-			return view('matakuliah.edit_matakuliah',array('arrsemester' => $arrsemester))->with('matakuliah',$matakuliah);
+			$matakuliah = MataKuliahModel::with(['relasi_detailmatakuliah'])->findOrfail($kodemk);
+			$detailmatakuliah = ModelDetailMatakuliah::with(['relasi_dosen'])->where('kodemk',$kodemk)->get();
+
+			return view('matakuliah.edit_matakuliah',compact('arrsemester','matakuliah','detailmatakuliah'));
 			
 	}
 	
@@ -67,12 +70,28 @@ class MataKuliahController extends Controller
 			$tbmatakuliah->bobot = $request->bobot;
 			$tbmatakuliah->teori = $request->teori;
 			$tbmatakuliah->praktek = $request->praktek;
+			$tbmatakuliah->klinik = $request->klinik;
 			$tbmatakuliah->kadep = $request->kadep;
 			$tbmatakuliah->semester = $request->semester;
 			$tbmatakuliah->bobotnilai = $request->bobotnilai;
-			$tbmatakuliah->save();
+			//looping nidn to input
+			$model = array();
+	        $arriddosen = $request->iddosen;
+	        foreach ($arriddosen as $key => $value) {
+	            # code...
+	            $data = array(
+	                'kodemk'=>$request->kodemk,
+	                'iddosen'=>$value
+	            );
+	            array_push($model, $data);
+	        }
+	        $tbmatakuliah->save();
 			$stat=1;
-			
+	        $execute = ModelDetailMatakuliah::insert($model);
+	        if($execute)
+	        {
+	            $stat=1;
+	        }
 		}else{
 			$stat=2;
 		}
@@ -94,12 +113,32 @@ class MataKuliahController extends Controller
 						$edit_mk->bobot = $request->bobot;
 						$edit_mk->teori = $request->teori;
 						$edit_mk->praktek = $request->praktek;
+						$edit_mk->klinik = $request->klinik;
 						$edit_mk->kadep = $request->kadep;
 						$edit_mk->semester = $request->semester;
 						$edit_mk->bobotnilai = $request->bobotnilai;
 						$edit_mk->save();
 						$stat=1;
-				}
+						$model = array();
+						if(isset($request->iddosen))
+						{
+							$arriddosen = $request->iddosen;
+							foreach ($arriddosen as $key => $value) {
+				            # code...
+					            $data = array(
+					                'kodemk'=>$request->kodemk,
+					                'iddosen'=>$value
+					            );
+					            array_push($model, $data);
+				        	}
+				        	$execute = ModelDetailMatakuliah::insert($model);
+				        	if($execute)
+		        			{
+		            			$stat=1;
+		        			}
+						}
+						
+					}
 			}
 		
 		return response()->json(['return' => $stat]);
@@ -137,11 +176,25 @@ class MataKuliahController extends Controller
 	 */
 	
 
-	/*public function show(){
+	public function check(Request $request){
 
-		$model = new MataKuliahModel;
-		$data = $model->show();
+		$statreturn = 0;
+        $kodemk = $request->get('kodemk');
+        $nidn = $request->get('nidn');
+        $where_group =['iddosen'=>$nidn,'kodemk'=>$kodemk];
+        if (ModelDetailMatakuliah::where($where_group)->exists()) {
+            $statreturn=1;
+        }
+        return response()->json(['return' => $statreturn]);
+	}
 
-		return Datatables::of($data)->make(true);
-	}*/
+	public function delete_dosen_detailmatakuliah(Request $request)
+	{
+		$statreturn = 0;
+		$term = $request->get('id');
+		if(ModelDetailMatakuliah::destroy($term)){
+			$statreturn=1;
+		}
+		return response()->json(['return' => $statreturn]);
+	}
 }

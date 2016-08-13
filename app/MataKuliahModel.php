@@ -18,7 +18,8 @@ class MataKuliahModel extends Model
 			'matakuliah',
 			'bobot' ,
 			'teori' ,
-			'praktek'  ,
+			'praktek',
+			'klinik',
 			'kadep' ,
 			'bobotnilai',
 			'semester'
@@ -38,4 +39,11 @@ class MataKuliahModel extends Model
 		);
 		return Validator::make($input, $rules);
 	}
+
+	public function relasi_detailmatakuliah()
+	{
+		 return $this->hasMany('App\ModelDetailMatakuliah', 'kodemk', 'kodemk');
+	}
+
+
 }

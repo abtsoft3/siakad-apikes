@@ -16,21 +16,21 @@
 <div class="x_panel">
 	<div class="x_title">
          <h2>Dosen Usermanagement</h2>
-            <a href="{{url('show_adminuser')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+            <a href="{{url('/home/show_users_dosen')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
            <div class="clearfix"></div>
         </div>
 		<div class="x_content">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-sm-6 col-xs-5">
-							<form class="form-horizontal" role="form" method="POST" action="{{ url('/store_register_user_dosen') }}" id="register-form">
+							<form class="form-horizontal" role="form" method="POST" action="{{ url('/home/store_register_user_dosen') }}" id="register-form">
 								{{ csrf_field() }}
 								
 								<div class="form-group">
 									<label for="nim" class="col-md-4 control-label">NIDN</label>
 
 									<div class="col-md-6">
-										<input id="nim" type="text" class="form-control" name="nidn">
+										<input id="nidn" type="text" class="form-control" name="nidn">
 
 										
 									</div>
@@ -97,20 +97,43 @@
 <script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
 
 <script type='text/javascript'>
-	var checkkode=0;
-	var fn_check_kodemk_exist = function(val){
-		if(val==1){
-			$('#mkkd').removeClass('has-success').addClass('has-error');
-			$('[data-bv-icon-for="kodemk"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
-			$('#status_kdmk').text('kode sudah ada!').css('color','#a94442');
-			$('#btn-submit').prop('disabled',true);
-		}else{
-			$('#status_kdmk').text('');
-			$('#btn-submit').prop('disabled',false);
-		}
-	}
 	$(document).ready(function(){
 		
+		 if ($("#nidn").length>0) {
+
+				$('#nidn').autocomplete({
+					source: function (request, response) {
+						$.ajax({
+							url: "{{url('/home/dosen_user_autocomplete')}}",
+							type: 'POST',
+							data: {
+								term: $('#nidn').val(),
+								_token : $('input[name="_token"]').val()
+							},
+							dataType: 'json',
+							success: function (data) {
+								response($.map(data, function (obj) {
+									return {
+										label: obj.nidn,
+										value: obj.nidn,
+										nama: obj.nama
+									}
+								}));
+							}
+						});
+					},
+					change: function (event, ui) {
+						if (ui.item != null) {
+							$('#nidn').val(ui.item.value);
+							$('#nama').val(ui.item.nama);
+						}
+					}
+				}).data('ui-autocomplete')._renderItem = function (ul, item) {
+					//location
+					return ($('<li>').append('<a><strong>' + item.label + '</strong>, <i><strong>' + item.nama + '</strong> </i></a>').appendTo(ul));
+				};
+
+    }; //end autcomplete
 		
 		$('#register-form').bootstrapValidator({
 				live: 'enabled',

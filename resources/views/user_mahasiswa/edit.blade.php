@@ -23,16 +23,16 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-sm-6 col-xs-5">
-							<form class="form-horizontal" role="form" method="POST" action="{{ url('/home/store_register_mahasiswa') }}" id="register-form">
+							<form class="form-horizontal" role="form" method="POST" action="{{ url('/home/update_user_mahasiswa') }}" id="register-form">
 								{{ csrf_field() }}
 								
 								<div class="form-group">
 									<label for="nim" class="col-md-4 control-label">NIM</label>
 
 									<div class="col-md-6">
-										<input id="nim" type="text" class="form-control" name="nim">
+										<input readonly='true' id="nim" type="text" class="form-control" value="{{ $modeledit->nim }}" name="nim">
 
-										
+										<input type='hidden' name='id' value='{{ $modeledit->id }}'> 
 									</div>
 								</div>
 
@@ -40,7 +40,7 @@
 									<label for="nama" class="col-md-4 control-label">Nama</label>
 
 									<div class="col-md-6">
-										<input id="nama" type="text" class="form-control" name="nama">
+										<input id="nama" type="text" value="{{ $modeledit->nama }}" class="form-control" name="nama">
 
 										
 									</div>
@@ -50,7 +50,7 @@
 									<label for="email" class="col-md-4 control-label">E-Mail</label>
 
 									<div class="col-md-6">
-										<input id="email" type="email" class="form-control" name="email">
+										<input id="email" type="email" value="{{ $modeledit->email }}" class="form-control" name="email">
 
 										
 									</div>
@@ -77,7 +77,7 @@
 								<div class="form-group">
 									<div class="col-md-6 col-md-offset-4">
 										<button id="btn-submit" class="btn btn-success" type="submit">
-											<i class="fa fa-btn fa-user"></i> Register
+											<i class="fa fa-btn fa-checklist"></i> Simpan
 										</button>
 									</div>
 								</div>
@@ -94,46 +94,10 @@
 </script>
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
-<script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
 
 <script type='text/javascript'>
 	$(document).ready(function(){
 		
-		 if ($("#nim").length>0) {
-
-				$('#nim').autocomplete({
-					source: function (request, response) {
-						$.ajax({
-							url: "{{url('/home/mahasiswa_user_autocomplete')}}",
-							type: 'POST',
-							data: {
-								term: $('#nim').val(),
-								_token : $('input[name="_token"]').val()
-							},
-							dataType: 'json',
-							success: function (data) {
-								response($.map(data, function (obj) {
-									return {
-										label: obj.nim,
-										value: obj.nim,
-										nama: obj.nama
-									}
-								}));
-							}
-						});
-					},
-					change: function (event, ui) {
-						if (ui.item != null) {
-							$('#nim').val(ui.item.value);
-							$('#nama').val(ui.item.nama);
-						}
-					}
-				}).data('ui-autocomplete')._renderItem = function (ul, item) {
-					//location
-					return ($('<li>').append('<a><strong>' + item.label + '</strong>, <i><strong>' + item.nama + '</strong> </i></a>').appendTo(ul));
-				};
-
-    }; //end autcomplete
 		
 		$('#register-form').bootstrapValidator({
 				live: 'enabled',
@@ -145,21 +109,6 @@
 				},
 				excluded:'disabled',
 				fields: {
-					
-					nim: {
-						validators: {
-							notEmpty: {
-								message: 'Silahkan isi NIM'
-							},
-							 integer: {
-								message: 'NIM tidak boleh huruf',
-									// The default separators
-									thousandsSeparator: '',
-									decimalSeparator: '.'
-							}
-							
-						}
-					},
 					nama: {
 						validators: {
 							notEmpty: {
@@ -223,7 +172,12 @@
 						
 							var returndata=parseInt(data.return);
 							if(returndata==1){
-								alertify.success('Data Berhasil Disimpan');
+								alertify.confirm('Berhasil',"Data Berhasil diupdate", function () {
+									window.location.href='/home/show_users_mahasiswa';
+									},function () {
+									window.location.href='/home/show_users_mahasiswa';
+									});	
+								
 							}else{
 								alertify.alert("Error ","Data Input Tidak Valid");
 							}
@@ -233,7 +187,6 @@
 							alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
 						},
 						complete: function () {
-							$('#register-form').bootstrapValidator('resetForm',true);
 							$('#btn-submit').removeAttr('disabled');
 							$('#register-form input').removeAttr("disabled");
 						}

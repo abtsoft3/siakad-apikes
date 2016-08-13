@@ -59,7 +59,7 @@
 									  </div>
 									  {!! Form::close() !!}
 							</div>
-							<div class="col-lg-6 col-sm-6 col-xs-5">
+							<div class="col-lg-6 col-sm-6 col-xs-5" >
 								<!--table-->
 					<table id="datatable-getmahasiswa" class="table table-striped table-bordered">
                             <thead>

@@ -2,7 +2,7 @@
 MySQL Backup
 Source Server Version: 5.5.5
 Source Database: apikes
-Date: 8/12/2016 17:13:31
+Date: 8/11/2016 17:21:18
 */
 
 
@@ -54,6 +54,17 @@ CREATE TABLE `bidangkeahlian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
+--  Table structure for `detail_matakuliah`
+-- ----------------------------
+DROP TABLE IF EXISTS `detail_matakuliah`;
+CREATE TABLE `detail_matakuliah` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `kodemk` varchar(6) NOT NULL,
+  `nidn` int(11) NOT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
 --  Table structure for `detailmahasiswa`
 -- ----------------------------
 DROP TABLE IF EXISTS `detailmahasiswa`;
@@ -66,17 +77,6 @@ CREATE TABLE `detailmahasiswa` (
   CONSTRAINT `fk_detailmhs_idangkatan` FOREIGN KEY (`idangkatan`) REFERENCES `angkatan` (`idangkatan`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `fk_detailmhs_nim` FOREIGN KEY (`nim`) REFERENCES `mahasiswa` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
---  Table structure for `detailmatakuliah`
--- ----------------------------
-DROP TABLE IF EXISTS `detailmatakuliah`;
-CREATE TABLE `detailmatakuliah` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kodemk` varchar(6) NOT NULL,
-  `iddosen` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 --  Table structure for `dosen`
@@ -95,7 +95,7 @@ CREATE TABLE `dosen` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`iddosen`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `jabatan`
@@ -330,7 +330,7 @@ CREATE TABLE `user_mahasiswas` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `usermahasiswas_nim_unique` (`nim`),
   UNIQUE KEY `usermahasiswas_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Table structure for `users`
@@ -385,14 +385,13 @@ DELIMITER ;
 -- ----------------------------
 INSERT INTO `angkatan` VALUES ('1','4','2011'),  ('2','5','2012'),  ('3','6','2013'),  ('4','7','2014'),  ('5','8','2015'),  ('6','1','2009');
 INSERT INTO `detailmahasiswa` VALUES ('1100000001','1',NULL),  ('1100000002','1',NULL);
-INSERT INTO `detailmatakuliah` VALUES ('1','PK109','4'),  ('3','PK109','5'),  ('6','PK109','6'),  ('7','PK102','4'),  ('9','PK105','4'),  ('10','PK105','5'),  ('11','PK102','6');
-INSERT INTO `dosen` VALUES ('4','0106127903','Parmen, SKM, M.Kes','2016-08-10','Assisten Ahli','-','S1','Universitas Sumatera Utara','Manajemen kesehatan bencana','2016-08-10 03:37:34','2016-08-10 06:06:35'),  ('5','0106127904','Tommy Suindra','1979-10-20','Assisten Ahli','-','S2','Usu','Teknik','2016-08-12 03:11:23','2016-08-12 03:11:23'),  ('6','0106127906','joko sanusi','2016-08-12','Assisten Ahli','-','S2','Usu','Teknik','2016-08-12 03:17:09','2016-08-12 03:17:09');
+INSERT INTO `dosen` VALUES ('4','0106127903','Parmen, SKM, M.Kes','2016-08-10','Assisten Ahli','-','S1','Universitas Sumatera Utara','Manajemen kesehatan bencana','2016-08-10 03:37:34','2016-08-10 06:06:35');
 INSERT INTO `jabatan` VALUES ('1','LEKTOR'),  ('2','DIREKTUR'),  ('3','WAKIL DIREKTUR I');
 INSERT INTO `kelas` VALUES ('1','KL102','Kelas A'),  ('2','KL103','Kelas B');
 INSERT INTO `kelas_mahasiswa` VALUES ('1','KL102','1100000001','2016','1'),  ('4','KL103','1100000002','2015','2');
 INSERT INTO `krs` VALUES ('1','1100000001','PK105','2016-07-27 10:51:12',NULL),  ('2','1100000001','PK102','2016-07-27 15:09:29',NULL),  ('3','1100000001','PK106','2016-08-05 18:32:09',''),  ('4','1100000001','PK204','2016-08-05 18:32:09',''),  ('5','1100000001','PK301','2016-08-08 11:27:21','mantap'),  ('6','1100000001','PK304','2016-08-08 11:27:21','mantap'),  ('7','1100000001','PK305','2016-08-08 11:27:21','mantap');
 INSERT INTO `mahasiswa` VALUES ('1100000001','Jokowi','Medan','1995-08-02','Medan','Sutisna'),  ('1100000002','Muhammad Basri','Medan','1995-12-06','sultan iskandar muda','Abdullah');
-INSERT INTO `matakuliah` VALUES ('PK102','Pendidikan Pancasila','2','1','2','1','Erlinday, M.Kes','1','6'),  ('PK105','Bahasa Inggris I','2','1','0','1','Parmen, SKM, M.Kes','1','6'),  ('PK106','Bahasa Inggris II','2','1','0','1','Leo Sardo, S.S','2','3'),  ('PK204','Biomedik IV ( Patologi )','2','1','0','1','Erikson, SKM','2','3'),  ('PK301','Sosiologi','2','1','0','1','Tommy Situmorang','3','11'),  ('PK304','Biologi','2','1','0','1','Tommy Suindra','3','2'),  ('PK305','Fisika','2','1','0','1','Tomy Suindra','3','11');
+INSERT INTO `matakuliah` VALUES ('PK102','Pendidikan Pancasila','2','1','0','1','Erlinday, M.Kes','1','6'),  ('PK105','Bahasa Inggris I','2','1','0','1','Parmen, SKM, M.Kes','1','6'),  ('PK106','Bahasa Inggris II','2','1','0','1','Leo Sardo, S.S','2','3'),  ('PK204','Biomedik IV ( Patologi )','2','1','0','1','Erikson, SKM','2','3'),  ('PK301','Sosiologi','2','1','0','1','Tommy Situmorang','3','11'),  ('PK304','Biologi','2','1','0','1','Tommy Suindra','3','2'),  ('PK305','Fisika','2','1','0','1','Tomy Suindra','3','11');
 INSERT INTO `migrations` VALUES ('2014_10_12_000000_create_users_table','1'),  ('2014_10_12_100000_create_password_resets_table','1'),  ('2016_07_29_175124_create_users_mahasiswa_table','2'),  ('2016_07_29_175436_create_users_dosen_table','2'),  ('2016_08_01_123557_create_table_usermahasiswa','3'),  ('2016_08_01_123620_create_table_admins','3'),  ('2016_08_02_094712_create_table_user_mahasiswa','4');
 INSERT INTO `password_resets` VALUES ('muhammadbasri444@gmail.com','6d2da2135895f1b0bee6810db990f7c4dc9e5564da07bf81423ec76a061a098b','2016-08-01 12:15:53');
 INSERT INTO `user_dosens` VALUES ('3','0106127903','Parmen, SKM, M.Kes','sungetamiang@yahoo.co.id','$2y$10$4c.O8r60yvXkkdVHPFlKheJZV2gfddrUf02V9S.XkXHN4ADMRMje2',NULL,'2016-08-11 10:17:14','2016-08-11 10:17:14',NULL);

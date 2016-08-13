@@ -2,7 +2,8 @@
 
 @section('title','MataKuliah')
 @section('css')
-
+ <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
  <link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
  
  <link href="{{ URL::asset('vendors/alertify/css/alertify.min.css')}}" rel="stylesheet">
@@ -74,12 +75,7 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								{!! Form::label('dosen_pengampu','Dosen Pengampu',array('class' => 'col-sm-4 control-label')) !!}	
-								<div class="col-sm-7">
-									{!! Form::textarea('dosen_pengampu',null,array('class' => 'form-control','rows'=>'4', 'cols'=>'20')) !!}
-								</div>
-							</div>
+							
 							
 							<div class="form-group">
 								{!! Form::label('semester','Semester',array('class' => 'col-sm-4 control-label')) !!}	
@@ -102,12 +98,32 @@
 									  </div>
 									  {!! Form::close() !!}
 							</div>
+
+						<div class="col-lg-6 col-sm-6 col-xs-5">
+							<table id="datatable-dosen" class="table table-striped table-bordered">
+	                            <thead>
+	                              <tr>
+	                              <th></th>
+	                                <th style="text-align:center;">NIDN</th>
+	                                <th>Nama</th>
+	                              </tr>
+	                            </thead>
+							</table>
+					<!--endtable-->
+						</div>
 					</div>
-					
-					
                   </div>
 @endsection
 @section('scripts')
+	<!-- Datatables -->
+    <script src="{{ URL::asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    
+    <script src="{{ URL::asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ URL::asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <!--datatable-->
+
+
 <script src="{{ URL::asset('vendors/bootstrapvalidator/dist/js/bootstrapValidator.min.js')}}">
 </script>
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
@@ -115,6 +131,7 @@
 <script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
 <script type='text/javascript'>
 	var checkkode=0;
+	var genTable = null;
 	var fn_check_kodemk_exist = function(val){
 		if(val==1){
 			$('#mkkd').removeClass('has-success').addClass('has-error');
@@ -127,6 +144,77 @@
 		}
 	}
 	$(document).ready(function(){
+
+		//datatables
+		genTable = $('#datatable-dosen').DataTable({
+          processing: true,
+          ajax: '{{url("/home/getdosenpengampu")}}',
+          paging:false,
+          ordering:false,
+          info:false,
+          searching:false,
+          columns: [
+	          {
+
+	              "className": "text-center",
+	              "data": null,
+	              "bSortable": false,
+	              "orderable":false,
+	              'mRender': function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                          return '<input type="checkbox" name="nidn" class="chkbox" value="'+data.iddosen+'"">';
+                        }
+                        return data;
+                    }
+	              
+	            },
+              {data: 'nidn', name: 'nidn',"className":"text-right"},
+              {data: 'nama', name: 'nama',"className":"text-center"}
+          ]
+      });
+
+	var sbody = $('#datatable-dosen tbody');
+      sbody.on('click','.chkbox',function(){
+      	if ($('#kodemk').val()!='' && $('#matakuliah').val()!='' && $('#kadep').val()!='') {
+      		var data = genTable.row($(this).parents('tr')).data();
+      		if($(this).is(':checked')){
+      				var this_checkbox = this;
+      				var iddosen = data.iddosen;
+		      		var kodemk = $('#kodemk').val();
+	      			var strInput ='<input type="hidden" name="iddosen[]" value="'+data.iddosen+'" id="'+data.nidn+'" />';
+	      			$.ajax({
+						type: 'POST',
+						url: "{{ url('/home/check_kodekmk') }}",
+						data: {'nidn':iddosen,'kodemk':kodemk,'_token' : $('input[name="_token"]').val()},
+						dataType: 'json',
+						success: function (returndata) {
+								if(parseInt(returndata.return)==1){
+									alertify.error('Data sudah ada!!');
+									this_checkbox.checked=false;
+								}else{
+									$(strInput).appendTo('#form-matakuliah');
+									alertify.success(data.nidn+' : '+data.nama+' ditambahkan');
+								}
+								return false;
+							},
+						error: function (xhr,textStatus,errormessage) {
+								alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+							}
+						});
+	      	}else{
+	      		var idfind ="#"+data.nidn+"";
+	      		$('#form-matakuliah').find(idfind).remove();
+	      		alertify.error(data.nidn+' : '+data.nama+' dibuang');
+	      	}
+      }else{
+      		this.checked=false;
+      		alertify.alert('Info!!','Data Belum Lengkap!');
+      	}
+      	/**/
+        
+      });
+
+
 		$('#kodemk').autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -290,6 +378,7 @@
 							$('#bobot').val(2);
 							$('#teori,#praktek').val(1);
 							$('#bobotnilai').val(0);
+							$('.chkbox').prop('checked',false);
 						}
 					});
 				});
