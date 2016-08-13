@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>SIAKAD-APIKES |@yield('title') </title>
 	
 	<!--jquery ui-->
@@ -85,7 +84,13 @@
           <li><a><i class="fa fa-table"></i> Kelas Dosen <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/addkelasdosen')}}">Tambah</a></li>
-                      <li><a href="{{url('/home/showdosen')}}">Tampilkan</a></li>
+                      <li><a href="{{url('/home/showkelasdosen')}}">Tampilkan</a></li>
+                    </ul>
+                  </li>
+          <li><a><i class="fa fa-users"></i> Penilaian Mahasiswa <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('/home/addpenilaian')}}">Tambah</a></li>
+                      <li><a href="{{url('/home/showkelasdosen')}}">Tampilkan</a></li>
                     </ul>
                   </li>
 				 <li><a><i class="fa fa-clone"></i> MataKuliah <span class="fa fa-chevron-down"></span></a>

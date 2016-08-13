@@ -13,14 +13,14 @@ class ModelKelasMahasiswa extends Model
 	public static function validate($input){
 		$rules = array(
 			'nim' => 'Required',
-			'kode_kelas' => 'Required'
+			'idkelas' => 'Required'
 		);
 		return Validator::make($input, $rules);
 	}
 
 	public function relasi_kelas()
 	{
-		return $this->hasOne('App\ModelKelas','kode_kelas','kode_kelas');
+		return $this->hasOne('App\ModelKelas','idkelas','idkelas');
 	}
 	public function relasi_mahasiswa()
 	{

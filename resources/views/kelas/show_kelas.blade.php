@@ -56,8 +56,8 @@
 				 //serverSide: true,
 					ajax: "{!! route('datatableskelas.data') !!}",
 					columns: [
-						{ data: 'kode_kelas', name: 'kode_kelas',"className": "text-center" },
-						{ data: 'nama_kelas', name: 'nama_kelas' },
+						{ data: 'kodekelas', name: 'kodekelas',"className": "text-center" },
+						{ data: 'namakelas', name: 'namakelas' },
 						{
 							"className": "action text-center",
 							"data": null,
@@ -77,13 +77,13 @@
 		var sbody = $('#datatable-mk tbody');
 		sbody.on('click','.edit',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			window.location.href='/home/edit_kelas/'+data.id;
+			window.location.href='/home/edit_kelas/'+data.idkelas;
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
 			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
-					$.post("/home/deletekelas",{'id':data.id,_token:$('#token').val()},function(data,status){
+					$.post("/home/deletekelas",{'id':data.idkelas,_token:$('#token').val()},function(data,status){
 							if(parseInt(data.return)==1){
 								alertify.success('Data berhasil dihapus');
 								gentable.ajax.reload();

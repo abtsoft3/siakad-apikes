@@ -31,8 +31,8 @@ class KelasController extends Controller
 		if($validator->passes())
 		{
 			$model = new ModelKelas;
-			$model->kode_kelas = $request->kode_kelas;
-			$model->nama_kelas = $request->nama_kelas;
+			$model->kodekelas = $request->kode_kelas;
+			$model->namakelas = $request->nama_kelas;
 			$model->save();
 			$stat=1;
 			
@@ -59,8 +59,8 @@ class KelasController extends Controller
 			
 		if($validator->passes())
 		{
-			$model_edit=ModelKelas::where('kode_kelas',$request->kode_kelas)
-			->update(['nama_kelas'=>$request->nama_kelas]);
+			$model_edit=ModelKelas::where('idkelas',$request->idkelas)
+			->update(['namakelas'=>$request->nama_kelas]);
 			$stat=1;
 			
 		}else
@@ -85,7 +85,7 @@ class KelasController extends Controller
     {
     	$statreturn = 0;
 		$term = $request->get('term');
-		if (ModelKelas::where('kode_kelas', '=',$term)->exists()) {
+		if (ModelKelas::where('kodekelas', '=',$term)->exists()) {
 			$statreturn=1;
 		}
 		return response()->json(['return' => $statreturn]);
