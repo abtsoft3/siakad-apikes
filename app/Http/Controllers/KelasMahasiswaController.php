@@ -29,7 +29,7 @@ class KelasMahasiswaController extends Controller
 					'6'=>'Semester 6',
 					'7'=>'Semester 7',
 					'8'=>'Semester 8');
-    	$datakelas = ModelKelas::pluck('nama_kelas','kode_kelas');
+    	$datakelas = ModelKelas::pluck('namakelas','idkelas');
 
     	return view('kelas_mahasiswa.add_kelas_mahasiswa',compact('datakelas','arrsemester'));
     }
@@ -42,7 +42,7 @@ class KelasMahasiswaController extends Controller
         foreach ($arrnim as $key => $value) {
             # code...
             $data = array(
-                'kode_kelas'=>$request->kode_kelas,
+                'idkelas'=>$request->kode_kelas,
                 'nim'=>$value,
                 'tahun_ajaran'=>$request->tahun_ajaran,
                 'semester'=>$request->semester
@@ -63,9 +63,9 @@ class KelasMahasiswaController extends Controller
         $statreturn = 0;
         $nim = $request->get('nim');
         $semester = $request->get('semester');
-        $kodekelas = $request->get('kodekelas');
+        $idkelas = $request->get('idkelas');
         $tahun_ajaran = $request->get('tahun_ajaran');
-        $where_group =['nim'=>$nim,'semester'=>$semester,'kode_kelas'=>$kodekelas,'tahun_ajaran'=>$tahun_ajaran];
+        $where_group =['nim'=>$nim,'semester'=>$semester,'idkelas'=>$idkelas,'tahun_ajaran'=>$tahun_ajaran];
         if (ModelKelasMahasiswa::where($where_group)->exists()) {
             $statreturn=1;
         }
@@ -102,7 +102,7 @@ class KelasMahasiswaController extends Controller
                     '6'=>'Semester 6',
                     '7'=>'Semester 7',
                     '8'=>'Semester 8');
-        $datakelas = ModelKelas::pluck('nama_kelas','kode_kelas');
+        $datakelas = ModelKelas::pluck('namakelas','idkelas');
 
         $model_edit = ModelKelasMahasiswa::with(['relasi_kelas','relasi_mahasiswa'])->find($id);
         return view('kelas_mahasiswa.edit_kelas_mahasiswa',
@@ -117,7 +117,7 @@ class KelasMahasiswaController extends Controller
                 $id=$request->id;
                 $model_update=ModelKelasMahasiswa::find($id);
                     if($model_update){
-                        $model_update->kode_kelas = $request->kode_kelas;
+                        $model_update->idkelas = $request->kode_kelas;
                         $model_update->nim = $request->nim;
                         $model_update->tahun_ajaran = $request->tahun_ajaran;
                         $model_update->semester = $request->semester;
