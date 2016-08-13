@@ -63,7 +63,7 @@
           columns: [
               {data: 'tahun_ajaran', name: 'tahun_ajaran'},
               {data: 'semester', name: 'semester'},
-              {data: 'relasi_kelas.nama_kelas', name: 'relasi_kelas.ke'},
+              {data: 'relasi_kelas.namakelas', name: 'relasi_kelas.ke'},
               {data: 'nim', name: 'nim'},
               {data: 'relasi_mahasiswa.nama', name: 'relasi_mahasiswa.nama'},
               {

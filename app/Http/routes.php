@@ -124,7 +124,18 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/deletedosen/{iddosen}','DosenController@destroy');
 
 	//kelas dosen
-	Route::get('/home/addkelasdosen','KelasDosenController@index');
+	Route::get('/home/addkelasdosen','KelasDosenController@add');
+	Route::get('/home/showkelasdosen','KelasDosenController@index');
+	Route::get('/home/showdatakelasdosen','KelasDosenController@show');
+	Route::post('/home/addkelasdosen','KelasDosenController@store');
+	Route::get('/home/getdatadosen/{idkelas}','KelasDosenController@datadosen');
+	Route::post('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@update');
+	Route::get('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@edit');
+	Route::get('/home/deletekelasdosen/{idkelasdosen}','KelasDosenController@destroy');
+
+	//penilaian mahasiswa
+	Route::get('/home/addpenilaian','PenilaianController@add');
+	Route::get('/home/getdatamhs/{kelas}/{sem}','PenilaianController@getdatamhs');
 
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');

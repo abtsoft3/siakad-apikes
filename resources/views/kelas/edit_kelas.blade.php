@@ -24,11 +24,11 @@
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
 						{!! Form::open(array('url' => '/home/editkelas','class'=>'form-horizontal','id'=>'form-kelas','autocomplete'=>'off')) !!}
-							{!! Form::hidden('id',$kelas->id) !!}
+							{!! Form::hidden('idkelas',$kelas->idkelas) !!}
 							<div class="form-group" id="mkkd">
 								{!! Form::label('kode_kelas','Kode Kelas',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::text('kode_kelas',$kelas->kode_kelas,array('class' => 'form-control','maxlength'=>'6','readonly'=>'true')) !!}
+									{!! Form::text('kode_kelas',$kelas->kodekelas,array('class' => 'form-control','maxlength'=>'6','readonly'=>'true')) !!}
 									<small id="status_kdkelas"></small>
 								</div>
 							</div>
@@ -36,14 +36,14 @@
 							<div class="form-group">
 								{!! Form::label('nama_kelas','Nama Kelas',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-7">
-									{!! Form::text('nama_kelas',$kelas->nama_kelas,array('class' => 'form-control')) !!}
+									{!! Form::text('nama_kelas',$kelas->namakelas,array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
 								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">
 										  <button id="btn-submit" type="submit" class="btn btn-success">
-										  	<i class="fa fa-send"></i> Simpan</button>
+										  	<i class="fa fa-send"></i> Ubah</button>
 										</div>
 									  </div>
 									  {!! Form::close() !!}
