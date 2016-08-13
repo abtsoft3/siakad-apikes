@@ -80,13 +80,11 @@
       		if($(this).is(':checked')){
       				var this_checkbox = this;
       				var iduser=data.id;
-      				var email_user ='usermahasiswa@apikes-imelda.com';
       				var password_user =12345;
 	      			$.ajax({
 						type: 'POST',
 						url: "{{ url('/home/update_all_user_mahasiswa') }}",
 						data: {'id':iduser,
-								'email':email_user,
 								'password':password_user,
 								'_token' : $('input[name="_token"]').val()
 							},

@@ -45,3 +45,4 @@ silahkan execute adauser.sql untuk usermahasiswa dan admin untuk mahasiswa login
 !Notification
 untuk bisa membuat foto
 tambahkan field 'image_user' type data longblob pada tabel user_mahasiswas
+
