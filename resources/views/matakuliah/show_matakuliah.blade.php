@@ -58,7 +58,7 @@
 			gentable=$('#datatable-mk').DataTable({
 				  processing: true,
 				  columnDefs: [
-						{ "visible": false, "targets": 6 }
+						{ "visible": false, "targets": 7 }
 					],
 					
 				 //serverSide: true,
