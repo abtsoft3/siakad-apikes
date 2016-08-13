@@ -44,7 +44,7 @@
 							<ul class="nav nav-tabs" role="tablist">
 								<li role="presentation"><a href="{{ url('login-mahasiswa')}}">Login Mahasiswa</a></li>
 								<li class="dropdown">
-									<a href="{{ url('login-dosen')}}" class="dropdown-toggle" data-toggle="dropdown">Login Dosen</a>
+									<a href="{{ url('login-dosen')}}">Login Dosen</a>
 								</li>
 						</div>
 					</div>						

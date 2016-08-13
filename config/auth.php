@@ -56,9 +56,9 @@ return [
             'driver' => 'session',
             'provider' => 'usermahasiswas',
         ],
-        'userdosen'=>[
+        'userdosens'=>[
             'driver' => 'session',
-            'provider' => 'usermahasiswa',
+            'provider' => 'userdosens',
         ],
 
        // 'api' => [
@@ -99,7 +99,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\UserMahasiswa::class,
         ],
-        'userdosen'=>[
+        'userdosens'=>[
             'driver' => 'eloquent',
             'model' => App\UserDosen::class,
         ],
@@ -139,6 +139,12 @@ return [
         'usermahasiswas' => [
             'provider' => 'usermahasiswas',
             'nim' => 'auth.emails.password',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'userdosens' => [
+            'provider' => 'userdosens',
+            'nidn' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
         ],

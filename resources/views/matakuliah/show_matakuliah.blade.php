@@ -35,7 +35,6 @@
 								<th>Klinik</th>
 								<th>Kadep</th>
 								<th>Semester</th>
-								<th>Bobot Nilai</th>
 								<th></th>
                               </tr>
                             </thead>
@@ -69,11 +68,12 @@
 						{ data: 'matakuliah', name: 'matakuliah' },
 						{ data: 'bobot', name: 'bobot',"className": "text-right"  },
 						{ data: 'teori', name: 'teori' ,"className": "text-right" },
-						{ data: 'praktek', name: 'praktek' ,"className": "text-center" },
-						{ data: 'klinik', name: 'klinik' ,"className": "text-center" },
+
+						{ data: 'praktek', name: 'praktek' ,"className": "text-right" },
+						{ data: 'klinik', name: 'klinik' ,"className": "text-right"},
+
 						{ data: 'kadep', name: 'kadep' },
-						{ data: 'semester', name: 'semester',bSortable:false,"className": "text-right"  },
-						{ data: 'bobotnilai', name: 'bobotnilai' ,"className": "text-right" },
+						{ data: 'semester', name: 'semester',bSortable:false,"className": "text-right" },
 						{
 							"className": "action text-center",
 							"data": null,
@@ -93,7 +93,7 @@
 						var rows = api.rows( {page:'current'} ).nodes();
 						var last=null;
 			 
-						api.column(6, {page:'current'} ).data().each( function ( group, i ) {
+						api.column(7, {page:'current'} ).data().each( function ( group, i ) {
 							if ( last !== group ) {
 								$(rows).eq( i ).before(
 									'<tr class="group"><td colspan="5">'+'Semester '+group+'</td></tr>'

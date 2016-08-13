@@ -44,7 +44,7 @@
 								<div class="col-sm-5">
 									 <div class="input-group" id="dtpicker">
 										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-											{!! Form::text('tanggallahir', null, array('class' => 'form-control')) !!}
+											{!! Form::text('tanggallahir', null, array('class' => 'form-control','placeholder'=>'YYYY-MM-DD')) !!}
 										</div>
 									</div>
 								</div>
@@ -122,7 +122,8 @@
 
 		$('#tanggallahir').datetimepicker({
 				format:'YYYY-MM-DD',
-				locale:'id',
+				maxDate:'1995-1-1',
+				locale:'id'
 				/*minDate:startDate,
 				maxDate:endDate,
 				defaultDate: '01/26/2014'*/
@@ -172,6 +173,9 @@
 					
 					nidn: {
 						validators: {
+							notEmpty: {
+								message: 'Silahkan isi nidn'
+							},
 							numeric: {
 								message: 'Nidn harus angka'
 							}
@@ -185,14 +189,16 @@
 							}
 						}
 					},
-					
-					/*tanggallahir:{
+					tanggallahir:{
 						validators:{
-							notEmpty:{
-								message: 'Silahkan isi kadep'
-							}	
+							date:{
+								format:'YYYY-MM-DD',
+								message:'format tanggal salah!'
+							}
 						}
 					},
+					
+					/*
 					jabatanakademik:{
 						validators:{
 							notEmpty: {

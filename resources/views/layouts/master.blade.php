@@ -10,7 +10,7 @@
     <title>SIAKAD-APIKES |@yield('title') </title>
 	
 	<!--jquery ui-->
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="{{ url('vendors/jquery-ui-themes-1.12.0/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Bootstrap -->
     <link href="{{ URL::asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
@@ -154,6 +154,13 @@
                     <ul class="nav child_menu">
           						<li><a href="{{url('/home/register_mahasiswa')}}"> Tambah</a></li>
           						<li><a href="{{url('/home/show_users_mahasiswa')}}">Tampilkan</a></li>
+                    </ul>
+               </li>
+               <li>
+              <a><i class="fa fa-bug"></i> UpdateAll Mahasiswa <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('/home/update_all_mahasiswa')}}"> Update</a></li>
+                     
                     </ul>
                </li>
 
