@@ -32,6 +32,7 @@
                                 <th>Bobot</th>
 								<th>Teori</th>
 								<th>Praktek</th>
+								<th>Klinik</th>
 								<th>Kadep</th>
 								<th>Semester</th>
 								<th>Bobot Nilai</th>
@@ -69,6 +70,7 @@
 						{ data: 'bobot', name: 'bobot',"className": "text-right"  },
 						{ data: 'teori', name: 'teori' ,"className": "text-right" },
 						{ data: 'praktek', name: 'praktek' ,"className": "text-center" },
+						{ data: 'klinik', name: 'klinik' ,"className": "text-center" },
 						{ data: 'kadep', name: 'kadep' },
 						{ data: 'semester', name: 'semester',bSortable:false,"className": "text-right"  },
 						{ data: 'bobotnilai', name: 'bobotnilai' ,"className": "text-right" },
