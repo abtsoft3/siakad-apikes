@@ -194,6 +194,9 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::post('/home/delete_usermahasiswa','UserController@delete_usermahasiswa');
 	Route::get('/home/edit_usermahasiswa/{id}','UserController@edit_usermahasiswa');
 	Route::post('/home/update_user_mahasiswa','UserController@update_usermahasiswa');
+	//update all user mahasiswa
+	Route::get('/home/update_all_mahasiswa','UpdateAllUserMahasiswaController@showform');
+	Route::post('/home/update_all_user_mahasiswa','UpdateAllUserMahasiswaController@postUpdate');
 
 	//dosen user register
 	Route::get('/home/register_dosen', 'UserController@add_user_dosen');

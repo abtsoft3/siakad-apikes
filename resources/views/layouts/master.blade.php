@@ -156,6 +156,13 @@
           						<li><a href="{{url('/home/show_users_mahasiswa')}}">Tampilkan</a></li>
                     </ul>
                </li>
+               <li>
+              <a><i class="fa fa-bug"></i> UpdateAll Mahasiswa <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('/home/update_all_mahasiswa')}}"> Update</a></li>
+                     
+                    </ul>
+               </li>
 
 
                   <!-- <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
