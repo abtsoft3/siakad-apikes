@@ -11,7 +11,7 @@
     <title>SIAKAD-APIKES |@yield('title') </title>
 	
 	<!--jquery ui-->
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+	<link href="{{ url('vendors/jquery-ui-themes-1.12.0/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Bootstrap -->
     <link href="{{ URL::asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->

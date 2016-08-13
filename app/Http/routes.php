@@ -36,6 +36,11 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('login-mahasiswa','AuthMahasiswa\AuthController@showLoginForm');
 	Route::post('login-mahasiswa',['as'=>'login-mahasiswa','uses'=>'AuthMahasiswa\AuthController@mahasiswaLoginPost']);
 	Route::get('/logout-mahasiswa','AuthMahasiswa\AuthController@logoutmahasiswa');
+
+	//dosen
+	Route::get('login-dosen','AuthDosen\AuthController@showLoginForm');
+	Route::post('login-dosen',['as'=>'login-dosen','uses'=>'AuthDosen\AuthController@DosenLoginPost']);
+	//Route::get('/logout-dosen','AuthDosen\AuthController@logoutdosen');
 	
 	//error
 	Route::get('/503',function(){
@@ -45,6 +50,8 @@ Route::group(['middleware' => 'web'],function(){
 	
 	//menu mahasiswa
 	Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
+	//menudosen
+	Route::get('menu_mahasiswa','Menu_DosenController@index');
 
 	// KRS
 	Route::get('/home/addkrs','DaftarKrsController@index');
