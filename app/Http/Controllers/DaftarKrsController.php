@@ -34,7 +34,7 @@ class DaftarKrsController extends Controller
 
         $arrsemester['0'] = "Pilih";
         foreach ($sem as $key => $csem) {
-            $arrsemester[$csem->semester] = "Semester ".$csem->semester;
+            $arrsemester[$csem->semester] = "Semester ".$csem->romsem;
         }
 
 
@@ -94,7 +94,7 @@ class DaftarKrsController extends Controller
        
         $arrsemester['0'] = "Pilih";
         foreach ($sem as $key => $csem) {
-            $arrsemester[$csem->semester] = "Semester ".$csem->semester;
+            $arrsemester[$csem->semester] = "Semester ".$csem->romsem;
         }
     	
     	return view('krs.list_krs', ['arrsemester'=> $arrsemester]);
