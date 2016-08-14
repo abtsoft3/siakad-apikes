@@ -19,32 +19,116 @@ class PenilaianController extends Controller
 
     	$model->iddosen = '4';
 
-    	$sem 	= $model->getsemester(1);
-    	$kelas 	= $model->getkelas(1);
+    	//$sem 	= $model->getsemester(1);
+    	$kelas 	= $model->getksm(1);
+        //$matkul = $model->getsemester(1);
 
-        $arrsemester['0'] = "Semester";
+        /*$arrsemester['0'] = "Semester";
         foreach ($sem as $key => $csem) {
-            $arrsemester[$csem->semester] = "Semester ".$csem->semester;
-        }
+            $arrsemester[$csem->semester]   = "Semester ".$csem->semester;
+            $arrmatkul[$csem->kodemk]       = $csem->matakuliah;
+        }*/
 
-        $arrkelas['0'] = "Kelas";
+        $arrkelas['0']      = "Kelas";
+        $arrsemester['0']   = "Semester";
+        $arrmatkul['0']     = "Mata Kuliah";
+
         foreach ($kelas as $key => $ckelas) {
             $arrkelas[$ckelas->idkelas] = $ckelas->namakelas;
+            $arrmatkul[$ckelas->kodemk]       = $ckelas->matakuliah;
+            $arrsemester[$ckelas->semester]   = "Semester ".$ckelas->romsem;
         }
 
-    	return view("penilaian.add_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas]);
+       /* $arrmatkul['0']   = "Mata Kuliah";
+        foreach ($matkul as $key => $cmatkul) {
+            $arrmatkul[$cmatkul->kodemk] = $cmatkul->matakuliah;
+        }*/
+
+    	return view("penilaian.add_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas, 'arrmatkul'=>$arrmatkul]);
     }
 
-    public function getdatamhs($kelas, $sem){
+    public function getdatamhs($kelas, $sem, $matkul){
 
     	$model = new ModelPenilaian;
 
     	$model->iddosen 	= '4';   	
     	$model->idkelas		= $kelas;
     	$model->semester 	= $sem;
+        $model->kodemk      = $matkul;
 
     	$datamhs = $model->showdatamhs();
 
     	return Datatables::of($datamhs)->make(true);
+    }
+
+    public function store(Request $requests){
+
+        $model = new ModelPenilaian;
+
+        $dosen      = '4';
+        $nim        = $requests->nim;
+        $absensi    = $requests->absensi;
+        $seminar    = $requests->seminar;
+        $tugas      = $requests->tugas;
+        $midsm      = $requests->midsm;
+        $nsemester  = $requests->nsemester;
+
+        $kelas    = $requests->idkelas;
+        $semester   = $requests->sem;
+        $matkul     = $requests->matkul;
+
+        foreach ($nim as $key => $vnim) {
+            $datanim [] = $vnim;
+        }
+
+        foreach ($absensi as $key => $vabsensi) {
+            $dataabsensi [] = $vabsensi;
+        }
+
+        foreach ($seminar as $key => $vseminar) {
+            $dataseminar [] = $vseminar;
+        }
+
+        foreach ($tugas as $key => $vtugas) {
+            $datatugas [] = $vtugas;
+        }
+
+        foreach ($midsm as $key => $vmidsm) {
+            $datamidsem [] = $vmidsm;
+        }
+
+         foreach ($nsemester as $key => $vnsemester) {
+            $datansemester [] = $vnsemester;
+        }
+
+
+       for($i=0; $i<count($datanim); $i++){
+            $data [] = array(
+
+                            'nim'       => $datanim[$i],
+                            'kodemk'    => $matkul,
+                            'absensi'   => $dataabsensi[$i],
+                            'seminar'   => $dataseminar[$i],
+                            'tugas'     => $datatugas[$i],
+                            'midsm'     => $datamidsem[$i],
+                            'nsem'      => $datansemester[$i],
+                            'iddosen'   => $dosen,
+                            'idkelas'   => $kelas,
+                            'semester'  => $semester
+                         );
+       }
+
+       $save = $model->insert($data);
+
+
+        if($save){
+            $stat = 1;
+        }
+        else{
+            $stat = 2;
+        }
+
+        return response()->json(['return' => $stat]);
+
     }
 }
