@@ -36,6 +36,11 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('login-mahasiswa','AuthMahasiswa\AuthController@showLoginForm');
 	Route::post('login-mahasiswa',['as'=>'login-mahasiswa','uses'=>'AuthMahasiswa\AuthController@mahasiswaLoginPost']);
 	Route::get('/logout-mahasiswa','AuthMahasiswa\AuthController@logoutmahasiswa');
+
+	//dosen
+	Route::get('login-dosen','AuthDosen\AuthController@showLoginForm');
+	Route::post('login-dosen',['as'=>'login-dosen','uses'=>'AuthDosen\AuthController@DosenLoginPost']);
+	//Route::get('/logout-dosen','AuthDosen\AuthController@logoutdosen');
 	
 	//error
 	Route::get('/503',function(){
@@ -45,6 +50,8 @@ Route::group(['middleware' => 'web'],function(){
 	
 	//menu mahasiswa
 	Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
+	//menudosen
+	Route::get('menu_mahasiswa','Menu_DosenController@index');
 
 	// KRS
 	Route::get('/home/addkrs','DaftarKrsController@index');
@@ -188,6 +195,9 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::post('/home/delete_usermahasiswa','UserController@delete_usermahasiswa');
 	Route::get('/home/edit_usermahasiswa/{id}','UserController@edit_usermahasiswa');
 	Route::post('/home/update_user_mahasiswa','UserController@update_usermahasiswa');
+	//update all user mahasiswa
+	Route::get('/home/update_all_mahasiswa','UpdateAllUserMahasiswaController@showform');
+	Route::post('/home/update_all_user_mahasiswa','UpdateAllUserMahasiswaController@postUpdate');
 
 	//dosen user register
 	Route::get('/home/register_dosen', 'UserController@add_user_dosen');
