@@ -16,21 +16,22 @@ class ModelPenilaian extends Model
     protected $filltable = [
     	'nim',
     	'iddosen',
-    	'semester'
+    	'semester',
+        'kodemk'
     ];
 
     public function showdatamhs(){
-    	$data = DB::table("dosen")
-    				->join("kelasdosen", "dosen.iddosen", "=", "kelasdosen.iddosen")
-    				->join("kelas_mahasiswa", "kelasdosen.idkelas", "=", "kelas_mahasiswa.idkelas")
-    				->join("mahasiswa", "kelas_mahasiswa.nim", "=", "mahasiswa.nim")
+    	$data = DB::table("mahasiswa")
+    				->join("kelas_mahasiswa", "mahasiswa.nim", "=", "kelas_mahasiswa.nim")
+                    ->join("kelasdosen", "kelas_mahasiswa.idkelas", "=", "kelasdosen.idkelas")
+                    ->join("detailmatakuliah", "kelasdosen.iddosen", "=", "detailmatakuliah.iddosen")
     				->whereNotExists(function($query)
                      {
                         $query->select(DB::raw(1))
                         ->from("khs")
-                        ->whereRaw("dosen.iddosen = khs.iddosen and mahasiswa.nim = khs.nim and kelas_mahasiswa.semester = khs.semester");
+                        ->whereRaw("kelas_mahasiswa.idkelas = khs.idkelas and mahasiswa.nim = khs.nim and detailmatakuliah.kodemk = khs.kodemk and khs.semester = ".$this->semester);
                      })
-    				->whereRaw("kelasdosen.idkelas = ".$this->idkelas." and dosen.iddosen = ".$this->iddosen." and kelas_mahasiswa.semester = fromRoman('".$this->semester."')")
+    				->whereRaw("kelasdosen.iddosen = ".$this->iddosen." and kelas_mahasiswa.idkelas = ".$this->idkelas." and detailmatakuliah.kodemk = '".$this->kodemk."'")
                     ->select([
                                 'mahasiswa.nim',
                                 'mahasiswa.nama'
@@ -38,45 +39,29 @@ class ModelPenilaian extends Model
         return $data;
     }
 
-	public function getkelas($kat){
+	public function getksm($kat){
 		
 		if($kat==1){
 			$data = DB::table('kelasdosen')
 							 ->join("kelas", "kelasdosen.idkelas", "=", "kelas.idkelas")
+                             ->join("detailmatakuliah", "kelasdosen.iddosen", "=", "detailmatakuliah.iddosen")
+                             ->join("matakuliah", "detailmatakuliah.kodemk", "=", "matakuliah.kodemk")
 							 ->whereNotExists(function($query)
 		                     {
 		                        $query->select(DB::raw(1))
 		                        ->from('khs')
-		                        ->whereRaw('kelasdosen.iddosen = khs.iddosen');
+		                        ->whereRaw('kelasdosen.iddosen = khs.iddosen and kelas.idkelas = khs.idkelas and matakuliah.kodemk = khs.kodemk');
 		                     })
 		                     ->whereRaw('kelasdosen.iddosen = '.$this->iddosen)
 		                     ->select([
 		                     			'kelas.idkelas', 
-		                     			'kelas.namakelas'
+		                     			'kelas.namakelas',
+                                        'matakuliah.kodemk',
+                                        'matakuliah.matakuliah',
+                                        'matakuliah.semester',
+                                        DB::raw('toRoman(matakuliah.semester) as romsem')
 		                     		  ])->get();
 		}
 		return $data;
 	}
-    public function getsemester($kat){
-        //1 = untuk form add nilai
-        //2 = untuk view nilai
-        if($kat==1){
-            $data = DB::table('matakuliah')
-                     ->whereNotExists(function($query)
-                     {
-                        $query->select(DB::raw(1))
-                        ->from('khs')
-                        ->whereRaw('matakuliah.kodemk = khs.kodemk and khs.iddosen = '.$this->iddosen);
-                     })
-                     ->select(DB::raw('toroman(matakuliah.semester) as semester'))->distinct()->get();
-        }else{
-
-            $data = DB::table('krs')
-                     ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
-                     ->where('krs.nim', '=', $this->nim)
-                     ->select(DB::raw('toroman(matakuliah.semester) as semester'))->distinct()->get();
-        }
-        
-        return $data;
-    }
 }

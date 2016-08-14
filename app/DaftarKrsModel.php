@@ -29,7 +29,7 @@ class DaftarKrsModel extends Model
                         ->from('krs')
                         ->whereRaw('matakuliah.kodemk = krs.kodemk and krs.nim = '.$this->nim);
                      })
-                     ->whereRaw("matakuliah.semester = fromroman('".$this->semester."')")
+                     ->whereRaw("matakuliah.semester = ".$this->semester)
                      ->select([
                                 'matakuliah.kodemk',
                                 'matakuliah.matakuliah',

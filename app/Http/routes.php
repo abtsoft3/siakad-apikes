@@ -136,7 +136,8 @@ Route::group(['middleware'=>'auth'],function(){
 
 	//penilaian mahasiswa
 	Route::get('/home/addpenilaian','PenilaianController@add');
-	Route::get('/home/getdatamhs/{kelas}/{sem}','PenilaianController@getdatamhs');
+	Route::post('/home/addpenilaian','PenilaianController@store');
+	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
 
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');
