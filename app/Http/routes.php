@@ -207,7 +207,7 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 	Route::post('/home/update_users_dosen','UserController@update_dosen');
 	Route::post('/home/delete_userdosen','UserController@destroy_dosen');
 	Route::post('/home/dosen_user_autocomplete','UserController@autocomplete_dosen');
-
+	Route::post('/home/check_iddosen','UserController@check_iddosen');
 
 	//administrator user
 	Route::get('/home/show_useradmin','UserController@show_admin');

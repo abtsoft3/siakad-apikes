@@ -231,7 +231,7 @@ class UserController extends Controller
 	
 	public function store_user_dosen(Request $request){
 			$model_dosen = new UserDosen;
-			$model_dosen->nidn = $request->nidn;
+			$model_dosen->iddosen = $request->iddosen;
 			$model_dosen->nama = $request->nama;
 			$model_dosen->email = $request->email;
 			$model_dosen->password = bcrypt($request->password);
@@ -288,12 +288,24 @@ class UserController extends Controller
 		$stat=0;
 		$term = $request->get('term');
 		$results = array();
-		$queries = DB::table('dosen')->where('nidn', 'LIKE', '%'.$term.'%')->take(5)->get();
+		$queries = DB::table('dosen')->where('nama', 'LIKE', '%'.$term.'%')->take(5)->get();
 	
 			foreach ($queries as $query){
-				$results[] = ['nidn' => $query->nidn, 'nama' => $query->nama];
+				$results[] = ['nidn' => $query->nidn, 'nama' => $query->nama,'iddosen'=>$query->iddosen];
 			}
 		
 		return response()->json($results);
+	}
+
+	public function check_iddosen(Request $request)
+	{
+		$stat=0;
+		$iddosen =$request->get('iddosen');
+		$check = UserDosen::where('iddosen','=',$iddosen)->first();
+		if($check)
+		{
+			$stat=1;
+		}
+		return response()->json($stat);
 	}
 }

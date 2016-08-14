@@ -26,23 +26,15 @@
 							<form class="form-horizontal" role="form" method="POST" action="{{ url('/home/store_register_user_dosen') }}" id="register-form">
 								{{ csrf_field() }}
 								
-								<div class="form-group">
-									<label for="nim" class="col-md-4 control-label">NIDN</label>
+								
 
-									<div class="col-md-6">
-										<input id="nidn" type="text" class="form-control" name="nidn">
-
-										
-									</div>
-								</div>
-
-								<div class="form-group">
+								<div class="form-group" id="errid">
 									<label for="nama" class="col-md-4 control-label">Nama</label>
 
 									<div class="col-md-6">
 										<input id="nama" type="text" class="form-control" name="nama">
-
-										
+										<small id="status_id"></small>
+										<input type="hidden" name="iddosen" id="dosenid" />
 									</div>
 								</div>
 
@@ -99,24 +91,25 @@
 <script type='text/javascript'>
 	$(document).ready(function(){
 		
-		 if ($("#nidn").length>0) {
+		 if ($("#nama").length>0) {
 
-				$('#nidn').autocomplete({
+				$('#nama').autocomplete({
 					source: function (request, response) {
 						$.ajax({
 							url: "{{url('/home/dosen_user_autocomplete')}}",
 							type: 'POST',
 							data: {
-								term: $('#nidn').val(),
+								term: $('#nama').val(),
 								_token : $('input[name="_token"]').val()
 							},
 							dataType: 'json',
 							success: function (data) {
 								response($.map(data, function (obj) {
 									return {
-										label: obj.nidn,
-										value: obj.nidn,
-										nama: obj.nama
+										label: obj.nama,
+										value: obj.nama,
+										iddosen: obj.iddosen,
+										nidn :obj.nidn
 									}
 								}));
 							}
@@ -124,13 +117,29 @@
 					},
 					change: function (event, ui) {
 						if (ui.item != null) {
-							$('#nidn').val(ui.item.value);
-							$('#nama').val(ui.item.nama);
+							$('#nama').val(ui.item.value);
+							$('#dosenid').val(ui.item.iddosen);
+							$.ajax({
+								url:'{{ url("/home/check_iddosen") }}',
+								type: 'POST',
+								data: {
+									iddosen: ui.item.iddosen,
+									_token : $('input[name="_token"]').val()
+								},
+								dataType: 'json',
+								success: function (returnval) {
+									if(parseInt(returnval)==1)
+									{
+
+									}
+								}
+
+							});
 						}
 					}
 				}).data('ui-autocomplete')._renderItem = function (ul, item) {
 					//location
-					return ($('<li>').append('<a><strong>' + item.label + '</strong>, <i><strong>' + item.nama + '</strong> </i></a>').appendTo(ul));
+					return ($('<li>').append('<a><strong>' + item.label + '</strong>, <i><strong>' + item.nidn + '</strong> </i></a>').appendTo(ul));
 				};
 
     }; //end autcomplete
