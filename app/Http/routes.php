@@ -40,7 +40,7 @@ Route::group(['middleware' => 'web'],function(){
 	//dosen
 	Route::get('login-dosen','AuthDosen\AuthController@showLoginForm');
 	Route::post('login-dosen',['as'=>'login-dosen','uses'=>'AuthDosen\AuthController@DosenLoginPost']);
-	//Route::get('/logout-dosen','AuthDosen\AuthController@logoutdosen');
+	Route::get('/logout-dosen','AuthDosen\AuthController@logoutdosen');
 	
 	//error
 	Route::get('/503',function(){
@@ -229,4 +229,13 @@ Route::group(['middleware' => ['usermahasiswas']],function(){
 	Route::post('/home/mahasiswa/changepasswords','UserMahasiswaController@postchangepassword');
 	
 	Route::post('/home/mahasiswa/TempUpload','UserMahasiswaController@TempUpload');
+});
+Route::group(['middleware' => ['userdosens']],function(){
+	Route::get('/home/menu_dosen/{iddosen}','UserDosenController@index');
+	Route::get('/home/menu_dosen/changepassword/{iddosen}',
+	['uses'=>'UserDosenController@changepassword',
+	'as'=>'dosen-changepassword']);
+	Route::post('/home/dosen/changepasswords','UserDosenController@postchangepassword');
+	
+	Route::post('/home/dosen/TempUpload','UserDosenController@TempUpload');
 });

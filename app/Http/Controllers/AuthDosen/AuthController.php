@@ -86,18 +86,21 @@ class AuthController extends Controller
 	public function DosenLoginPost(Request $request)
 	{
 			$credentials =[
-			'nidn'=>$request->nidn,
+			'email'=>$request->email,
 			'password'=>$request->password
 			];
 			
+
+
 			$authorized = auth()->guard($this->guard)->attempt($credentials);
 			if($authorized)
 			{
-				return redirect($this->redirectTo.'/'.$request->nidn);
+                $getIddosen = UserDosen::where('email','=',$request->email)->first();
+				return redirect($this->redirectTo.'/'.$getIddosen->iddosen);
 			}else
 			{
 				
-				return Redirect::back()->with('AuthErr','Nidn atau Password Salah!')->withInput($request->except('password'));
+				return Redirect::back()->with('AuthErr','Email atau Password Salah!')->withInput($request->except('password'));
 			}
 
 	}

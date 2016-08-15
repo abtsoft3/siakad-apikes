@@ -89,6 +89,18 @@
 <script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
 
 <script type='text/javascript'>
+
+	var fn_check_iddosen_exist = function(val){
+		if(val==1){
+			$('#errid').removeClass('has-success').addClass('has-error');
+			$('[data-bv-icon-for="nama"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
+			$('#status_id').text('nama sudah ada!').css('color','#a94442');
+			$('#btn-submit').prop('disabled',true);
+		}else{
+			$('#status_id').text('');
+			$('#btn-submit').prop('disabled',false);
+		}
+	}
 	$(document).ready(function(){
 		
 		 if ($("#nama").length>0) {
@@ -128,10 +140,7 @@
 								},
 								dataType: 'json',
 								success: function (returnval) {
-									if(parseInt(returnval)==1)
-									{
-
-									}
+									fn_check_iddosen_exist(parseInt(returnval));
 								}
 
 							});
