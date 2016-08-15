@@ -30,7 +30,7 @@
     <table id="datatable-kelasdosen" class="table table-striped table-bordered">
       <thead>
         <tr>
-        <th colspan="8">
+        <th colspan="9">
            <div class="form-horizontal">
             
               <div class="form-group">
@@ -67,11 +67,12 @@
           <th>Tugas</th>
           <th>MID SM</th>
           <th>Semester</th>
+          <th>Keterangan</th>
         </tr>
       </thead>
       <tfoot>
         <tr>
-          <th colspan="8"><button id="btn-submit" type="button" class="btn btn-success pull-left"><i class="fa fa-send"></i> Tambah</button> </th>          
+          <th colspan="9"><button id="btn-submit" type="button" class="btn btn-success pull-left"><i class="fa fa-send"></i> Tambah</button> </th>          
         </tr> 
       </tfoot>
     </table>
@@ -126,11 +127,51 @@
                   {data: null,    name: 'no'},
                   {data: 'nim',   name: 'nim'},
                   {data: 'nama',  name: 'nama'},
-                  {data: null,         name: 'keterangan',
+                  {data: null,         name: 'absensi',
                     orderable : false,
                     render: function ( data, type, row ) {
                         if ( type === 'display' ) {
-                            return '<input type="text" name="absensi[]" id="absensi" class="form-control" size="4">';
+                            return '<input type="text" name="absensi[]" id="absensi" class="form-control" size="1">';
+                        }
+                        return data;
+                    },
+                    className: "text-center",
+                  },
+                  {data: null,         name: 'seminar',
+                    orderable : false,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="text" name="seminar[]" id="seminar" class="form-control" size="1"> <input type="hidden" name="nim[]" id="nim" value="'+data.nim+'">';
+                        }
+                        return data;
+                    },
+                    className: "text-center",
+                  },
+                  {data: null,         name: 'tugas',
+                    orderable : false,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="text" name="tugas[]" id="tugas" class="form-control" size="1">';
+                        }
+                        return data;
+                    },
+                    className: "text-center",
+                  },
+                  {data: null,         name: 'midsm',
+                    orderable : false,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="text" name="midsm[]" id="midsm" class="form-control" size="1">';
+                        }
+                        return data;
+                    },
+                    className: "text-center",
+                  },
+                  {data: null,         name: 'nsemester',
+                    orderable : false,
+                    render: function ( data, type, row ) {
+                        if ( type === 'display' ) {
+                            return '<input type="text" name="nsemester[]" id="nsemester" class="form-control" size="1">';
                         }
                         return data;
                     },
@@ -140,37 +181,7 @@
                     orderable : false,
                     render: function ( data, type, row ) {
                         if ( type === 'display' ) {
-                            return '<input type="text" name="seminar[]" id="seminar" class="form-control" size="4"> <input type="hidden" name="nim[]" id="nim" value="'+data.nim+'">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'keterangan',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="tugas[]" id="tugas" class="form-control" size="4">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'keterangan',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="midsm[]" id="midsm" class="form-control" size="4">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'keterangan',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="nsemester[]" id="nsemester" class="form-control" size="4">';
+                            return '<input type="text" name="keterangan[]" id="keterangan" class="form-control" size="7">';
                         }
                         return data;
                     },
@@ -233,10 +244,15 @@
                 return $(this).val();
               }).get();
 
+              var ket;
+              ket = $('input[name="keterangan[]"]').map(function() {
+                return $(this).val();
+              }).get();
+
               $.ajax({
                 type: 'POST',
                 url: '{{"/home/addpenilaian"}}',
-                data: {'nim':nim, 'matkul':matkul, 'absensi':absensi, 'seminar':seminar, 'tugas':tugas, 'midsm':midsm, 'nsemester':nsemester, 'idkelas':idkelas, 'sem':sem,  '_token' : $('input[name="_token"]').val()},
+                data: {'nim':nim, 'matkul':matkul, 'absensi':absensi, 'seminar':seminar, 'tugas':tugas, 'midsm':midsm, 'nsemester':nsemester, 'ket':ket, 'idkelas':idkelas, 'sem':sem,  '_token' : $('input[name="_token"]').val()},
                 dataType: 'json',
                 success: function (data) {
                   
@@ -252,7 +268,6 @@
                     alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
                   },
                   complete: function () {
-                    alert(url);
                     url = '{{"getdatamhs"}}/'+idkelas+'/'+sem+'/'+matkul;
                     gentable.ajax.url(url).load(); 
                   }

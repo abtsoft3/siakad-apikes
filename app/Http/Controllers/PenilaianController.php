@@ -72,6 +72,7 @@ class PenilaianController extends Controller
         $tugas      = $requests->tugas;
         $midsm      = $requests->midsm;
         $nsemester  = $requests->nsemester;
+        $nket       = $requests->ket;
 
         $kelas    = $requests->idkelas;
         $semester   = $requests->sem;
@@ -97,8 +98,12 @@ class PenilaianController extends Controller
             $datamidsem [] = $vmidsm;
         }
 
-         foreach ($nsemester as $key => $vnsemester) {
+        foreach ($nsemester as $key => $vnsemester) {
             $datansemester [] = $vnsemester;
+        }
+
+        foreach ($nket as $key => $vket) {
+            $dataket [] = $vket;
         }
 
 
@@ -112,6 +117,7 @@ class PenilaianController extends Controller
                             'tugas'     => $datatugas[$i],
                             'midsm'     => $datamidsem[$i],
                             'nsem'      => $datansemester[$i],
+                            'keterangan' => $dataket[$i],
                             'iddosen'   => $dosen,
                             'idkelas'   => $kelas,
                             'semester'  => $semester
