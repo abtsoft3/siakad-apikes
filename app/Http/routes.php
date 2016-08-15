@@ -146,7 +146,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/deletekelasdosen/{idkelasdosen}','KelasDosenController@destroy');
 
 
-	//penilaian mahasiswa ini tadi yang terdelete sama aku
+	//penilaian mahasiswa ini tadi yang terdelete sama aku, ini lokasi nyaeharusnya di userdosens auth
 	/*Route::get('/home/addpenilaian','PenilaianController@add');
 	Route::post('/home/addpenilaian','PenilaianController@store');
 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
