@@ -68,43 +68,43 @@
      <div class="clearfix"></div>
     </div>
     <div class="x_content">
-		<div class="col-lg-5 col-sm-5 col-xs-5">
+		<div class="col-lg-7 col-sm-7 col-xs-7">
 			<div  class="form form-horizontal" > 
 			<div class="row">
 					<div class="form-group">
-						<label class="col-md-5 control-label">Nim</label>
-						<div class="col-md-5">
+						<label class="col-md-4 control-label">Nim</label>
+						<div class="col-md-6">
 							<label class="control-label">{{ Auth::guard('usermahasiswas')->user()->nim }}</label>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-5 control-label">Nama</label>
-						<div class="col-md-5">
+						<label class="col-md-4 control-label">Nama</label>
+						<div class="col-md-6">
 							<label class="control-label">{{ Auth::guard('usermahasiswas')->user()->nama }}</label>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-5 control-label">Tempat, Tanggal Lahir</label>
-						<div class="col-md-5">
+						<label class="col-md-4 control-label">Tempat, Tanggal Lahir</label>
+						<div class="col-md-6">
 							<label class="control-label">{{ $model->tempatlahir }}, {{ date('d F, Y', strtotime($model->tanggallahir)) }}</label>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-5 control-label">Nama Orang Tua</label>
-						<div class="col-md-5">
+						<label class="col-md-4 control-label">Nama Orang Tua</label>
+						<div class="col-md-6">
 							<label class="control-label">{{ $model->namaortu }}</label>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-5 control-label">Asal Sekolah</label>
-						<div class="col-md-5">
+						<label class="col-md-4 control-label">Asal Sekolah</label>
+						<div class="col-md-6">
 							<label class="control-label">{{ $model->asalsekolah }}</label>
 						</div>
 					</div>
 				</div>
 			</div>	
 		</div>
-		<div class="col-lg-5 col-sm-5 col-xs-5">
+		<div class="col-lg-4 col-sm-4 col-xs-4">
 
 			<div class="container-here">
 				<div class="row">

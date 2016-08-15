@@ -26,13 +26,13 @@
   </head>
 
   <body class="nav-md">
- 
+ <?php $iddosen =Auth::guard('userdosens')->user()->iddosen;  ?>
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><span>SIAKAD APIKES</span></a>
+              <a href="#" class="site_title"><span>SIAKAD APIKES</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -40,11 +40,19 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                @if (Auth::guard('userdosens')->user()->imageuser===null)
+                    <img class="img-circle profile_img" 
+                    src="{{ URL::asset('images/user.png')}}" alt="profil-picture" />
+                    @else
+                    <img class="img-circle profile_img" 
+                    src="data:image/jpg;base64,{{ Auth::guard('userdosens')->user()->imageuser}}" 
+                    alt="profile-picture" />
+                    
+                    @endif
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>dr. Imelda</h2>
+                <span>Selamat Datang,</span>
+                <h2>{{ Auth::guard('userdosens')->user()->nama }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -55,103 +63,33 @@
 			 @section('sidebar')
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>Owner</h3>
+                <h3>{{ $model->jabatanakademik }}</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                   
                   </li>
-				  <li><a><i class="fa fa-user"></i> Mahasiswa <span class="fa fa-chevron-down"></span></a>
+				    <li>
+              <a><i class="fa fa-user"></i> Penilaian <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{url('addmahasiswa')}}">Tambah</a></li>
-                      <li><a href="{{url('showmahasiswa')}}">Tampilkan</a></li>
+                      <li><a href="#">Tambah</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> KRS <span class="fa fa-chevron-down"></span></a>
+
+                   <li><a><i class="fa fa-users"></i> Penilaian Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{url('addkrs')}}">Pengisian KRS</a></li>
-                      <li><a href="{{url('listkrs')}}">Lihat KRS</a></li>
+                      <li><a href="{{url('/home/addpenilaian')}}">Tambah</a></li>
+                      <li><a href="{{url('/home/showkelasdosen')}}">Tampilkan</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> KHS <span class="fa fa-chevron-down"></span></a>
+
+                  <li><a><i class="fa fa-edit"></i> Pengisian Nilai <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
+                      <li><a href="#">Lihat KRS</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> DATASET <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                    </ul>
-                  </li>
-				  
-                  <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
-                  </li>
-                  
-				   <li><a><i class="fa fa-clone"></i> MataKuliah <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('addmatakuliah')}}">Tambah</a></li>
-                      <li><a href="{{url('showmatakuliah')}}">Tampilkan</a></li>
-                      
-                    </ul>
-                  </li>
-				   <li><a><i class="fa fa-calendar"></i> Periode <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('addperiode')}}">Tambah</a></li>
-                      <li><a href="{{url('showperiode')}}">Tampilkan</a></li>
-                      
-                    </ul>
-                  </li>
-				   <li><a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Tambah</a>
-                        </li>
-                        <li><a href="#level1_2">Tampilkan</a>
-                        </li>
-                    </ul>
-                  </li> 
                 </ul>
               </div>
-              <div class="menu_section">
-                <h3>Kontrol</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> User Management <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">Mahasiswa</a></li>
-                      <li><a href="projects.html">Dosen</a></li>
-                      
-                    </ul>
-                  </li>
-				  <!-- tutup dulu
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-				  -->
-                </ul>
-              </div>
+             
 
             </div>
             <!-- /sidebar menu -->
@@ -186,28 +124,24 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">dr. Imelda
+                      @if (Auth::guard('userdosens')->user()->imageuser===null)
+                    <img src="{{ URL::asset('images/user.png')}}" alt="profil-picture" />
+                    @else
+                    <img src="data:image/jpg;base64,{{ Auth::guard('userdosens')->user()->imageuser}}" 
+                    alt="profile-picture" />
+                    
+                    @endif
+                    {{ Auth::guard('userdosens')->user()->nama }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="{{ route('dosen-changepassword',['iddosen'=>$iddosen]) }}"><i class="fa fa-cog pull-right"></i> Ganti Password</a></li>
+                    
+                    <li><a href="javascript:;"><i class="fa fa-battery-1 pull-right"></i> Bantuan</a></li>
+                    <li><a href="{{ url('logout-dosen') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                </li>
               </ul>
             </nav>
           </div>

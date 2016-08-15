@@ -36,6 +36,7 @@ class UserMahasiswaController extends Controller
 		
 		if (Hash::check($request->LastPassword, $models->password))
 		{
+			$models->email = $request->email;
 			$models->password = bcrypt($request->NewPassword);
 			$models->save();
 			return redirect('/home/menu_mahasiswa'.'/'.$request->nim);

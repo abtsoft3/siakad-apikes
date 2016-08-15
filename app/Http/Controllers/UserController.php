@@ -271,7 +271,6 @@ class UserController extends Controller
 	{
 		$id = $request->id;
 			$model = UserDosen::find($id);
-			$model->nidn = $request->nidn;
 			$model->nama = $request->nama;
 			$model->email = $request->email;
 			$model->password = bcrypt($request->password);

@@ -248,6 +248,9 @@
                   complete: function () {
                     gentable.ajax.url('{{"datamk"}}/'+$('#semester').val()).load(); 
                      $('#totalsks').text('');
+                     $('#checkall').prop('disabled',false);
+                     document.getElementById('checkall').checked=false;
+                     document.getElementById('semester').value=0;
                   }
                 });
 

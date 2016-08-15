@@ -40,7 +40,7 @@ Route::group(['middleware' => 'web'],function(){
 	//dosen
 	Route::get('login-dosen','AuthDosen\AuthController@showLoginForm');
 	Route::post('login-dosen',['as'=>'login-dosen','uses'=>'AuthDosen\AuthController@DosenLoginPost']);
-	//Route::get('/logout-dosen','AuthDosen\AuthController@logoutdosen');
+	Route::get('/logout-dosen','AuthDosen\AuthController@logoutdosen');
 	
 	//error
 	Route::get('/503',function(){
@@ -60,6 +60,10 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
 	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
 	Route::get('/home/storekrs','DaftarKrsController@store');
+	//penilaian mahasiswa
+	Route::get('/home/addpenilaian','PenilaianController@add');
+ 	Route::post('/home/addpenilaian','PenilaianController@store');
+ 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
 });
 
 
@@ -141,12 +145,14 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@edit');
 	Route::get('/home/deletekelasdosen/{idkelasdosen}','KelasDosenController@destroy');
 
-	//penilaian mahasiswa
-	Route::get('/home/addpenilaian','PenilaianController@add');
+
+	//penilaian mahasiswa ini tadi yang terdelete sama aku
+	/*Route::get('/home/addpenilaian','PenilaianController@add');
 	Route::post('/home/addpenilaian','PenilaianController@store');
 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
 	Route::get('/home/showpenilaian', 'PenilaianController@show');
-	Route::get('/home/getdatakhs', 'PenilaianController@datakhs');
+	Route::get('/home/getdatakhs', 'PenilaianController@datakhs');*/
+
 
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');
@@ -231,4 +237,13 @@ Route::group(['middleware' => ['usermahasiswas']],function(){
 	Route::post('/home/mahasiswa/changepasswords','UserMahasiswaController@postchangepassword');
 	
 	Route::post('/home/mahasiswa/TempUpload','UserMahasiswaController@TempUpload');
+});
+Route::group(['middleware' => ['userdosens']],function(){
+	Route::get('/home/menu_dosen/{iddosen}','UserDosenController@index');
+	Route::get('/home/menu_dosen/changepassword/{iddosen}',
+	['uses'=>'UserDosenController@changepassword',
+	'as'=>'dosen-changepassword']);
+	Route::post('/home/dosen/changepasswords','UserDosenController@postchangepassword');
+	
+	Route::post('/home/dosen/TempUpload','UserDosenController@TempUpload');
 });

@@ -443,31 +443,29 @@ INSERT INTO `mahasiswa` (`nim`, `nama`, `tempatlahir`, `tanggallahir`, `agama`, 
 ('1113464048', 'YESSI MAGDALENA', 'SEI SUKA DERAS', '1990-07-18', '-', 'SMA SWASTA KATOLIK CINTA KASIH TEBING TINGGI', 'JONAR SITANGGANG', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 ('1113464049', 'ZULFIRMAN HARAHAP', 'MESJID LAMA', '1993-07-31', '-', 'SMA NEGERI 1 TALAWI BATU BARA', 'GHOZALI  HARAHAP', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
---
--- Triggers `mahasiswa`
---
-DELIMITER $$
+-- ----------------------------
+--  Trigger definition for `mahasiswa`
+-- ----------------------------
+DELIMITER ;;
 CREATE TRIGGER `tggr_insdetailmhs` AFTER INSERT ON `mahasiswa` FOR EACH ROW BEGIN
-		
+    
         declare nim         varchar(10);
         declare vidangkatan int(3);
         declare vtahun      varchar(4);
-        declare snama 		varchar(30);
+        declare snama     varchar(30);
         
-        set vtahun 	= concat('20', substr(new.nim, 1,2));
-        set snama 	= splitstr(new.nama, ' ', 1);
+        set vtahun  = concat('20', substr(new.nim, 1,2));
+        set snama   = replace(new.nama,' ','');
         
         select idangkatan into vidangkatan from angkatan where tahun=vtahun;
         
         insert into detailmahasiswa (nim, idangkatan) values(new.nim, vidangkatan);
         
         insert into user_mahasiswas (nama, nim, email, password, created_at, updated_at) 
-							 values (new.nama, new.nim, concat(snama,'@gmail.com'), md5('12345'), now(), now());
+               values (new.nama, new.nim, concat(snama,'@gmail.com'), md5('12345'), now(), now());
         
-    END
-$$
+    END;;
 DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -590,17 +588,20 @@ CREATE TABLE `tahunajaran` (
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `admin` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+  `admin` tinyint(1) DEFAULT '0',
+  `imageuser` longblob,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 --
 -- Dumping data for table `users`
 --
@@ -614,24 +615,28 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `creat
 -- Table structure for table `user_dosens`
 --
 
+DROP TABLE IF EXISTS `user_dosens`;
 CREATE TABLE `user_dosens` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `nidn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `iddosen` int(11) NOT NULL,
   `nama` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `imageuser` longblob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `imageuser` longblob,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_dosen_nim_unique` (`iddosen`),
+  UNIQUE KEY `users_dosen_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 --
 -- Dumping data for table `user_dosens`
 --
 
-INSERT INTO `user_dosens` (`id`, `nidn`, `nama`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `imageuser`) VALUES
-(3, '0106127903', 'Parmen, SKM, M.Kes', '', '$2y$10$4c.O8r60yvXkkdVHPFlKheJZV2gfddrUf02V9S.XkXHN4ADMRMje2', NULL, '2016-08-11 03:17:14', '2016-08-11 03:17:14', NULL);
+
 
 -- --------------------------------------------------------
 
@@ -639,16 +644,21 @@ INSERT INTO `user_dosens` (`id`, `nidn`, `nama`, `email`, `password`, `remember_
 -- Table structure for table `user_mahasiswas`
 --
 
+DROP TABLE IF EXISTS `user_mahasiswas`;
 CREATE TABLE `user_mahasiswas` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nama` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nim` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `image_user` longblob,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usermahasiswas_nim_unique` (`nim`),
+  UNIQUE KEY `usermahasiswas_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user_mahasiswas`
