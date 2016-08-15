@@ -90,7 +90,7 @@
           <!--li><a><i class="fa fa-users"></i> Penilaian Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('/home/addpenilaian')}}">Tambah</a></li>
-                      <li><a href="{{url('/home/showkelasdosen')}}">Tampilkan</a></li>
+                      <li><a href="{{url('/home/showpenilaian')}}">Tampilkan</a></li>
                     </ul>
                   </li-->
 				 <li><a><i class="fa fa-clone"></i> MataKuliah <span class="fa fa-chevron-down"></span></a>
