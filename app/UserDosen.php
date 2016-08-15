@@ -16,7 +16,7 @@ class UserDosen extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nidn','nama', 'email', 'password',
+        'iddosen','nama', 'email', 'password',
     ];
 
     /**
