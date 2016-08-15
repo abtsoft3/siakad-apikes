@@ -29,6 +29,13 @@
 			{!! Form::open(array('url' => '/home/mahasiswa/changepasswords', 'class'=>'form-horizontal', 'id'=>'form-password')) !!}
 				<div class="row">
 					<div class="form-group">
+						<label class="col-md-5 control-label">Email</label>
+						<div class="col-md-5">
+							{!! Form::email('email',null,array('class' => 'form-control','type'=>'email')) !!}
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label class="col-md-5 control-label">Password Lama</label>
 						<div class="col-md-5">
 						<input type="hidden" name="nim" value="{{Auth::guard('usermahasiswas')->user()->nim}}" />
@@ -80,7 +87,16 @@
 				},
 				excluded:'disabled',
 				fields: {
-					
+					email: {
+		                validators: {
+		                	notEmpty: {
+								message: 'Silahkan isi email'
+							},
+		                    emailAddress: {
+		                        message: 'Email salah'
+		                    }
+		                }
+		            },
 					LastPassword: {
 						validators: {
 							notEmpty: {

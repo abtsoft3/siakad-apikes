@@ -141,10 +141,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@edit');
 	Route::get('/home/deletekelasdosen/{idkelasdosen}','KelasDosenController@destroy');
 
-	//penilaian mahasiswa
-	Route::get('/home/addpenilaian','PenilaianController@add');
-	Route::post('/home/addpenilaian','PenilaianController@store');
-	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
+	 
 
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');

@@ -635,7 +635,7 @@ DROP TABLE IF EXISTS `user_dosens`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_dosens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nidn` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `iddosen` int(11) COLLATE utf8_unicode_ci NOT NULL,
   `nama` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
