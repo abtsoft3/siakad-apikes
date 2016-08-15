@@ -61,9 +61,9 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
 	Route::get('/home/storekrs','DaftarKrsController@store');
 	//penilaian mahasiswa
-	Route::get('/home/addpenilaian','PenilaianController@add');
+	Route::get('/home/addpenilaian/{iddosen}','PenilaianController@add');
  	Route::post('/home/addpenilaian','PenilaianController@store');
- 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
+ 	Route::get('/home/getdatamhs/{iddosen}/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
 });
 
 

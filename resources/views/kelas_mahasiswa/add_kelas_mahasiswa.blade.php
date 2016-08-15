@@ -111,9 +111,9 @@ var genTable = null;
 		genTable = $('#datatable-getmahasiswa').DataTable({
           processing: true,
           ajax: '{{url("/home/getdatamahasiswa")}}',
-          paging:false,
-          ordering:false,
-          info:false,
+          paging:true,
+          ordering:true,
+          info:true,
           searching:false,
           columns: [
 	          {

@@ -63,22 +63,17 @@
 			 @section('sidebar')
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>{{ $model->jabatanakademik }}</h3>
+                <h3></h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                   
                   </li>
-				    <li>
-              <a><i class="fa fa-user"></i> Penilaian <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#">Tambah</a></li>
-                    </ul>
-                  </li>
+				 
 
                    <li><a><i class="fa fa-users"></i> Penilaian Mahasiswa <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{url('/home/addpenilaian')}}">Tambah</a></li>
-                      <li><a href="{{url('/home/showkelasdosen')}}">Tampilkan</a></li>
+                      <li><a href="{{url('/home/addpenilaian',['iddosen'=>Auth::guard('userdosens')->user()->iddosen])}}">Tambah</a></li>
+                     
                     </ul>
                   </li>
 
