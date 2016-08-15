@@ -145,6 +145,8 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/addpenilaian','PenilaianController@add');
 	Route::post('/home/addpenilaian','PenilaianController@store');
 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
+	Route::get('/home/showpenilaian', 'PenilaianController@show');
+	Route::get('/home/getdatakhs', 'PenilaianController@datakhs');
 
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');
