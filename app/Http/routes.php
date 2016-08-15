@@ -60,6 +60,10 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
 	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
 	Route::get('/home/storekrs','DaftarKrsController@store');
+	//penilaian mahasiswa
+	Route::get('/home/addpenilaian','PenilaianController@add');
+ 	Route::post('/home/addpenilaian','PenilaianController@store');
+ 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
 });
 
 
