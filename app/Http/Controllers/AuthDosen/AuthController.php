@@ -39,10 +39,10 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+   /* public function __construct()
     {
         $this->middleware($this->guard, ['except' => 'logoutdosen']);
-    }
+    }*/
     
   
 
@@ -80,6 +80,11 @@ class AuthController extends Controller
 	
 	 public function showLoginForm()
 	{
+        if(Auth::guard('userdosens')->check())
+        {
+            $iddosen=Auth::guard('userdosens')->user()->iddosen;
+            return redirect($this->redirectTo.'/'.$iddosen);
+        }
 		return view('user_dosen.login');
     }
 	
