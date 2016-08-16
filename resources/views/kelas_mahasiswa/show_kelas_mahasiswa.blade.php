@@ -125,7 +125,7 @@
       }).
       on('click','.delete',function(){
         var data = gentable.row($(this).parents('tr')).data();
-        alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
+        alertify.confirm("Konfirmasi","Anda Yakin Ingin menghapus data?", function (e) {
           if (e) {
             $.get("/home/deletekelasmahasiswa/"+data.id, function(data, status){
               //alert(data)
@@ -138,7 +138,7 @@
                 
             },'json');
           }
-        });   
+        },function(){});   
       });
       //tooltip
       $('body').tooltip({

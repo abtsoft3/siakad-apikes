@@ -24,11 +24,12 @@
 				 
 					<div class="col-lg-6 col-sm-6 col-xs-5">
 						{!! Form::open(array('url' => '/home/adddosen','class'=>'form-horizontal','id'=>'form-dosen')) !!}
-							<div class="form-group">
+							
+							<div class="form-group" id="nidn_stat">
 								{!! Form::label('nidn','NIDN',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
 									{!! Form::text('nidn',null,array('class' => 'form-control','maxlength'=>'11')) !!}
-									<!-- <small id="status_nidn"></small> -->
+									<small id="status_nidn"></small>
 								</div>
 							</div>
 							
@@ -106,18 +107,17 @@
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 <script type='text/javascript'>
-	/*var checkkode=0;
-	var fn_check_kodemk_exist = function(val){
+	var fn_check_nidn_exist = function(val){
 		if(val==1){
-			$('#mkkd').removeClass('has-success').addClass('has-error');
-			$('[data-bv-icon-for="kodemk"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
-			$('#status_kdmk').text('kode sudah ada!').css('color','#a94442');
+			$('#nidn_stat').removeClass('has-success').addClass('has-error');
+			$('[data-bv-icon-for="nidn"]').removeClass('glyphicon glyphicon-ok').addClass('glyphicon glyphicon-remove')
+			$('#status_nidn').text('nidn sudah ada!').css('color','#a94442');
 			$('#btn-submit').prop('disabled',true);
 		}else{
-			$('#status_kdmk').text('');
+			$('#status_nidn').text('');
 			$('#btn-submit').prop('disabled',false);
 		}
-	}*/
+	}
 	$(document).ready(function(){
 
 		$('#tanggallahir').datetimepicker({
@@ -129,35 +129,22 @@
 				defaultDate: '01/26/2014'*/
 		});
 
-		/*$('#kodemk').autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/kodemk_autocomplete",
-                    type: 'POST',
-                    data: {
-                        term: $('#kodemk').val(),
-						_token : $('input[name="_token"]').val()
-                    },
-                    dataType: 'json',
-                    success: function (data) {
-                        response($.map(data, function (obj) {
-							checkkode=parseInt(obj);
-							fn_check_kodemk_exist(parseInt(obj));
-                        }));
-                    }
-                });
-            },
-			 messages: {
-				noResults:'' ,
-				results: function() {{
-					}
-				}
-			},
-            change: function (event, ui) {
-				parseInt(checkkode);
-				fn_check_kodemk_exist(parseInt(checkkode));
-            }
-        });*/
+		$('#nidn').keyup(function()
+		{
+			_datasend= $(this).val();
+			$.ajax({
+					type: 'POST',
+					url: '{{ url("/home/check_nidn") }}',
+					data:{term: _datasend,
+						_token : $('input[name="_token"]').val()},
+					dataType: 'json',
+					success: function (datareturn) {
+							var returndata=parseInt(datareturn.return);
+							fn_check_nidn_exist(returndata);
+							return false;
+						}
+			});
+		});
 		
 		
 		$('#form-dosen').bootstrapValidator({

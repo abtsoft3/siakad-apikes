@@ -142,4 +142,19 @@ class DosenController extends Controller
 		return Datatables::of($getmodel)->make(true);
 	}
 
+	public function check_nidn(Request $request){
+		$statreturn = 0;
+		$term = $request->get('term');
+		if (ModelDosen::where('nidn', '=',$term)->exists()) {
+			$statreturn=1;
+		}
+		return response()->json(['return' => $statreturn]);
+	}
+
+	public function detail($iddosen){
+		$cdatadetail = ModelDosen::find($iddosen)->first();
+		return view('dosen.detail_dosen', ['cdatadetail'=>$cdatadetail]);
+
+	}
+
 }

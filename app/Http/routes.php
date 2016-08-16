@@ -93,6 +93,9 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/home/updatematakuliah','MataKuliahController@updatematakuliah');
 	//delete detail matakuliah
 	Route::post('/home/delete_dosen_detailmatakuliah','MataKuliahController@delete_dosen_detailmatakuliah');
+	
+	Route::get('/home/detailmatakuliah/{kodemk}','MataKuliahController@detail');
+
 	//mahasiswa
 	Route::get('/home/showmahasiswa','MahasiswaController@index');
 	Route::get('/home/deletemahasiswa/{nim}','MahasiswaController@destroy');
@@ -135,6 +138,9 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/home/adddosen','DosenController@store');
 	Route::get('/home/deletedosen/{iddosen}','DosenController@destroy');
 	Route::get('/home/getdosenpengampu','DosenController@getDataDosenPengampu');
+	Route::post('/home/check_nidn','DosenController@check_nidn');
+	Route::get('/home/detaildosen/{iddosen}','DosenController@detail');
+
 	//kelas dosen
 	Route::get('/home/addkelasdosen','KelasDosenController@add');
 	Route::get('/home/showkelasdosen','KelasDosenController@index');
