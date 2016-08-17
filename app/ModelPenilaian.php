@@ -9,7 +9,7 @@ use DB;
 class ModelPenilaian extends Model
 {
 
-	public $idkelas;
+	//public $idkelas;
 
     protected $table = 'khs';
 
@@ -17,7 +17,8 @@ class ModelPenilaian extends Model
     	'nim',
     	'iddosen',
     	'semester',
-        'kodemk'
+        'kodemk',
+        'idkelas'
     ];
 
     public function showdatamhs(){
@@ -62,6 +63,50 @@ class ModelPenilaian extends Model
                                         DB::raw('toRoman(matakuliah.semester) as romsem')
 		                     		  ])->get();
 		}
+        else{
+
+            $data = DB::table('kelasdosen')
+                             ->join("kelas", "kelasdosen.idkelas", "=", "kelas.idkelas")
+                             ->join("detailmatakuliah", "kelasdosen.iddosen", "=", "detailmatakuliah.iddosen")
+                             ->join("matakuliah", "detailmatakuliah.kodemk", "=", "matakuliah.kodemk")
+                             ->whereExists(function($query)
+                             {
+                                $query->select(DB::raw(1))
+                                ->from('khs')
+                                ->whereRaw('kelasdosen.iddosen = khs.iddosen and kelas.idkelas = khs.idkelas and matakuliah.kodemk = khs.kodemk');
+                             })
+                             ->whereRaw('kelasdosen.iddosen = '.$this->iddosen)
+                             ->select([
+                                        'kelas.idkelas', 
+                                        'kelas.namakelas',
+                                        'matakuliah.kodemk',
+                                        'matakuliah.matakuliah',
+                                        'matakuliah.semester',
+                                        DB::raw('toRoman(matakuliah.semester) as romsem')
+                                      ])->get();
+        }
+
 		return $data;
 	}
+
+    public function showpenilaian(){
+        $data = $this->join("mahasiswa", "khs.nim", "=", "mahasiswa.nim")
+                     ->join("kelas", "khs.idkelas", "=", "kelas.idkelas")
+                     ->join("matakuliah", "khs.kodemk", "=", "matakuliah.kodemk")
+                     ->whereRaw("khs.idkelas = ".$this->idkelas." and khs.semester = ".$this->semester." and khs.kodemk = '".$this->kodemk."'")
+                     ->select([
+                                'mahasiswa.nim',
+                                'mahasiswa.nama',
+                                'khs.absensi',
+                                'khs.seminar',
+                                'khs.tugas',
+                                'khs.midsm',
+                                'khs.nsem',
+                                DB::raw('fhitungakhir(khs.absensi, khs.seminar, khs.tugas, khs.midsm, khs.nsem) as akhir'),
+                                DB::raw('fnilaihuruf(fhitungakhir(khs.absensi, khs.seminar, khs.tugas, khs.midsm, khs.nsem)) as nilaihuruf'),
+                                'khs.keterangan'
+                              ])
+                     ->orderBy('mahasiswa.nim', 'asc')->get();
+        return $data;
+    }
 }

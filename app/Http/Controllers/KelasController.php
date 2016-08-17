@@ -19,7 +19,15 @@ class KelasController extends Controller
 
     public function add()
     {
-    	return view('kelas.add_kelas');
+    	$model = new ModelKelas;
+
+    	$arrdosen[""] = "Pilih";
+    	$datadosen  = $model->showdosen();
+    	foreach ($datadosen as $key => $cdatadosen) {
+    		$arrdosen[$cdatadosen->iddosen] = $cdatadosen->nama;
+    	}
+
+    	return view('kelas.add_kelas', ['arrdosen' => $arrdosen]);
     }
 
     public function store(Request $request)
@@ -33,6 +41,7 @@ class KelasController extends Controller
 			$model = new ModelKelas;
 			$model->kodekelas = $request->kode_kelas;
 			$model->namakelas = $request->nama_kelas;
+			//$model->iddosen   = $request->iddosen;
 			$model->save();
 			$stat=1;
 			
@@ -47,8 +56,18 @@ class KelasController extends Controller
     public function edit($id)
     {
     	$kelas = ModelKelas::findOrfail($id);
+
+    	$model = new ModelKelas;
+
+    	$arrdosen[""] = "Pilih";
+    	$datadosen  = $model->showdosen();
+    	foreach ($datadosen as $key => $cdatadosen) {
+    		$arrdosen[$cdatadosen->iddosen] = $cdatadosen->nama;
+    	}
+
     	return view('kelas.edit_kelas')
-    	->with('kelas',$kelas);
+    	->with('kelas',$kelas)
+    	->with('arrdosen',$arrdosen);
     }
 
     public function update(Request $request)

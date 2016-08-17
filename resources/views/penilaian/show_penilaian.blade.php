@@ -20,17 +20,17 @@
       <h2>Penilaian Mahasiswa</h2>
                     
       <div class="clearfix">
-        <a href="{{url('/home/showpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+        <a href="{{url('/home/addpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
       </div>
   </div>
   <div class="x_content">
           
   <!--table-->
   {!! Form::open(array('url' => '/home/addkelasdosen', 'id'=>'form-kelasdosen')) !!}
-    <table id="datatable-kelasdosen" class="table table-striped table-bordered">
+    <table id="datatable-kelasdosen" class="table table-striped table-bordered" width="100%">
       <thead>
         <tr>
-        <th colspan="9">
+        <th colspan="11">
            <div class="form-horizontal">
             
               <div class="form-group">
@@ -66,13 +66,15 @@
           <th>Seminar</th>
           <th>Tugas</th>
           <th>MID SM</th>
-          <th>Semester</th>
+          <th>UAS</th>
+          <th>Akhir</th>
+          <th>Nilai Huruf</th>
           <th>Keterangan</th>
         </tr>
       </thead>
       <tfoot>
         <tr>
-          <th colspan="9"><button id="btn-submit" type="button" class="btn btn-success pull-left"><i class="fa fa-send"></i> Tambah</button> </th>          
+          <!-- <th colspan="11"><button id="btn-submit" type="button" class="btn btn-success pull-left"><i class="fa fa-print"></i> Cetak</button> </th>     -->      
         </tr> 
       </tfoot>
     </table>
@@ -127,66 +129,14 @@
                   {data: null,    name: 'no'},
                   {data: 'nim',   name: 'nim'},
                   {data: 'nama',  name: 'nama'},
-                  {data: null,         name: 'absensi',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="absensi[]" id="absensi" class="form-control" size="1">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'seminar',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="seminar[]" id="seminar" class="form-control" size="1"> <input type="hidden" name="nim[]" id="nim" value="'+data.nim+'">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'tugas',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="tugas[]" id="tugas" class="form-control" size="1">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'midsm',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="midsm[]" id="midsm" class="form-control" size="1">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'nsemester',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="nsemester[]" id="nsemester" class="form-control" size="1">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
-                  {data: null,         name: 'keterangan',
-                    orderable : false,
-                    render: function ( data, type, row ) {
-                        if ( type === 'display' ) {
-                            return '<input type="text" name="keterangan[]" id="keterangan" class="form-control" size="7">';
-                        }
-                        return data;
-                    },
-                    className: "text-center",
-                  },
+                  {data: 'absensi',  name: 'absensi'},
+                  {data: 'seminar',  name: 'seminar'},
+                  {data: 'tugas',  name: 'tugas'},
+                  {data: 'midsm',  name: 'midsm'},
+                  {data: 'nsem',  name: 'nsem'},
+                  {data: 'akhir',  name: 'akhir'},
+                  {data: 'nilaihuruf',  name: 'nilaihuruf'},
+                  {data: 'keterangan',  name: 'keterangan'},
               ],
               aoColumnDefs: [
               //{ "visible": false, "aTargets": 1 },
@@ -206,12 +156,13 @@
               sem     = $('#semester').val();
               matkul  = $('#matkul').val();
               
-              url = '{{"getdatamhs"}}/'+idkelas+'/'+sem+'/'+matkul;
+              url = '{{"getdatakhs"}}/'+idkelas+'/'+sem+'/'+matkul;
+              //alert(url);
               gentable.ajax.url(url).load(); 
 
           });
 
-        var sdatabody = $('#datatable-kelasdosen tfoot');
+        /*var sdatabody = $('#datatable-kelasdosen tfoot');
         sdatabody.on('click','#btn-submit',function(){
               
               var absensi;
@@ -273,7 +224,7 @@
                   }
                 });
 
-          });
+          });*/
 
 
 

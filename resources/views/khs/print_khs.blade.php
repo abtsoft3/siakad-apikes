@@ -10,7 +10,7 @@
 			 }
         .tg td{	font-family:Arial;
         		font-size:12px;
-        		padding:10px 5px;
+        		padding:4px 5px;
         		border-style:solid;
         		border-width:1px;
         		overflow:hidden;
@@ -67,34 +67,43 @@
     </td>
   </tr>
   <tr>
-    <td colspan="7" align="center" style="background-color:#09C;"><b>KARTU RENCANA STUDY</b></td>
+    <td colspan="7" align="center" style="background-color:#09C;"><b>KARTU HASIL STUDY</b></td>
   </tr>
   <tr>
     <td colspan="7">
     <table width="100%" border="0">
-    <?php $tanggal; ?>
     <?php $namamhs; ?>
+    <?php $tanggal; ?>
     @foreach($datamhs as $key => $cdatamhs)
+      
       <tr>
-        <td width="30%">Tahun Akademik</td>
-        <td width="70%">: {{ date('Y')-1 }} / {{ date('Y') }}</td>
-      </tr>
-      <tr>
-        <td>Nim</td>
+        <td>Nomor Induk Mahasiswa</td>
         <td>: {{ $cdatamhs->nim }}</td>
       </tr>
       <tr>
         <td>Nama Mahasiswa</td>
         <td>: {{ $cdatamhs->nama }}</td>
       </tr>
-      <tr>
-        <td>Angkatan / Tahun</td>
+       <tr>
+        <td>Tempat / Tanggal Lahir</td>
+        <td>: {{ $cdatamhs->tempatlahir }} / {{ $cdatamhs->tanggallahir }}</td>
+      </tr>
+       <tr>
+        <td>Angkatan Ke - Stambuk</td>
         <td>: {{ $cdatamhs->angkatan }} / {{ $cdatamhs->tahun }}</td>
       </tr>
       <tr>
-        <td>Tingkat / Semester </td>
-        <td>: {{ $vts}} / {{ $vts}}</td>
+        <td width="30%">Tahun Akademik</td>
+        <td width="70%">: {{ date('Y')-1 }} / {{ date('Y') }}</td>
       </tr>
+      <tr>
+        <td>Tingkat</td>
+        <td>: {{ $vts}}</td>
+      </tr>
+      <tr>
+        <td>Semester </td>
+        <td>: {{ $vts}}</td>
+      </tr> 
       <?php $namamhs = $cdatamhs->nama; ?>
       <?php $tanggal = $cdatamhs->tanggal; ?>
       @endforeach
@@ -103,60 +112,88 @@
     </td>
   </tr>
   <tr>
-    <th width="6%">No.</th>
-    <th width="16%">Kode M.K</th>
-    <th width="30%">Nama Mata Kuliah</th>
-    <th width="9%">SKS</th>
-    <th width="9%">Semester</th>
-    <th width="7%">Tahun</th>
-    <th width="23%">Keterangan</th>
+    <th width="5%">No.</th>
+    <th width="10%">Kode M.K</th>
+    <th width="20%">Nama Mata Kuliah</th>
+    <th width="9%">Beban Studi SKS</th>
+    <th width="9%">Mutu</th>
+    <th width="10%">Lambang</th>
+    <th width="10%">Bobot Nilai</th>
   </tr>
   <!-- mata kuliah -->
-
   <?php $totalsks = 0; ?>
-  @foreach($datakrs as $key => $cdatakrs)
+  <?php $totalbobotnilai = 0; ?>
+  @foreach($datakhs as $key => $cdatakhs)
   <tr>
     <td align="center">{{ $key+1 }}</td>
-    <td>{{ $cdatakrs->kodemk }}</td>
-    <td>{{ $cdatakrs->matakuliah }}</td>
-    <td>{{ $cdatakrs->bobot }}</td>
-    <td>{{ $cdatakrs->sem }}</td>
-    <td>{{ $cdatakrs->tahun }}</td>
-    <td>{{ $cdatakrs->keterangan }}</td>
-    <?php $totalsks += $cdatakrs->bobot; ?>
+    <td>{{ $cdatakhs->kodemk }}</td>
+    <td>{{ $cdatakhs->matakuliah }}</td>
+    <td align="center">{{ $cdatakhs->bobot }}</td>
+    <td align="center">{{ $cdatakhs->nilaimutu }}</td>
+    <td align="center">{{ $cdatakhs->lambang }}</td>
+    <td align="center">{{ $cdatakhs->bobotnilai }}</td>
+    <?php $totalsks += $cdatakhs->bobot; ?>
+    <?php $totalbobotnilai += $cdatakhs->bobotnilai; ?>
   </tr>
   @endforeach
   <!-- end -->
   <tr>
     <td colspan="3"><b>Total SKS Diambil</b></td>
-    <td><b><?php echo $totalsks; ?></b></td>
-    <td colspan="3">&nbsp;</td>
+    <td align="center"><b><?php echo $totalsks; ?></b></td>
+    <td colspan="2"><b>Jumlah Bobot Nilai</b></td>
+    <td align="center"><?php echo $totalbobotnilai; ?></td>
   </tr>
+  <tr>
+    <td colspan="6" align="right"><b>Indeks Prestasi (IP) Semester {{ $vts }} :</b></td>
+    <td align="center"><b><?php echo ($totalbobotnilai / $totalsks); ?></b></td>
+  </tr>
+  <tr>
+    <td colspan="6" align="right"><b>Rangking Semester {{ $vts }} :</b></td>
+    <td align="center"><b>-</b></td>
+  </tr>
+
   <tr>
     <td colspan="7">
     <br>
     <table width="100%" border="0">
       <tr>
         <td width="34%" valign="top">
-        	Disetujui Oleh :<br />
-            WADIR I Bidang Akademik<br /><br /><br /><br />
+        - Kelakuan  : <br>
+        - Kerapian  : <br>
+        - Kerajinan : <br>
+        </td>
+        <td width="32%" valign="top">
+         Catatan Pembimbing Akademik :
+         <br>
+         <br>
+         <br>
+        </td>
+      </tr>
+    </table>
+    <br>
+
+    <table width="100%" border="0">
+      <tr>
+        <td width="20%" valign="top">
+        	Diketahui oleh : <br />
+            Pembimbing Akademik<br /><br /><br /><br />
             
             
             
             Esraida Simanjuntak, SKM</td>
-        <td width="34%" valign="top">
-        	Diketahui Oleh :<br />
-            Dosen Wali<br /><br /><br /><br />
+        <td width="34%" valign="top" align="center">
+        	Disetujui Oleh :<br>
+          Direktur Akademi Perekam Informasi Kesehatan Imelda<br /><br /><br /><br />
             
             
-            Rizca Annur Hadya, SST
+            dr. Suheri Parulian Gultom, M.Kes
         </td>
-        <td width="32%" valign="top">
+        <td width="20%" valign="top">
         	Medan, <?php echo $tanggal; ?><br />
-            Tanda Tangan Mahasiswa<br /><br /><br /><br />
+          Tanda Tangan Mahasiswa<br /><br /><br /><br />
             
             
-            <?php echo $namamhs; ?> 
+          <?php echo $namamhs; ?> 
         </td>
       </tr>
     </table>

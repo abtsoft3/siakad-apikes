@@ -60,6 +60,12 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
 	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
 	Route::get('/home/storekrs','DaftarKrsController@store');
+
+	// KHS
+	Route::get('/home/showkhs','KhsController@index');
+	Route::get('/home/datakhs/{sem}','KhsController@datakhs');
+	Route::get('/home/printkhs/{sem}','KhsController@printkhs');
+
 });
 
 
@@ -145,6 +151,8 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/addpenilaian','PenilaianController@add');
 	Route::post('/home/addpenilaian','PenilaianController@store');
 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
+	Route::get('/home/showpenilaian', 'PenilaianController@show');
+	Route::get('/home/getdatakhs/{kelas}/{sem}/{matkul}', 'PenilaianController@datakhs');
 
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');

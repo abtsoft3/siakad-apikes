@@ -34,7 +34,7 @@ class PenilaianController extends Controller
         $arrmatkul['0']     = "Mata Kuliah";
 
         foreach ($kelas as $key => $ckelas) {
-            $arrkelas[$ckelas->idkelas] = $ckelas->namakelas;
+            $arrkelas[$ckelas->idkelas]       = $ckelas->namakelas;
             $arrmatkul[$ckelas->kodemk]       = $ckelas->matakuliah;
             $arrsemester[$ckelas->semester]   = "Semester ".$ckelas->romsem;
         }
@@ -136,5 +136,38 @@ class PenilaianController extends Controller
 
         return response()->json(['return' => $stat]);
 
+    }
+
+    public function show(){
+        $model = new ModelPenilaian;
+
+        $model->iddosen = '4';
+
+        $kelas  = $model->getksm(2);
+
+        $arrkelas['0']      = "Kelas";
+        $arrsemester['0']   = "Semester";
+        $arrmatkul['0']     = "Mata Kuliah";
+
+        foreach ($kelas as $key => $ckelas) {
+            $arrkelas[$ckelas->idkelas] = $ckelas->namakelas;
+            $arrmatkul[$ckelas->kodemk]       = $ckelas->matakuliah;
+            $arrsemester[$ckelas->semester]   = "Semester ".$ckelas->romsem;
+        }
+
+        return view("penilaian.show_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas, 'arrmatkul'=>$arrmatkul]);
+        
+    }
+
+    public function datakhs($kelas, $sem, $matkul){
+        $model = new ModelPenilaian;
+
+        $model->idkelas  = $kelas;
+        $model->semester = $sem;
+        $model->kodemk   = $matkul;
+
+        $datanilai = $model->showpenilaian();
+
+        return Datatables::of($datanilai)->make(true);
     }
 }
