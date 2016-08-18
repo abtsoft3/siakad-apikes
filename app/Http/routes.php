@@ -212,7 +212,6 @@ Route::group(['middleware' => ['userdosens']],function(){
 	Route::post('/home/dosen/changepasswords','UserDosenController@postchangepassword');
 	
 	Route::post('/home/dosen/TempUpload','UserDosenController@TempUpload');
-
 	//penilaian mahasiswa
 	Route::get('/home/addpenilaian/{iddosen}','PenilaianController@add');
  	Route::post('/home/addpenilaian','PenilaianController@store');
