@@ -11,13 +11,15 @@ use App\ModelPenilaian;
 
 use Datatables;
 
+use Auth;
+
 class PenilaianController extends Controller
 {
-    public function add($iddosen){
+    public function add(){
 
     	$model = new ModelPenilaian;
 
-    	$model->iddosen = $iddosen;
+    	$model->iddosen = auth()->guard('userdosens')->user()->iddosen;
 
     	//$sem 	= $model->getsemester(1);
     	$kelas 	= $model->getksm(1);
@@ -47,11 +49,11 @@ class PenilaianController extends Controller
     	return view("penilaian.add_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas, 'arrmatkul'=>$arrmatkul]);
     }
 
-    public function getdatamhs($iddosen,$kelas, $sem, $matkul){
+    public function getdatamhs($kelas, $sem, $matkul){
 
     	$model = new ModelPenilaian;
 
-    	$model->iddosen 	= $iddosen;   	
+    	$model->iddosen 	= auth()->guard('userdosens')->user()->iddosen;  	
     	$model->idkelas		= $kelas;
     	$model->semester 	= $sem;
         $model->kodemk      = $matkul;
@@ -65,7 +67,7 @@ class PenilaianController extends Controller
 
         $model = new ModelPenilaian;
 
-        $dosen      = '4';
+        $dosen      = auth()->guard('userdosens')->user()->iddosen;
         $nim        = $requests->nim;
         $absensi    = $requests->absensi;
         $seminar    = $requests->seminar;
@@ -141,7 +143,7 @@ class PenilaianController extends Controller
     public function show(){
         $model = new ModelPenilaian;
 
-        $model->iddosen = '4';
+        $model->iddosen = auth()->guard('userdosens')->user()->iddosen;
 
         $kelas  = $model->getksm(2);
 
@@ -159,7 +161,7 @@ class PenilaianController extends Controller
         
     }
 
-<<<<<<< HEAD
+
     public function datakhs($kelas, $sem, $matkul){
         $model = new ModelPenilaian;
 
@@ -170,9 +172,6 @@ class PenilaianController extends Controller
         $datanilai = $model->showpenilaian();
 
         return Datatables::of($datanilai)->make(true);
-=======
-    public function datakhs(){
-        $model = new ModelPenilaian;
->>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
+
     }
 }

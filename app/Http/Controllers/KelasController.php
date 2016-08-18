@@ -38,11 +38,11 @@ class KelasController extends Controller
 			
 		if($validator->passes())
 		{
-			$model = new ModelKelas;
-			$model->kodekelas = $request->kode_kelas;
-			$model->namakelas = $request->nama_kelas;
-			//$model->iddosen   = $request->iddosen;
-			$model->save();
+			//$model = new ModelKelas;
+			$tblkelas->kodekelas = $request->kode_kelas;
+			$tblkelas->namakelas = $request->nama_kelas;
+			$tblkelas->iddosen   = $request->dosen_wali;
+			$tblkelas->save();
 			$stat=1;
 			
 		}else

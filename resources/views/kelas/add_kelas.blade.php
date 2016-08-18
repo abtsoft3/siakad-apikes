@@ -39,6 +39,13 @@
 								</div>
 							</div>
 
+							<div class="form-group">
+								{!! Form::label('dosen_wali','Dosen Wali',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-7">
+									{!! Form::select('dosen_wali', $arrdosen, '',array('class' => 'form-control')) !!}
+								</div>
+							</div>
+
 							
 							
 								<div class="form-group">
@@ -129,14 +136,14 @@
 								message: 'Silahkan isi kelas'
 							}
 						}
-					}/*,
-					iddosen: {
+					},
+					dosen_wali: {
 						validators: {
 							notEmpty: {
 								message: 'Silahkan isi dosen wali'
 							}
 						}
-					}*/
+					}
 					
 				}
 			}).on('success.form.bv', function (e) {
