@@ -28,12 +28,24 @@ class ModelKelas extends Model
 		return Validator::make($input, $rules);
 	}
 
-	public static function showdosen(){
+	public function showdosen(){
 		
 		$data = DB::table('dosen')
 					->select([
 								'iddosen',
 								'nama'
+						])->get();
+		return $data;
+	}
+
+	public function showdata(){
+		
+		$data = $this->join("dosen", "kelas.iddosen", "=", "dosen.iddosen")
+					 ->select([
+								'kelas.idkelas',
+								'kelas.kodekelas',
+								'kelas.namakelas',
+								'dosen.nama as dosenwali'
 						])->get();
 		return $data;
 	}

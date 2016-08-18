@@ -29,7 +29,7 @@
                               <tr>
                                 <th>Kode Kelas</th>
                                 <th>Nama Kelas</th>
-                                
+                                <th>Dosen Wali</th>
 								<th></th>
                               </tr>
                             </thead>
@@ -58,6 +58,7 @@
 					columns: [
 						{ data: 'kodekelas', name: 'kodekelas',"className": "text-center" },
 						{ data: 'namakelas', name: 'namakelas' },
+						{ data: 'dosenwali', name: 'dosenwali' },
 						{
 							"className": "action text-center",
 							"data": null,
