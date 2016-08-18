@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cetak KRS</title>
+	<title>Cetak KHS</title>
 	<style type="text/css">
 		.tg  {	border-collapse:collapse;
 				border-spacing:0;
@@ -198,9 +198,6 @@
       </tr>
     </table>
     </td>
-  </tr>
-  <tr>
-    <td colspan="7"><p>(Nb : KRS ini harap disimpan, akan dikumpulkan sewaktu  ujian semester)</p></td>
   </tr>
 </table>
 
