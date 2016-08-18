@@ -41,7 +41,7 @@ class KelasController extends Controller
 			$model = new ModelKelas;
 			$model->kodekelas = $request->kode_kelas;
 			$model->namakelas = $request->nama_kelas;
-			//$model->iddosen   = $request->iddosen;
+			$model->iddosen   = $request->dosen_wali;
 			$model->save();
 			$stat=1;
 			

@@ -53,6 +53,13 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('/home/datakhs/{sem}','KhsController@datakhs');
 	Route::get('/home/printkhs/{sem}','KhsController@printkhs');
 
+	//penilaian mahasiswa
+	Route::get('/home/addpenilaian','PenilaianController@add');
+	Route::post('/home/addpenilaian','PenilaianController@store');
+	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
+	Route::get('/home/showpenilaian', 'PenilaianController@show');
+	Route::get('/home/getdatakhs/{kelas}/{sem}/{matkul}', 'PenilaianController@datakhs');
+
 });
 
 Route::group(['middleware'=>'auth'],function(){
@@ -134,14 +141,6 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@update');
 	Route::get('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@edit');
 	Route::get('/home/deletekelasdosen/{idkelasdosen}','KelasDosenController@destroy');
-
-
-	//penilaian mahasiswa
-	Route::get('/home/addpenilaian','PenilaianController@add');
-	Route::post('/home/addpenilaian','PenilaianController@store');
-	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
-	Route::get('/home/showpenilaian', 'PenilaianController@show');
-	Route::get('/home/getdatakhs/{kelas}/{sem}/{matkul}', 'PenilaianController@datakhs');
 
 
 	//kelas

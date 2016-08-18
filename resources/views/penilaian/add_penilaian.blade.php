@@ -20,19 +20,17 @@
       <h2>Penilaian Mahasiswa</h2>
                     
       <div class="clearfix">
-<<<<<<< HEAD
+
         <a href="{{url('/home/showpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
-=======
-        <a href="#" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
->>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
+
       </div>
   </div>
   <div class="x_content">
           
   <!--table-->
   {!! Form::open(array('url' => '/home/addpenilaian', 'id'=>'form-kelasdosen')) !!}
-  <input type="hidden" name="dosenid" value="{{ Auth::guard('userdosens')->user()->iddosen }}" id="iddosen" />
-    <table id="datatable-kelasdosen" class="table table-striped table-bordered">
+  
+    <table id="datatable-kelasdosen" class="table table-striped table-bordered" width="100%">
       <thead>
         <tr>
         <th colspan="9">
@@ -212,7 +210,7 @@
               sem     = $('#semester').val();
               matkul  = $('#matkul').val();
               
-              url = '/home/getdatamhs/'+iddosen+'/'+idkelas+'/'+sem+'/'+matkul;
+              url = '/home/getdatamhs/'+idkelas+'/'+sem+'/'+matkul;
               gentable.ajax.url(url).load(); 
 
           });
