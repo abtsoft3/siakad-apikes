@@ -81,7 +81,7 @@
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
+			alertify.confirm("Konfirmasi","Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
 					$.post("/home/deletekelas",{'id':data.idkelas,_token:$('#token').val()},function(data,status){
 							if(parseInt(data.return)==1){
@@ -93,7 +93,7 @@
 							
 						},'json');
 				}
-			});		
+			},function(){});		
 		});
 			//tooltip
 			$('body').tooltip({

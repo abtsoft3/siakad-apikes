@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master_dosen')
 
 @section('title','Penilaian Mahasiswa')
 @section('css')
@@ -20,13 +20,18 @@
       <h2>Penilaian Mahasiswa</h2>
                     
       <div class="clearfix">
+<<<<<<< HEAD
         <a href="{{url('/home/showpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+=======
+        <a href="#" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
       </div>
   </div>
   <div class="x_content">
           
   <!--table-->
-  {!! Form::open(array('url' => '/home/addkelasdosen', 'id'=>'form-kelasdosen')) !!}
+  {!! Form::open(array('url' => '/home/addpenilaian', 'id'=>'form-kelasdosen')) !!}
+  <input type="hidden" name="dosenid" value="{{ Auth::guard('userdosens')->user()->iddosen }}" id="iddosen" />
     <table id="datatable-kelasdosen" class="table table-striped table-bordered">
       <thead>
         <tr>
@@ -202,11 +207,12 @@
         var sbody = $('#datatable-kelasdosen thead');
         sbody.on('change','.form-control',function(){
 
+              iddosen =$('#iddosen').val();
               idkelas = $('#kelas').val();
               sem     = $('#semester').val();
               matkul  = $('#matkul').val();
               
-              url = '{{"getdatamhs"}}/'+idkelas+'/'+sem+'/'+matkul;
+              url = '/home/getdatamhs/'+iddosen+'/'+idkelas+'/'+sem+'/'+matkul;
               gentable.ajax.url(url).load(); 
 
           });

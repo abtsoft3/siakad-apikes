@@ -33,16 +33,6 @@ class AuthController extends Controller
      */
 	protected $guard ='usermahasiswas';
     protected $redirectTo = '/home/menu_mahasiswa';
-//
-    /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware($this->guard, ['except' => 'logoutmahasiswa']);
-    }
     
   
 
@@ -80,6 +70,11 @@ class AuthController extends Controller
 	
 	 public function showLoginForm()
 	{
+        if(Auth::guard($this->guard)->check())
+        {
+            $nim=Auth::guard($this->guard)->user()->nim;
+            return redirect($this->redirectTo.'/'.$nim);
+        }
 		return view('user_mahasiswa.login');
     }
 	

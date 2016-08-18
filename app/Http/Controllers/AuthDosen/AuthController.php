@@ -39,10 +39,10 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+   /* public function __construct()
     {
         $this->middleware($this->guard, ['except' => 'logoutdosen']);
-    }
+    }*/
     
   
 
@@ -80,24 +80,32 @@ class AuthController extends Controller
 	
 	 public function showLoginForm()
 	{
+        if(Auth::guard('userdosens')->check())
+        {
+            $iddosen=Auth::guard('userdosens')->user()->iddosen;
+            return redirect($this->redirectTo.'/'.$iddosen);
+        }
 		return view('user_dosen.login');
     }
 	
 	public function DosenLoginPost(Request $request)
 	{
 			$credentials =[
-			'nidn'=>$request->nidn,
+			'email'=>$request->email,
 			'password'=>$request->password
 			];
 			
+
+
 			$authorized = auth()->guard($this->guard)->attempt($credentials);
 			if($authorized)
 			{
-				return redirect($this->redirectTo.'/'.$request->nidn);
+                $getIddosen = UserDosen::where('email','=',$request->email)->first();
+				return redirect($this->redirectTo.'/'.$getIddosen->iddosen);
 			}else
 			{
 				
-				return Redirect::back()->with('AuthErr','Nidn atau Password Salah!')->withInput($request->except('password'));
+				return Redirect::back()->with('AuthErr','Email atau Password Salah!')->withInput($request->except('password'));
 			}
 
 	}

@@ -19,18 +19,17 @@
       <form id="login-form" action="{{ url('/login-dosen') }}" 
       method="post" accept-charset="utf-8" role="form">
          <div class="form-group">
-            <label for="nidn">NIDN</label>
+            <label for="email">Email</label>
             <div class="input-group">
+              {{ csrf_field() }}
                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-			   {{ csrf_field() }}
-               <input type="text" class="form-control" name="nidn" id="nidn" value="{{ old('nidn') }}"  />
-
-               
+			       
+               <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}"  />
 
             </div>
-			 @if ($errors->has('nidn'))
+			 @if ($errors->has('email'))
                     <span class="help-block">
-                        <strong>{{ $errors->first('nidn') }}</strong>
+                        <strong>{{ $errors->first('email') }}</strong>
                     </span>
              @endif
          </div>
@@ -40,7 +39,7 @@
 			   <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
 			   <input type="password" class="form-control" name="password"  />
 			</div>
-		@if ($errors->has('password'))
+		  @if ($errors->has('password'))
                     <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
                     </span>

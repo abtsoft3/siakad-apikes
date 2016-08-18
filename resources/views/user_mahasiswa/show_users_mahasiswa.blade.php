@@ -29,7 +29,7 @@
                               <tr>
                                 <th>NIM</th>
                                 <th>Nama</th>
-                                <th>E-mail</th>
+                                
 								<th>Tanggal Pembuatan</th>
 								<th>Tanggal Pembaharuan</th>
 								
@@ -60,7 +60,6 @@
 					columns: [
 						{ data: 'nim', name: 'nim',"className": "text-center" },
 						{ data: 'nama', name: 'nama' },
-						{ data: 'email', name: 'email' },
 						{ data: 'created_at', name: 'created_at' ,"className": "text-center" },
 						{ data: 'updated_at', name: 'updated_at' ,"className": "text-center" },
 						{

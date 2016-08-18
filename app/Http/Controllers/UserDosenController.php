@@ -19,29 +19,30 @@ class UserDosenController extends Controller
     {
         $this->middleware($this->guard, ['except' => 'logoutdosen']);
     }
-	public function index($nim)
+	public function index($iddosen)
 	{
-			if(isset($nidn)){
-				$model = ModelDosen::findOrfail($nidn);
-				return view('menu_mahasiswa.index')->with('model',$model);
+			if(isset($iddosen)){
+				$model = ModelDosen::findOrfail($iddosen);
+				return view('menu_dosen.index')->with('model',$model);
 		}
 	}
 	
-	public function changepassword($nim){
-		if(isset($nim)){
-			return view('menu_mahasiswa.changepassword');
+	public function changepassword($iddosen){
+		if(isset($iddosen)){
+			$model = ModelDosen::findOrfail($iddosen);
+			return view('menu_dosen.changepassword')->with('model',$model);;
 		}
 	}
 	
 	public function postchangepassword(Request $request)
 	{
-		$models = UserMahasiswa::where('nim',$request->nim)->first();
+		$models = UserDosen::find($request->id);
 		
 		if (Hash::check($request->LastPassword, $models->password))
 		{
 			$models->password = bcrypt($request->NewPassword);
 			$models->save();
-			return redirect('/home/menu_mahasiswa'.'/'.$request->nim);
+			return redirect('/home/menu_dosen'.'/'.$request->iddosen);
 		}else{
 			return Redirect::back()->with('AuthErr','Password lama tidak cocok')->withInput($request->except('password'));
 		}
@@ -49,12 +50,12 @@ class UserDosenController extends Controller
 	
 	public function TempUpload(Request $request)
 	{
-		$models = UserMahasiswa::where('nim',$request->nim)->first();
-		$imgpath = $request->file('image_user');
+		$models = UserDosen::find($request->id)->first();
+		$imgpath = $request->file('imageuser');
 		$img_data = file_get_contents($imgpath);
 		$base64 = base64_encode($img_data);
 
-		$models->image_user = $base64;
+		$models->imageuser = $base64;
 		$execute = $models->save();
 		if($execute){
 			return Redirect::back();

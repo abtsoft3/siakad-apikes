@@ -197,4 +197,11 @@ class MataKuliahController extends Controller
 		}
 		return response()->json(['return' => $statreturn]);
 	}
+
+	public function detail($kodemk)
+	{
+		$matakuliah = MataKuliahModel::with(['relasi_detailmatakuliah'])->findOrfail($kodemk);
+		$detailmatakuliah = ModelDetailMatakuliah::with(['relasi_dosen'])->where('kodemk',$kodemk)->get();
+		return view('matakuliah.detail_matakuliah',compact('matakuliah','detailmatakuliah'));
+	}
 }

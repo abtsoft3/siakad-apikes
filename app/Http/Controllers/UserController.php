@@ -155,7 +155,7 @@ class UserController extends Controller
 		$stat=0;
 		$term = $request->get('term');
 		$results = array();
-		$queries = DB::table('mahasiswa')->where('nim', 'LIKE', '%'.$term.'%')->take(5)->get();
+		$queries = DB::table('mahasiswa')->where('nim', 'LIKE', '%'.$term.'%')->take(10)->get();
 	
 			foreach ($queries as $query){
 				$results[] = ['nim' => $query->nim, 'nama' => $query->nama];
@@ -271,7 +271,6 @@ class UserController extends Controller
 	{
 		$id = $request->id;
 			$model = UserDosen::find($id);
-			$model->nidn = $request->nidn;
 			$model->nama = $request->nama;
 			$model->email = $request->email;
 			$model->password = bcrypt($request->password);

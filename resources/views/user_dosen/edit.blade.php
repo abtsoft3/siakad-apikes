@@ -25,24 +25,14 @@
 				<div class="col-lg-6 col-sm-6 col-xs-5">
 							<form class="form-horizontal" role="form" method="POST" action="{{ url('/home/update_users_dosen') }}" id="register-form">
 								{{ csrf_field() }}
-								
-								<div class="form-group">
-									<label for="nim" class="col-md-4 control-label">NIDN</label>
-
-									<div class="col-md-6">
-										<input readonly='true' id="nidn" type="text" class="form-control" value="{{ $modeledit->nidn }}" name="nidn">
-
-										<input type='hidden' name='id' value='{{ $modeledit->id }}'> 
-									</div>
-								</div>
+							
 
 								<div class="form-group">
 									<label for="nama" class="col-md-4 control-label">Nama</label>
 
 									<div class="col-md-6">
-										<input id="nama" type="text" value="{{ $modeledit->nama }}" class="form-control" name="nama">
-
-										
+										<input readonly='true' id="nama" type="text" value="{{ $modeledit->nama }}" class="form-control" name="nama">
+										<input type='hidden' name='id' value='{{ $modeledit->id }}'> 
 									</div>
 								</div>
 

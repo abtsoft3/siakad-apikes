@@ -27,7 +27,6 @@
 					<table id="datatable-mk" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                                <th>NIDN</th>
                                 <th>Nama</th>
                                 <th>E-mail</th>
 								<th>Tanggal Pembuatan</th>
@@ -58,7 +57,6 @@
 				 //serverSide: true,
 					ajax: "{{ url('/home/getdata_userdosen') }}",
 					columns: [
-						{ data: 'nidn', name: 'nidn',"className": "text-center" },
 						{ data: 'nama', name: 'nama' },
 						{ data: 'email', name: 'email' },
 						{ data: 'created_at', name: 'created_at' ,"className": "text-center" },

@@ -107,7 +107,7 @@
         }).
         on('click','.delete',function(){
           var data = gentable.row($(this).parents('tr')).data();
-          alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
+          alertify.confirm("Konfirmasi","Anda Yakin Ingin menghapus data?", function (e) {
             if (e) {
               $.get("/home/deletekelasdosen/"+data.idkelasdosen,function(data,status){
                   if(parseInt(data.return)==1){
@@ -119,7 +119,7 @@
                   
                 },'json');
             }
-        });   
+        },function(){});   
  
     });
        

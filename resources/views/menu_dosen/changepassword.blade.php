@@ -1,5 +1,5 @@
-@extends('layouts.master_mahasiswa')
-@section('title','Mahasiswa')
+@extends('layouts.master_dosen')
+@section('title','Dosen')
 
 @section('css')
 	<link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">
@@ -16,7 +16,7 @@
            <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
 		   Create at :
             
-                 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->created_at)) }}</span> 
+                 <span> {{ date('d F, Y', strtotime(Auth::guard('userdosens')->user()->created_at)) }}</span> 
             </div>
           </div>
      <div class="clearfix"></div>
@@ -26,19 +26,13 @@
 			@if (Session::has('AuthErr'))
                     <div class="alert alert-danger" style="text-align: center;">{{ Session::get('AuthErr') }}</div>
                 @endif
-			{!! Form::open(array('url' => '/home/mahasiswa/changepasswords', 'class'=>'form-horizontal', 'id'=>'form-password')) !!}
+			{!! Form::open(array('url' => '/home/dosen/changepasswords', 'class'=>'form-horizontal', 'id'=>'form-password')) !!}
 				<div class="row">
-					<div class="form-group">
-						<label class="col-md-5 control-label">Email</label>
-						<div class="col-md-5">
-							{!! Form::email('email',null,array('class' => 'form-control','type'=>'email')) !!}
-						</div>
-					</div>
-
 					<div class="form-group">
 						<label class="col-md-5 control-label">Password Lama</label>
 						<div class="col-md-5">
-						<input type="hidden" name="nim" value="{{Auth::guard('usermahasiswas')->user()->nim}}" />
+						<input type="hidden" name="id" value="{{Auth::guard('userdosens')->user()->id}}" />
+						<input type='hidden' name='iddosen' value="{{Auth::guard('userdosens')->user()->iddosen}}" />
 							{!! Form::password('LastPassword',array('class' => 'form-control')) !!}
 						</div>
 					</div>
@@ -65,7 +59,7 @@
 		</div>
 		<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
 		   Last login :
-				 <span> {{ date('d F, Y', strtotime(Auth::guard('usermahasiswas')->user()->updated_at)) }}</span> 
+				 <span> {{ date('d F, Y', strtotime(Auth::guard('userdosens')->user()->updated_at)) }}</span> 
             </div>
 	</div>		
  </div>
@@ -87,16 +81,7 @@
 				},
 				excluded:'disabled',
 				fields: {
-					email: {
-		                validators: {
-		                	notEmpty: {
-								message: 'Silahkan isi email'
-							},
-		                    emailAddress: {
-		                        message: 'Email salah'
-		                    }
-		                }
-		            },
+					
 					LastPassword: {
 						validators: {
 							notEmpty: {

@@ -56,7 +56,7 @@
 @section('content')
 <div class="x_panel">
     <div class="x_title">
-        <h2>Biodata</h2>
+        <h2>Profil</h2>
          <div class="filter">
            <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
 		   Create at :
@@ -68,13 +68,13 @@
      <div class="clearfix"></div>
     </div>
     <div class="x_content">
-		<div class="col-lg-5 col-sm-5 col-xs-5">
+		<div class="col-lg-6 col-sm-6 col-xs-6">
 			<div  class="form form-horizontal" > 
 			<div class="row">
 					<div class="form-group">
-						<label class="col-md-5 control-label">Nim</label>
+						<label class="col-md-5 control-label">NIDN</label>
 						<div class="col-md-5">
-							<label class="control-label">{{ Auth::guard('userdosens')->user()->nim }}</label>
+							<label class="control-label">{{ $model->nidn }}</label>
 						</div>
 					</div>
 					<div class="form-group">
@@ -84,21 +84,39 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-5 control-label">Tempat, Tanggal Lahir</label>
+						<label class="col-md-5 control-label">Tanggal Lahir</label>
 						<div class="col-md-5">
-							<label class="control-label">{{ $model->tempatlahir }}, {{ date('d F, Y', strtotime($model->tanggallahir)) }}</label>
+							<label class="control-label">{{ date('d F, Y', strtotime($model->tgllahir)) }}</label>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-5 control-label">Nama Orang Tua</label>
+						<label class="col-md-5 control-label">Jabatan</label>
 						<div class="col-md-5">
-							<label class="control-label">{{ $model->namaortu }}</label>
+							<label class="control-label">{{ $model->jabatanakademik }}</label>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-5 control-label">Asal Sekolah</label>
+						<label class="col-md-5 control-label">Pendidikan</label>
 						<div class="col-md-5">
-							<label class="control-label">{{ $model->asalsekolah }}</label>
+							<label class="control-label">{{ $model->pendidikan }}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-5 control-label">Sertifikat</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ $model->sertifikat }}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-5 control-label">Asal Perguruan Tinggi</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ $model->asalpt }}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-5 control-label">Bidang</label>
+						<div class="col-md-5">
+							<label class="control-label">{{ $model->bidang }}</label>
 						</div>
 					</div>
 				</div>
@@ -110,19 +128,19 @@
 				<div class="row">
 				  <div class="col col-6 img-container">
 
-				  	@if (Auth::guard('userdosens')->user()->image_user===null)
+				  	@if (Auth::guard('userdosens')->user()->imageuser===null)
 					<img class="img-rounded" style="max-width: 100%;" id="image" src="{{ URL::asset('images/user.png')}}" alt="profil-picture" >
 					@else
 					<img class="img-rounded" id="image" style="max-width: 100%;" src="data:image/jpg;base64,{{ Auth::guard('userdosens')->user()->imageuser}}" alt="profile-picture">
 					
 					@endif
-						{!! Form::open(array('url' => '/home/mahasiswa/TempUpload','id'=>'form-image','autocomplete'=>'off','enctype'=>'multipart/form-data')) !!}
+						{!! Form::open(array('url' => '/home/dosen/TempUpload','id'=>'form-image','autocomplete'=>'off','enctype'=>'multipart/form-data')) !!}
 						<span class="btn btn-success fileinput-button">
 							<i class="fa fa-camera"></i>
 								<span>Ganti</span>
-								<input type="hidden" name="nim" id="nim" 
-								value="{{ Auth::guard('userdosens')->user()->nim }}" />
-								{!! Form::file('image_user',array('id'=>'image_user')) !!}
+								<input type="hidden" name="id" id="id" 
+								value="{{ Auth::guard('userdosens')->user()->id }}" />
+								{!! Form::file('imageuser',array('id'=>'image_user')) !!}
 						</span>
 						<button class="btn btn-primary" id="btn-submit" type="submit" style="display:none;">
 							<i class="fa fa-send"></i> Simpan</button>

@@ -13,11 +13,11 @@ use Datatables;
 
 class PenilaianController extends Controller
 {
-    public function add(){
+    public function add($iddosen){
 
     	$model = new ModelPenilaian;
 
-    	$model->iddosen = '4';
+    	$model->iddosen = $iddosen;
 
     	//$sem 	= $model->getsemester(1);
     	$kelas 	= $model->getksm(1);
@@ -47,11 +47,11 @@ class PenilaianController extends Controller
     	return view("penilaian.add_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas, 'arrmatkul'=>$arrmatkul]);
     }
 
-    public function getdatamhs($kelas, $sem, $matkul){
+    public function getdatamhs($iddosen,$kelas, $sem, $matkul){
 
     	$model = new ModelPenilaian;
 
-    	$model->iddosen 	= '4';   	
+    	$model->iddosen 	= $iddosen;   	
     	$model->idkelas		= $kelas;
     	$model->semester 	= $sem;
         $model->kodemk      = $matkul;
@@ -159,6 +159,7 @@ class PenilaianController extends Controller
         
     }
 
+<<<<<<< HEAD
     public function datakhs($kelas, $sem, $matkul){
         $model = new ModelPenilaian;
 
@@ -169,5 +170,9 @@ class PenilaianController extends Controller
         $datanilai = $model->showpenilaian();
 
         return Datatables::of($datanilai)->make(true);
+=======
+    public function datakhs(){
+        $model = new ModelPenilaian;
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
     }
 }
