@@ -119,16 +119,16 @@
 									  {!! Form::close() !!}
 							</div>
 
-								<div class="col-lg-6 col-sm-6 col-xs-5">
-							<table id="datatable-dosen" class="table table-striped table-bordered">
-	                            <thead>
-	                              <tr>
-	                              <th></th>
-	                                <th style="text-align:center;">NIDN</th>
-	                                <th>Nama</th>
-	                              </tr>
-	                            </thead>
-							</table>
+								<div class="col-lg-6 col-sm-6 col-xs-5 flexible">
+									<table id="datatable-dosen" class="table table-striped table-bordered">
+			                            <thead>
+			                              <tr>
+			                              <th></th>
+			                                <th style="text-align:center;">NIDN</th>
+			                                <th>Nama</th>
+			                              </tr>
+			                            </thead>
+									</table>
 					<!--endtable-->
 						</div>
 					</div>

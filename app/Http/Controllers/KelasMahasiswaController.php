@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\ModelKelas;
 use App\ModelKelasMahasiswa;
+use App\ModelMahasiswa;
 use Datatables;
 
 class KelasMahasiswaController extends Controller
@@ -30,7 +31,6 @@ class KelasMahasiswaController extends Controller
 					'7'=>'Semester 7',
 					'8'=>'Semester 8');
     	$datakelas = ModelKelas::pluck('namakelas','idkelas');
-
     	return view('kelas_mahasiswa.add_kelas_mahasiswa',compact('datakelas','arrsemester'));
     }
 
@@ -127,6 +127,10 @@ class KelasMahasiswaController extends Controller
                 }
         
         return response()->json(['return' => $stat]);
+    }
+
+    public function getMahasiswa($tahunajaran){
+       
     }
 
 

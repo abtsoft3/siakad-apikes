@@ -163,7 +163,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/editkelasmahasiswa/{id}','KelasMahasiswaController@edit');
 	Route::post('/home/updatekelasmahasiswa','KelasMahasiswaController@update');
 	Route::get('/home/deletekelasmahasiswa/{id}','KelasMahasiswaController@destroy');
-	Route::get('/home/getdatamahasiswa','MahasiswaController@getdatamahasiswa');
+	Route::get('/home/getdatamahasiswa/{tahunajaran}','MahasiswaController@getdatamahasiswa');
 	Route::post('/home/check_kelasmahasiswa','KelasMahasiswaController@checking');
 	Route::get('/home/datakelasmahasiswa','KelasMahasiswaController@getKelasMahasiswa');
 
