@@ -88,7 +88,6 @@
 							}
 						}
 					},
-					,
 					dosen_wali: {
 						validators: {
 							notEmpty: {

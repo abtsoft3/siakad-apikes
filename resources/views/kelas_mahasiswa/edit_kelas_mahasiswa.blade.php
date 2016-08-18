@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title','MataKuliah')
+@section('title','Kelas Mahasiswa')
 @section('css')
 
  <link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">

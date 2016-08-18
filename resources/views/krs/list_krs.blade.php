@@ -1,6 +1,6 @@
 @extends('layouts.master_mahasiswa')
 
-@section('title','MataKuliah')
+@section('title','KRS')
 @section('css')
   <!-- Datatables -->
     <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
