@@ -27,15 +27,10 @@
 					<table id="datatable-dosen" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                              	<th>Iddosen</th>
                                 <th>Nidn</th>
                                 <th>Nama</th>
-                                <th>Tanggal Lahir</th>
 								<th>Jabatan Akademik</th>
-								<th>Sertifikat</th>
 								<th>Pendidikan</th>
-								<th>Asal PT</th>
-								<th>Bidang</th>
 								<th></th>
                               </tr>
                             </thead>
@@ -58,50 +53,27 @@
 		$(document).ready(function(){
 			gentable=$('#datatable-dosen').DataTable({
 				  processing: true,
-				  columnDefs: [
-						{ "visible": false, "targets": 0}
-					],
-				 //serverSide: true,
-					ajax: '{{url("/home/showdatadosen")}}',
+				ajax: '{{url("/home/showdatadosen")}}',
 					columns: [
-						{ data: 'iddosen', 			name: 'iddosen'},
-						{ data: 'nidn', 			name: 'nidn'},
+						{ data: 'nidn', 			name: 'nidn','className':'text-center'},
 						{ data: 'nama', 			name: 'nama'},
-						{ data: 'tgllahir', 		name: 'tgllahir'},
 						{ data: 'jabatanakademik', 	name: 'jabatanakademik'},
-						{ data: 'sertifikat', 		name: 'sertifikat'},
-						{ data: 'pendidikan', 		name: 'pendidikan'},
-						{ data: 'asalpt', 			name: 'asalpt'},
-						{ data: 'bidang', 			name: 'bidang'},
+						{ data: 'pendidikan', 		name: 'pendidikan','className':'text-center'},
 						{
 							"className": "action text-center",
 							"data": null,
 							"bSortable": false,
 							"defaultContent": "" +
 							"<div class='btn-group' role='group'>" +
-							"  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='left' title='Edit'><i class='fa fa-edit'></i></button>" +
+							"<button class='list btn btn-success btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='left' title='Detail'><i class='fa fa-list'></i></button>"+
+							"  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button>" +
 							"  <button class='delete btn btn-danger btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='right' title='Hapus'><i class='fa fa-trash-o'></i></button>" +
 							"<button type=\"button\" class=\"btn btn-success btn-xs detail\" rel='tooltip' data-toggle='tooltip' data-placement='right' title='Detail'><i class='fa fa-list'></i>" +
 							"<span class=\"sr-only\">Action</span></button>" +
 							"</div>"
 						}
 					
-				]/*,
-				 drawCallback: function ( settings ) {
-						var api = this.api();
-						var rows = api.rows( {page:'current'} ).nodes();
-						var last=null;
-			 
-						api.column(6, {page:'current'} ).data().each( function ( group, i ) {
-							if ( last !== group ) {
-								$(rows).eq( i ).before(
-									'<tr class="group"><td colspan="5">'+'Semester '+group+'</td></tr>'
-								);
-			 
-								last = group;
-							}
-						});
-				}*/
+				]
 			});
 			
 		var sbody = $('#datatable-dosen tbody');
@@ -109,9 +81,13 @@
 			var data = gentable.row($(this).parents('tr')).data();
 			window.location.href='/home/editdosen/'+data.iddosen;
 		}).
+		on('click','.list',function(){
+			var data = gentable.row($(this).parents('tr')).data();
+			window.location.href='/home/detaildosen/'+data.iddosen;
+		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
+			alertify.confirm("Konfirmasi","Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
 					$.get("/home/deletedosen/"+data.iddosen,function(data,status){
 							if(parseInt(data.return)==1){
@@ -123,9 +99,14 @@
 							
 						},'json');
 				}
-			});		
+			},function(){});		
 		});
-		});
+		 //tooltip
+      $('body').tooltip({
+        selector: '[rel=tooltip]'
+      });
+
+	});
 			//tooltip
 			/*$('body').tooltip({
 				selector: '[rel=tooltip]'

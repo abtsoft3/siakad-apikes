@@ -20,14 +20,22 @@
       <h2>Penilaian Mahasiswa</h2>
                     
       <div class="clearfix">
+<<<<<<< HEAD
+        <a href="{{url('/home/addpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+=======
         <a href="{{url('/home/showkelasdosen')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
       </div>
   </div>
   <div class="x_content">
           
   <!--table-->
   {!! Form::open(array('url' => '/home/addkelasdosen', 'id'=>'form-kelasdosen')) !!}
+<<<<<<< HEAD
+    <table id="datatable-kelasdosen" class="table table-striped table-bordered" width="100%">
+=======
     <table id="datatable-kelasdosen" class="table table-striped table-bordered">
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
       <thead>
         <tr>
         <th colspan="11">
@@ -61,20 +69,34 @@
         <tr>
           <th width="3%">No</th>
           <th>Nim</th>
+<<<<<<< HEAD
+          <th width="20%">Nama</th>
+=======
           <th>Nama</th>
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
           <th>Absensi</th>
           <th>Seminar</th>
           <th>Tugas</th>
           <th>MID SM</th>
+<<<<<<< HEAD
+          <th>UAS</th>
+          <th>Akhir</th>
+          <th>Nilai Huruf</th>
+=======
           <th>Semester</th>
           <th>Akhir</th>
           <th>Nilaihuruf</th>
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
           <th>Keterangan</th>
         </tr>
       </thead>
       <tfoot>
         <tr>
+<<<<<<< HEAD
+          <!-- <th colspan="11"><button id="btn-submit" type="button" class="btn btn-success pull-left"><i class="fa fa-print"></i> Cetak</button> </th>     -->      
+=======
           <th colspan="11"><button id="btn-submit" type="button" class="btn btn-success pull-left"><i class="fa fa-print"></i> Cetak</button> </th>          
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
         </tr> 
       </tfoot>
     </table>
@@ -149,19 +171,33 @@
 
           });
 
+<<<<<<< HEAD
+        var sbody = $('#datatable-kelasdosen thead');
+=======
         /*var sbody = $('#datatable-kelasdosen thead');
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
         sbody.on('change','.form-control',function(){
 
               idkelas = $('#kelas').val();
               sem     = $('#semester').val();
               matkul  = $('#matkul').val();
               
+<<<<<<< HEAD
+              url = '{{"getdatakhs"}}/'+idkelas+'/'+sem+'/'+matkul;
+              //alert(url);
+              gentable.ajax.url(url).load(); 
+
+          });
+
+        /*var sdatabody = $('#datatable-kelasdosen tfoot');
+=======
               url = '{{"getdatamhs"}}/'+idkelas+'/'+sem+'/'+matkul;
               gentable.ajax.url(url).load(); 
 
           });*/
 
         var sdatabody = $('#datatable-kelasdosen tfoot');
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
         sdatabody.on('click','#btn-submit',function(){
               
               var absensi;
@@ -223,7 +259,11 @@
                   }
                 });
 
+<<<<<<< HEAD
+          });*/
+=======
           });
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
 
 
 

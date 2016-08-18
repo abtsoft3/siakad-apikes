@@ -33,7 +33,6 @@
 								<th>Teori</th>
 								<th>Praktek</th>
 								<th>Klinik</th>
-								<th>Kadep</th>
 								<th>Semester</th>
 								<th></th>
                               </tr>
@@ -58,7 +57,7 @@
 			gentable=$('#datatable-mk').DataTable({
 				  processing: true,
 				  columnDefs: [
-						{ "visible": false, "targets": 7 }
+						{ "visible": false, "targets": 6 }
 					],
 					
 				 //serverSide: true,
@@ -70,7 +69,6 @@
 						{ data: 'teori', name: 'teori' ,"className": "text-right" },
 						{ data: 'praktek', name: 'praktek' ,"className": "text-right" },
 						{ data: 'klinik', name: 'klinik' ,"className": "text-right"},
-						{ data: 'kadep', name: 'kadep' },
 						{ data: 'semester', name: 'semester',bSortable:false,"className": "text-right" },
 						{
 							"className": "action text-center",
@@ -78,7 +76,8 @@
 							"bSortable": false,
 							"defaultContent": "" +
 							"<div class='btn-group' role='group'>" +
-							"  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='left' title='Edit'><i class='fa fa-edit'></i></button>" +
+							"<button class='list btn btn-success btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='left' title='Detail'><i class='fa fa-list'></i></button>"+
+							"  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button>" +
 							"  <button class='delete btn btn-danger btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='right' title='Hapus'><i class='fa fa-trash-o'></i></button>" +
 							"<button type=\"button\" class=\"btn btn-success btn-xs detail\" rel='tooltip' data-toggle='tooltip' data-placement='right' title='Detail'><i class='fa fa-list'></i>" +
 							"<span class=\"sr-only\">Action</span></button>" +
@@ -91,7 +90,7 @@
 						var rows = api.rows( {page:'current'} ).nodes();
 						var last=null;
 			 
-						api.column(7, {page:'current'} ).data().each( function ( group, i ) {
+						api.column(6, {page:'current'} ).data().each( function ( group, i ) {
 							if ( last !== group ) {
 								$(rows).eq( i ).before(
 									'<tr class="group"><td colspan="5">'+'Semester '+group+'</td></tr>'
@@ -110,11 +109,14 @@
 		sbody.on('click','.edit',function(){
 			var data = gentable.row($(this).parents('tr')).data();
 			window.location.href='/home/edit_matakuliah/'+data.kodemk;
-			console.log(data.kodemk);
+		}).
+		on('click','.list',function(){
+			var data = gentable.row($(this).parents('tr')).data();
+			window.location.href='/home/detailmatakuliah/'+data.kodemk;
 		}).
 		on('click','.delete',function(){
 			var data = gentable.row($(this).parents('tr')).data();
-			alertify.confirm("Anda Yakin Ingin menghapus data?", function (e) {
+			alertify.confirm("Konfirmasi","Anda Yakin Ingin menghapus data?", function (e) {
 				if (e) {
 					$.post("/home/deletematakuliah",{'kodemk':data.kodemk,_token:$('#token').val()},function(data,status){
 							if(parseInt(data.return)==1){
@@ -126,7 +128,7 @@
 							
 						},'json');
 				}
-			});		
+			},function(){});		
 		});
 			//tooltip
 			$('body').tooltip({

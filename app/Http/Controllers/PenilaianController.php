@@ -159,7 +159,20 @@ class PenilaianController extends Controller
         
     }
 
+<<<<<<< HEAD
+    public function datakhs($kelas, $sem, $matkul){
+        $model = new ModelPenilaian;
+
+        $model->idkelas  = $kelas;
+        $model->semester = $sem;
+        $model->kodemk   = $matkul;
+
+        $datanilai = $model->showpenilaian();
+
+        return Datatables::of($datanilai)->make(true);
+=======
     public function datakhs(){
         $model = new ModelPenilaian;
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
     }
 }

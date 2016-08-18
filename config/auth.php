@@ -47,10 +47,6 @@ return [
             'provider' => 'users',
         ],
 
-        'admin'=>[
-            'driver' => 'session',
-            'provider' => 'admin',
-        ],
 
         'usermahasiswas'=>[
             'driver' => 'session',

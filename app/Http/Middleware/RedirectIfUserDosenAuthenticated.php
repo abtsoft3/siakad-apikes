@@ -13,11 +13,10 @@ class RedirectIfUserDosenAuthenticated
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next,$guard=null)
+    public function handle($request, Closure $next,$guard='userdosens')
     {
-        if(Auth::guard($guard)->check()){
-
-            return redirect('login_users_dosen');
+        if(!Auth::guard($guard)->check()){
+            return redirect('/login-dosen');
         }
         return $next($request);
     }
