@@ -169,7 +169,7 @@
 							if(returndata==1){
 								alertify.success('Data Berhasil Disimpan');
 							}else{
-								alertify.alert("Error ","Data Input Tidak Valid");
+								alertify.alert("Error ","Data Input Tidak Valid ");
 							}
 							return false;
 						},

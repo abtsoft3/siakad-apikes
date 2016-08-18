@@ -33,16 +33,13 @@ class KelasController extends Controller
     public function store(Request $request)
     {
     	$stat=0;
-		$tblkelas = new ModelKelas;
-		$validator = $tblkelas->validate($request->all());
-			
-		if($validator->passes())
-		{
-			//$model = new ModelKelas;
-			$tblkelas->kodekelas = $request->kode_kelas;
-			$tblkelas->namakelas = $request->nama_kelas;
-			$tblkelas->iddosen   = $request->dosen_wali;
-			$tblkelas->save();
+		$model = new ModelKelas;
+
+		$model->kodekelas = $request->kode_kelas;
+		$model->namakelas = $request->nama_kelas;
+		$model->iddosen   = $request->dosen_wali;
+		$save = $tblkelas->save();
+		if($save){
 			$stat=1;
 			
 		}else
@@ -73,17 +70,20 @@ class KelasController extends Controller
     public function update(Request $request)
     {
     	$stat=0;
-		$tblkelas = new ModelKelas;
-		$validator = $tblkelas->validate($request->all());
+		$model = new ModelKelas;
+
+		$data = $model->find($request->idkelas);
+		$data->kodekelas = $request->kode_kelas;
+		$data->namakelas = $request->nama_kelas;
+		$data->iddosen   = $request->dosen_wali;
+		$update = $data->save();
 			
-		if($validator->passes())
-		{
-			$model_edit=ModelKelas::where('idkelas',$request->idkelas)
-			->update(['namakelas'=>$request->nama_kelas]);
+		if($update){
+
 			$stat=1;
 			
-		}else
-		{
+		}else{
+			
 			$stat=2;
 		}
 		
@@ -121,7 +121,9 @@ class KelasController extends Controller
 	}
 	public function getData()
 	{
-		return Datatables::of(ModelKelas::query())->make(true);
+		$model = new ModelKelas;
+		$datakelas = $model->showdata();
+		return Datatables::of($datakelas)->make(true);
 	}
 	
 	/**
