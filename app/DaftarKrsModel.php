@@ -59,6 +59,9 @@ class DaftarKrsModel extends Model
     public function showmahasiswa(){
     
         $data = DB::table('mahasiswa')
+                         ->join('kelas_mahasiswa', 'mahasiswa.nim', '=', 'kelas_mahasiswa.nim')
+                         ->join('kelas', 'kelas_mahasiswa.idkelas', '=', 'kelas.idkelas')
+                         ->join('dosen', 'kelas.iddosen', '=', 'dosen.iddosen')
                          ->join('detailmahasiswa', 'mahasiswa.nim', '=', 'detailmahasiswa.nim')
                          ->join('angkatan', 'detailmahasiswa.idangkatan', '=', 'angkatan.idangkatan')
                          ->where('mahasiswa.nim', '=', $this->nim)
@@ -67,7 +70,8 @@ class DaftarKrsModel extends Model
                                     'mahasiswa.nama',
                                     DB::raw('toroman(angkatan.angkatan) as angkatan'),
                                     'angkatan.tahun',
-                                    DB::raw("ftanggal(CURDATE()) as tanggal")
+                                    DB::raw("ftanggal(CURDATE()) as tanggal"),
+                                    'dosen.nama as dosenwali'
                                 ])->get();
         
         return $data;

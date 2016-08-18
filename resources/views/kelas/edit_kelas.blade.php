@@ -40,6 +40,13 @@
 								</div>
 							</div>
 							
+							<div class="form-group">
+								{!! Form::label('dosen_wali','Dosen Wali',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-7">
+									{!! Form::select('dosen_wali', $arrdosen, $kelas->iddosen,array('class' => 'form-control')) !!}
+								</div>
+							</div>
+
 								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">
 										  <button id="btn-submit" type="submit" class="btn btn-success">
@@ -59,6 +66,7 @@
 </script>
 <script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
+<script src="{{ URL::asset('vendors/jquery-ui/jquery-ui.js')}}"></script>
 <script type='text/javascript'>
 	$(document).ready(function(){
 		
@@ -77,6 +85,14 @@
 						validators: {
 							notEmpty: {
 								message: 'Silahkan isi kelas'
+							}
+						}
+					},
+					,
+					dosen_wali: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi dosen wali'
 							}
 						}
 					}
@@ -102,6 +118,7 @@
 					success: function (data) {
 						
 							var returndata=parseInt(data.return);
+							
 							if(returndata==1){
 								alertify.confirm('Berhasil',"Data Berhasil diupdate", function () {
 									window.location.href='/home/showkelas';

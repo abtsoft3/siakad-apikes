@@ -74,6 +74,7 @@
     <table width="100%" border="0">
     <?php $tanggal; ?>
     <?php $namamhs; ?>
+    <?php $dosenwali; ?>
     @foreach($datamhs as $key => $cdatamhs)
       <tr>
         <td width="30%">Tahun Akademik</td>
@@ -95,8 +96,9 @@
         <td>Tingkat / Semester </td>
         <td>: {{ $vts}} / {{ $vts}}</td>
       </tr>
-      <?php $namamhs = $cdatamhs->nama; ?>
-      <?php $tanggal = $cdatamhs->tanggal; ?>
+      <?php $namamhs   = $cdatamhs->nama; ?>
+      <?php $tanggal   = $cdatamhs->tanggal; ?>
+      <?php $dosenwali = $cdatamhs->dosenwali; ?>
       @endforeach
     </table>
     <br>
@@ -149,7 +151,7 @@
             Dosen Wali<br /><br /><br /><br />
             
             
-            Rizca Annur Hadya, SST
+            <?php echo $dosenwali; ?>
         </td>
         <td width="32%" valign="top">
         	Medan, <?php echo $tanggal; ?><br />
