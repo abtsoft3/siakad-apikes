@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `apikes` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `apikes`;
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.10-MariaDB, for Win32 (AMD64)
 --
--- Host: 127.0.0.1    Database: apikes
+-- Host: localhost    Database: apikes
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.13-MariaDB
+-- Server version	10.1.10-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,11 +14,6 @@ USE `apikes`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `admins`
---
-
 
 --
 -- Table structure for table `angkatan`
@@ -117,7 +110,6 @@ CREATE TABLE `detailmahasiswa` (
 
 LOCK TABLES `detailmahasiswa` WRITE;
 /*!40000 ALTER TABLE `detailmahasiswa` DISABLE KEYS */;
-INSERT INTO `detailmahasiswa` VALUES ('1113464002',1,NULL),('1113464003',1,NULL),('1113464004',1,NULL),('1113464005',1,NULL),('1113464006',1,NULL),('1113464007',1,NULL),('1113464008',1,NULL),('1113464009',1,NULL),('1113464011',1,NULL),('1113464012',1,NULL),('1113464013',1,NULL),('1113464014',1,NULL),('1113464015',1,NULL),('1113464016',1,NULL),('1113464017',1,NULL),('1113464018',1,NULL),('1113464019',1,NULL),('1113464020',1,NULL),('1113464021',1,NULL),('1113464022',1,NULL),('1113464023',1,NULL),('1113464024',1,NULL),('1113464025',1,NULL),('1113464026',1,NULL),('1113464027',1,NULL),('1113464028',1,NULL),('1113464029',1,NULL),('1113464030',1,NULL),('1113464031',1,NULL),('1113464032',1,NULL),('1113464033',1,NULL),('1113464034',1,NULL),('1113464035',1,NULL),('1113464036',1,NULL),('1113464037',1,NULL),('1113464038',1,NULL),('1113464039',1,NULL),('1113464040',1,NULL);
 /*!40000 ALTER TABLE `detailmahasiswa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +134,6 @@ CREATE TABLE `detailmatakuliah` (
 
 LOCK TABLES `detailmatakuliah` WRITE;
 /*!40000 ALTER TABLE `detailmatakuliah` DISABLE KEYS */;
-INSERT INTO `detailmatakuliah` VALUES (12,'PK105',4),(13,'PK105',5),(14,'PK102',4),(15,'PK102',5);
 /*!40000 ALTER TABLE `detailmatakuliah` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -255,7 +246,6 @@ CREATE TABLE `kelas_mahasiswa` (
 
 LOCK TABLES `kelas_mahasiswa` WRITE;
 /*!40000 ALTER TABLE `kelas_mahasiswa` DISABLE KEYS */;
-INSERT INTO `kelas_mahasiswa` VALUES (17,1,'1113464002',2015,3),(18,1,'1113464003',2015,3),(19,1,'1113464004',2015,3),(20,1,'1113464005',2015,3),(21,1,'1113464006',2015,3),(22,1,'1113464007',2015,3),(23,1,'1113464008',2015,3),(24,1,'1113464009',2015,3),(25,1,'1113464011',2015,3);
 /*!40000 ALTER TABLE `kelas_mahasiswa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +274,6 @@ CREATE TABLE `kelasdosen` (
 
 LOCK TABLES `kelasdosen` WRITE;
 /*!40000 ALTER TABLE `kelasdosen` DISABLE KEYS */;
-INSERT INTO `kelasdosen` VALUES (14,4,1),(15,5,1);
 /*!40000 ALTER TABLE `kelasdosen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -327,7 +316,6 @@ CREATE TABLE `khs` (
 
 LOCK TABLES `khs` WRITE;
 /*!40000 ALTER TABLE `khs` DISABLE KEYS */;
-INSERT INTO `khs` VALUES (19,'1113464002','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(20,'1113464003','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(21,'1113464004','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(22,'1113464005','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(23,'1113464006','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(24,'1113464007','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(25,'1113464008','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(26,'1113464009','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20'),(27,'1113464011','PK102',50,60,70,80,90,'',5,1,1,'2016-08-18 04:27:20');
 /*!40000 ALTER TABLE `khs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,7 +346,6 @@ CREATE TABLE `krs` (
 
 LOCK TABLES `krs` WRITE;
 /*!40000 ALTER TABLE `krs` DISABLE KEYS */;
-INSERT INTO `krs` VALUES (1,'1113464002','ko12','2016-08-16 09:29:37',''),(2,'1113464002','PK101','2016-08-16 09:29:37',''),(3,'1113464002','PK102','2016-08-16 09:29:37',''),(4,'1113464002','PK105','2016-08-16 09:29:37','');
 /*!40000 ALTER TABLE `krs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -390,17 +377,16 @@ CREATE TABLE `mahasiswa` (
 
 LOCK TABLES `mahasiswa` WRITE;
 /*!40000 ALTER TABLE `mahasiswa` DISABLE KEYS */;
-INSERT INTO `mahasiswa` VALUES ('1113464002','APRIANA BR SEBAYANG','MEDAN','1992-04-17','-','SMA SWASTA KATOLIK BUDI MURNI 2','DIRGA BUANA SEBAYANG',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464003','ARIE RANTO PUTRA','JAYANTRI','1993-04-16','','SMK KARYA AGUNG ','JAMIKSAN',1,'0000-00-00 00:00:00','2016-08-16 02:34:55'),('1113464004','ARTIKA NAOMI REMINISCERE FELICIA','MEDAN','1993-10-28','-','SMA SWASTA HARAPAN MANDIRI MEDAN','IR DARIAMAN SINAGA',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464005','AVEN ASWADI PASARIBU','PADANGMANDAILING','1992-11-06','-','SMA NEGERI 1 ARSE','ZULKIFLI PASARIBU',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464006','AYUB','KOTA PARI','1993-09-05','-','SMA NEGERI 1 PERBAUNGAN ','SAMAN HADI',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464007','AZIZAH REZEKIAH HASIBUAN','MEDAN','1992-12-02','-','SMA NEGERI 1 HAMPARAN PERAK','DRS ALI MUKTI HASIBUAN',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464008','DAMAN TAKWA RAMBE','GAROGA','1993-08-17','-','SMA NEGERI 2 PADANGBOLAH','SUTAN PORANG',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464009','DEFRIDA ','MEDAN','1992-11-06','-','SMA SWASTA PRIMBANA MEDAN','BUCHARI FARID',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464011','DESMA KRISTINA SITUMORANG','BUKIT SELAMAT','1992-12-12','-','SMA NEGERI 1 BESITANG ','J SITUMORANG',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464012','DEVI PRANITA ','STABAT','1991-12-28','','SMA NEGERI 1 BANDAR KHALIPAH','SUPRIONO',2,'0000-00-00 00:00:00','2016-08-15 19:12:08'),('1113464013','DINI ERLINA PRAMITHA MATONDANG','PADANG SIDIMPUAN','1993-06-18','-','SMA SWASTA KESUMA INDAH PADANGSIDIMPUAN','DAULAT MATONDANG',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464014','DONI SYAPUTRA','TEBING TINGGI','1993-12-18','-','SMK NEGERI 1 TEBING TINGGI','SAPIRUDDIN',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464015','DWIKA WULANDARI MARBUN ','CINTA RAKYAT','1993-01-23','-','MADRASAH ALIYAH AL-WASHLIYAH 22 TEMBUNG','ALI NAFYAH MARBUN',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464016','EKA OKTAFIANITA ','TEBING TINGGI','1993-10-26','-','SMK NEGERI 2 TEBING TINGGI','SOFIAN',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464017','ERWIN EFENDI SIANTURI','KALANGBAR','1992-08-01','-','SMA NEGERI 1 SIDIKALANG','ALDER SIANTURI',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464018','ESRA BR GINTING','AJI NEMBAH','1992-04-13','-','SMK SWASTA PHARMACA MEDAN','SODER GINTING',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464019','GERTI MAIFA SARAH','ACEH','1991-05-28','-','SMA NEGERI 18 MEDAN','TAMBAH HASIBUAN',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464020','HERI ASWINARDI NASUTION','MEDAN','1993-02-27','-','SMA NEGERI 3 PADANGSIDIMPUAN','HIFNI NASUTION',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464021','ICHSAN SYAMTARA SITEPU','BINJAI','1993-07-10','-','SMA SWASTA TUNAS PELITA BINJAI','OMAR BATARA SITEPU',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464022','IRMAYANTI JULITA SIMANIHURUK ','MEDAN','1993-07-13','-','SMA SWASTA ST YOSEPH MEDAN','OLOAN SIMANIHURUK',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464023','IRVANNY','MEDAN','1993-07-05','-','SMA NEGERI 6 MEDAN','BAMBANG IRIANO',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464024','KHAIRINA ','BINJAI','1993-05-04','-','SMA NEGERI 5 BINJAI ','IRIANTO',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464025','KHAIRUN NISA ','PANTAI CERMIN KIRI','1993-03-26','-','SMA NEGERI 1 PANTAI CERMIN','HASRAT',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464026','LISNAWATI LIMBONG','LIMBONG','1993-02-28','-','SMA NEGERI 1 SIANJUR MULAMULA','PINTAR LIMBONG',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464027','LOLITA FIERDA GUSTIARA SILALAHI','RANTAU PRAPAT','1993-08-10','-','SMA NEGERI 1 RANTAU UTARA ','J SILALAHI',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464028','LORINA CLAUDIA BR SEMBIRING ','BERASTAGI','1993-01-24','-','SMA SWASTA ADVENT 1 KOTA MEDAN','BERSAMA SEMBIRING',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464029','M HANAFI','PASAR LARU','1991-10-10','-','SMA NEGERI 1 TAMBANGAN MANDAILING NATAL','HOLLAD LUBIS',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464030','MARTA ULINA PURBA','BAH SIDUA - DUA','1993-02-23','-','SMA NEGERI 1 SERBAJADI SERDANG BEDAGAI','NAJIM PURBA',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464031','MELINA TIODORA SITANGGANG','MEDAN','1993-02-16','-','SMA SWASTA KATOLIK BUDI MURNI 3 MEDAN','N SITANGGANG',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464032','MITA YUSWITA SARI ','MEDAN','1991-08-14','-','SMK SWASTA AMIR HAMZAH MEDAN','M YUSUF',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464033','MORGAN HARRY PARNINGOTAN M','MEDAN','1993-11-10','-','SMA SWASTA ST YOSEPH MEDAN','FREDDY PARNINGOTAN MANULLANG',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464034','MUHAMMAD LUTHFI SISKANDAR ','MEDAN','1993-11-21','-','SMA NEGERI 15 MEDAN','SISWO PURNOMO',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464035','NAZLI HASWANI SARAGIH ','BERAMPU','1992-03-08','-','SMA NEGERI 1 SIDIKALANG ','KAMLOR SARAGAIH',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464036','NELLY HERIYANTI PURBA','TORNAULI','1993-09-13','-','SMA SWASTA SANTA MARIA TARUTUNG','SIMON PURBA',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464037','NOVA FRASETIA NINGSIH SARAGIH','SIMP RAJANI HUTA','1991-11-08','-','SMA SWASTA SANTA MARIA MEDAN','PARULIAN SARAGIH',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464038','PEDDAH IMOY CIBRO','SIDIKALANG','1993-05-11','-','SMA NEGERI 1 SIDIKALANG','PITTOR HADOMUAN CIBRO',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464039','PIARDIARON LAOLI','EHOSAKHOZI','1991-10-29','-','SMK SWASTA KRISTEN HARAPAN SEJAHTERA GUNUNG SITOLI I DANOI','AMINUDIN LAOLI',1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),('1113464040','PUTRI FACHRUNNISA ','TANJUNG PURA','1994-03-02','-','SMA NEGERI 1 HINAI KABUPATEN LANGKAT','ANDI SYAHPUTRA',1,'0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `mahasiswa` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `tggr_insdetailmhs` AFTER INSERT ON `mahasiswa` FOR EACH ROW BEGIN
 		
@@ -410,8 +396,7 @@ DELIMITER ;;
         declare snama 		varchar(30);
         
         set vtahun 	= concat('20', substr(new.nim, 1,2));
-        set snama 	= splitstr(new.nama, ' ', 1);
-        
+        set snama 	=replace(new.nama,' ','');       
         select idangkatan into vidangkatan from angkatan where tahun=vtahun;
         
         insert into detailmahasiswa (nim, idangkatan) values(new.nim, vidangkatan);
@@ -456,6 +441,12 @@ LOCK TABLES `matakuliah` WRITE;
 INSERT INTO `matakuliah` VALUES ('ko12','fisika',2,1,1,NULL,'testin','1',12),('PK101','Pendidikan Agama',2,2,0,NULL,'Kristen:Esraida, SKM, Islam: Ali Sabela,S.Kep.Ns','1',0),('PK102','Pendidikan Pancasila',2,2,0,'','Erlinday, M.Kes','1',0),('PK105','Bahasa Inggris I',2,1,1,'','Parmen, SKM, M.Kes','1',0),('PK106','Bahasa Jawa',2,2,0,NULL,'Leo Sardo, S.S','2',0),('PK204','Biomedik IV ( Patologi )',2,1,1,NULL,'Erikson, SKM','2',0),('RK01','biologi',2,1,1,NULL,'testing','2',12);
 /*!40000 ALTER TABLE `matakuliah` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `migrations`
+--
+
+
 
 --
 -- Table structure for table `nilaihuruf`
@@ -629,7 +620,7 @@ CREATE TABLE `user_dosens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_dosen_nim_unique` (`iddosen`),
   UNIQUE KEY `users_dosen_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -638,7 +629,6 @@ CREATE TABLE `user_dosens` (
 
 LOCK TABLES `user_dosens` WRITE;
 /*!40000 ALTER TABLE `user_dosens` DISABLE KEYS */;
-INSERT INTO `user_dosens` VALUES (4,5,'Ali sabela Hasibuan, S.Kep, Ns','ali@gmail.com','$2y$10$zandq0UGHlkU6gneISXddeNGvW/6rfqSLKSOAnnJKFNXrndAgi3N6','9qM9YrhEk9K1R6FqApmtX3tmCxQ3fJMkNTCe5XaHeiHglP8EO6nt4HEVEPQO','2016-08-15 08:00:05','2016-08-17 21:44:29',NULL);
 /*!40000 ALTER TABLE `user_dosens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -662,11 +652,20 @@ CREATE TABLE `user_mahasiswas` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `usermahasiswas_nim_unique` (`nim`),
   UNIQUE KEY `usermahasiswas_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `user_mahasiswas`
+--
 
+LOCK TABLES `user_mahasiswas` WRITE;
+/*!40000 ALTER TABLE `user_mahasiswas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_mahasiswas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -685,252 +684,17 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `users`
 --
 
-
-
---
--- Dumping events for database 'apikes'
---
-
---
--- Dumping routines for database 'apikes'
---
-/*!50003 DROP FUNCTION IF EXISTS `fhitungakhir` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `fhitungakhir`(nilaiabsensi float(5,2), nilaiseminar float(5,2), nilaitugas float(5,2), nilaimidsm float(5,2), nilaiuas float(5,2)) RETURNS float(5,2)
-BEGIN
-	declare hasil float(5,2);
-    declare persenabsensi float(5,2);
-    declare persenseminar float(5,2);
-    declare persentugas float(5,2);
-    declare persenmidsm float(5,2);
-    declare persenuas float(5,2);
-    
-    declare habsensi float(5,2);
-    declare hseminar float(5,2);
-    declare htugas float(5,2);
-    declare hmidsm float(5,2);
-    declare huas float(5,2);
-    
-    select absensi, seminar, tugas, midsm, nsem into persenabsensi, persenseminar, persentugas, persenmidsm, persenuas from persenmk where idpersen=1;
-    
-    set habsensi 	= (nilaiabsensi * persenabsensi) / 100;
-    set hseminar 	= (nilaiseminar * persenseminar) / 100;
-    set htugas 		= (nilaitugas * persentugas) / 100;
-    set hmidsm 		= (nilaimidsm * persenmidsm) / 100;
-    set huas 		= (nilaiuas * persenuas) / 100;
-    
-    set hasil = (habsensi + hseminar + htugas + hmidsm + huas);
-    
-RETURN hasil;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `fnilaihuruf` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `fnilaihuruf`(n float(5,2)) RETURNS varchar(2) CHARSET utf8
-BEGIN
-	declare nf varchar(2);
-    
-	set nf = (select nilai from nilaihuruf where n >= batasbawah  and n <= batasatas);
-    
-RETURN nf;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `fnilaimutu` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `fnilaimutu`(nilaihuruf varchar(2)) RETURNS float(3,2)
-BEGIN
-	declare hasil float(3,2);
-    
-    if nilaihuruf = "A" then
-		set hasil = 4.00;
-	elseif nilaihuruf = "B" then
-		set hasil = 3.00;
-	elseif nilaihuruf = "C" then
-		set hasil = 2.00;
-    elseif nilaihuruf = "D" then
-		set hasil = 1.00;
-	else 
-		set hasil = 0.00;
-	end if;
-RETURN hasil;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `fromRoman` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `fromRoman`(`inRoman` VARCHAR(15)) RETURNS int(11)
-BEGIN
-
-    DECLARE numeral CHAR(7) DEFAULT 'IVXLCDM';
-
-    DECLARE digit TINYINT;
-    DECLARE previous INT DEFAULT 0;
-    DECLARE current INT;
-    DECLARE sum INT DEFAULT 0;
-
-    SET inRoman = UPPER(inRoman);
-
-    WHILE LENGTH(inRoman) > 0 DO
-        SET digit := LOCATE(RIGHT(inRoman, 1), numeral) - 1;
-        SET current := POW(10, FLOOR(digit / 2)) * POW(5, MOD(digit, 2));
-        SET sum := sum + POW(-1, current < previous) * current;
-        SET previous := current;
-        SET inRoman = LEFT(inRoman, LENGTH(inRoman) - 1);
-    END WHILE;
-
-    RETURN sum;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `ftanggal` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `ftanggal`(tanggal date) RETURNS varchar(20) CHARSET utf8
-BEGIN
-	declare hasil varchar(20);
-    declare namabulan varchar(100) default 'Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember';
-	declare nbulan int(2);
-    declare tahun varchar(4);
-    declare bulan varchar(10);
-    declare tgl varchar(2);
-    
-    set tahun  = splitstr(tanggal, '-', 1);
-    set nbulan = splitstr(tanggal, '-', 2);
-    set bulan  = splitstr(namabulan, '|', (nbulan));
-    set tgl    = splitstr(tanggal, '-', 3);
-    set hasil  = concat(tgl, " ", bulan, " ", tahun);
-    
-RETURN hasil;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `splitstr` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `splitstr`(`x` VARCHAR(255), `delim` VARCHAR(12), `pos` INT) RETURNS varchar(255) CHARSET latin1
-RETURN REPLACE(SUBSTRING(SUBSTRING_INDEX(x, delim, pos),
-CHAR_LENGTH(SUBSTRING_INDEX(x, delim, pos -1)) + 1),
-delim, '') ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `toRoman` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `toRoman`(`inArabic` INT UNSIGNED) RETURNS varchar(15) CHARSET latin1
-BEGIN
-    DECLARE numeral CHAR(7) DEFAULT 'IVXLCDM';
-
-    DECLARE stringInUse CHAR(3);
-    DECLARE position tinyint DEFAULT 1;
-    DECLARE currentDigit tinyint;
-
-    DECLARE returnValue VARCHAR(15) DEFAULT '';
-
-    IF(inArabic > 3999) THEN RETURN 'overflow'; END IF;
-    IF(inArabic = 0) THEN RETURN 'N'; END IF;
-
-    WHILE position <= CEIL(LOG10(inArabic + .1)) DO
-        SET currentDigit := MOD(FLOOR(inArabic / POW(10, position - 1)), 10);
-
-        SET returnValue := CONCAT(
-            CASE currentDigit 
-                WHEN 4 THEN CONCAT(SUBSTRING(numeral, position * 2 - 1, 1), SUBSTRING(numeral, position * 2, 1))
-                WHEN 9 THEN CONCAT(SUBSTRING(numeral, position * 2 - 1, 1), SUBSTRING(numeral, position * 2 + 1, 1))
-                ELSE CONCAT(
-                    REPEAT(SUBSTRING(numeral, position * 2, 1), currentDigit >= 5),
-                    REPEAT(SUBSTRING(numeral, position * 2 - 1, 1), MOD(currentDigit, 5))
-                )
-            END,
-            returnValue);
-
-        SET position := position + 1;
-    END WHILE;
-    RETURN returnValue;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'basri','muhammadbasri444@gmail.com','$2y$10$FJMZkrHVUlVammIA.hvgDeGf7OKxs1tHspY5/jS7WDI4mTjSpxLWS','V2O5a52bdh3mNBb5KyHqQkx2ud0Nae5nZyFcAniPG2UdFegJTel3Z0QlUCIG','2016-07-28 18:30:58','2016-08-17 14:54:48',1,NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -941,4 +705,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-18 14:43:53
+-- Dump completed on 2016-08-18 16:32:15
