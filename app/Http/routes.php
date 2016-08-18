@@ -33,6 +33,26 @@ Route::group(['middleware' => 'web'],function(){
 		abort(503);
 	});
 	
+
+	
+	//menu mahasiswa
+	Route::get('menu_mahasiswa','Menu_MahasiswaController@index');
+	//menudosen
+	Route::get('menu_mahasiswa','Menu_DosenController@index');
+
+	// KRS
+	Route::get('/home/addkrs','DaftarKrsController@index');
+	Route::get('/home/listkrs','DaftarKrsController@listkrs');
+	Route::get('/home/listkrs/{sem}','DaftarKrsController@showkrs');
+	Route::get('/home/printkrs/{sem}','DaftarKrsController@printkrs');
+	Route::get('/home/datamk/{sem}','DaftarKrsController@datamk');
+	Route::get('/home/storekrs','DaftarKrsController@store');
+
+	// KHS
+	Route::get('/home/showkhs','KhsController@index');
+	Route::get('/home/datakhs/{sem}','KhsController@datakhs');
+	Route::get('/home/printkhs/{sem}','KhsController@printkhs');
+
 });
 
 Route::group(['middleware'=>'auth'],function(){
@@ -114,6 +134,16 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::post('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@update');
 	Route::get('/home/editkelasdosen/{idkelasdosen}','KelasDosenController@edit');
 	Route::get('/home/deletekelasdosen/{idkelasdosen}','KelasDosenController@destroy');
+
+
+	//penilaian mahasiswa
+	Route::get('/home/addpenilaian','PenilaianController@add');
+	Route::post('/home/addpenilaian','PenilaianController@store');
+	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
+	Route::get('/home/showpenilaian', 'PenilaianController@show');
+	Route::get('/home/getdatakhs/{kelas}/{sem}/{matkul}', 'PenilaianController@datakhs');
+
+
 	//kelas
 	Route::get('/home/showkelas','KelasController@index');
 	Route::get('/home/edit_kelas/{id}','KelasController@edit');

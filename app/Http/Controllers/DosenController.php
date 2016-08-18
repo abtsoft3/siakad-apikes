@@ -25,6 +25,7 @@ class DosenController extends Controller
 
 		$arrjabakademik = array(
 			''				=> 'Pilih',
+			'Proses'	=> 'Proses',
 			'Assisten Ahli'	=> 'Assisten Ahli',
 			'Lektor'		=> 'Lektor',
 			'Lektor Kepala'	=> 'Lektor Kepala',
@@ -33,6 +34,7 @@ class DosenController extends Controller
 
 		$arrpendidikan =array(
 			''	 => 'Pilih',
+			'DIV' => 'DIV',
 			'S1' => 'S1',
 			'S2' => 'S2',
 			'S3' => 'S3'
@@ -53,6 +55,7 @@ class DosenController extends Controller
 
 		$arrjabakademik = array(
 			''				=> 'Pilih',
+			'Proses'	=> 'Proses',
 			'Assisten Ahli'	=> 'Assisten Ahli',
 			'Lektor'		=> 'Lektor',
 			'Lektor Kepala'	=> 'Lektor Kepala',
@@ -61,6 +64,7 @@ class DosenController extends Controller
 
 		$arrpendidikan =array(
 			''	 => 'Pilih',
+			'DIV' => 'DIV',
 			'S1' => 'S1',
 			'S2' => 'S2',
 			'S3' => 'S3'

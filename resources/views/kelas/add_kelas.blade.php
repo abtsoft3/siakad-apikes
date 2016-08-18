@@ -38,6 +38,8 @@
 									{!! Form::text('nama_kelas',null,array('class' => 'form-control')) !!}
 								</div>
 							</div>
+
+							
 							
 								<div class="form-group">
 										<div class="col-lg-offset-4 col-sm-3">
@@ -127,7 +129,14 @@
 								message: 'Silahkan isi kelas'
 							}
 						}
-					}
+					}/*,
+					iddosen: {
+						validators: {
+							notEmpty: {
+								message: 'Silahkan isi dosen wali'
+							}
+						}
+					}*/
 					
 				}
 			}).on('success.form.bv', function (e) {

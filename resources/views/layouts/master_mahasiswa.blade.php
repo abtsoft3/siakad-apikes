@@ -71,16 +71,15 @@
                       <li><a href="{{url('/home/listkrs')}}">Lihat KRS</a></li>
                     </ul>
                   </li>
-				  <li><a><i class="fa fa-user"></i> Kemahasiswaan <span class="fa fa-chevron-down"></span></a>
+				  <!-- <li><a><i class="fa fa-user"></i> Kemahasiswaan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       
                     </ul>
                   </li>
-                  
-                  <li><a><i class="fa fa-desktop"></i> KHS & Transkrip <span class="fa fa-chevron-down"></span></a>
+                   -->
+                  <li><a><i class="fa fa-desktop"></i> Kartu Hasil Studi<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="general_elements.html">Informasi KHS</a></li>
-                      <li><a href="general_elements.html">Transkrip</a></li>
+                      <li><a href="{{url('/home/showkhs')}}">Lihat KHS</a></li>
                     </ul>
                   </li>
 				  

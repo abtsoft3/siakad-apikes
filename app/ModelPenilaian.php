@@ -9,7 +9,7 @@ use DB;
 class ModelPenilaian extends Model
 {
 
-	public $idkelas;
+	//public $idkelas;
 
     protected $table = 'khs';
 
@@ -17,7 +17,8 @@ class ModelPenilaian extends Model
     	'nim',
     	'iddosen',
     	'semester',
-        'kodemk'
+        'kodemk',
+        'idkelas'
     ];
 
     public function showdatamhs(){
@@ -92,7 +93,11 @@ class ModelPenilaian extends Model
         $data = $this->join("mahasiswa", "khs.nim", "=", "mahasiswa.nim")
                      ->join("kelas", "khs.idkelas", "=", "kelas.idkelas")
                      ->join("matakuliah", "khs.kodemk", "=", "matakuliah.kodemk")
+<<<<<<< HEAD
+                     ->whereRaw("khs.idkelas = ".$this->idkelas." and khs.semester = ".$this->semester." and khs.kodemk = '".$this->kodemk."'")
+=======
                      ->whereRaw("khs.idkelas = ".$this->kelas." and khs.semester = ".$this->semester." and khs.kodemk = ".$this->kodemk)
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
                      ->select([
                                 'mahasiswa.nim',
                                 'mahasiswa.nama',
@@ -101,8 +106,16 @@ class ModelPenilaian extends Model
                                 'khs.tugas',
                                 'khs.midsm',
                                 'khs.nsem',
+<<<<<<< HEAD
+                                DB::raw('fhitungakhir(khs.absensi, khs.seminar, khs.tugas, khs.midsm, khs.nsem) as akhir'),
+                                DB::raw('fnilaihuruf(fhitungakhir(khs.absensi, khs.seminar, khs.tugas, khs.midsm, khs.nsem)) as nilaihuruf'),
+                                'khs.keterangan'
+                              ])
+                     ->orderBy('mahasiswa.nim', 'asc')->get();
+=======
                                 'khs.keterangan'
                               ]);
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
         return $data;
     }
 }

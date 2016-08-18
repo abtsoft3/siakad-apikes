@@ -44,7 +44,7 @@ class DaftarKrsModel extends Model
     	$data = $this->join('mahasiswa', 'krs.nim', '=', 'mahasiswa.nim')
     				 ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
     				 ->where('krs.nim', '=', $this->nim)
-                     ->whereRaw("matakuliah.semester = ".$this->semester)
+                     ->whereRaw("matakuliah.semester = fromRoman('".$this->semester."')")
     				 ->select([
     				     		'matakuliah.kodemk',
     				     		'matakuliah.matakuliah',
@@ -66,7 +66,8 @@ class DaftarKrsModel extends Model
                                     'mahasiswa.nim',
                                     'mahasiswa.nama',
                                     DB::raw('toroman(angkatan.angkatan) as angkatan'),
-                                    'angkatan.tahun'
+                                    'angkatan.tahun',
+                                    DB::raw("ftanggal(CURDATE()) as tanggal")
                                 ])->get();
         
         return $data;
@@ -93,8 +94,7 @@ class DaftarKrsModel extends Model
                      ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
                      ->where('krs.nim', '=', $this->nim)
                      ->select([ 
-                                'matakuliah.semester',
-                                 DB::raw('toroman(matakuliah.semester) as romsem')
+                                 DB::raw('toroman(matakuliah.semester) as semester')
                               ])->distinct()->get();
         }
         

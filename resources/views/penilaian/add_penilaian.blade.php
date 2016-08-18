@@ -20,7 +20,11 @@
       <h2>Penilaian Mahasiswa</h2>
                     
       <div class="clearfix">
+<<<<<<< HEAD
+        <a href="{{url('/home/showpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+=======
         <a href="#" class="btn btn-success pull-right"><i class="fa fa-list"></i> Tampilkan</a>
+>>>>>>> 289ef8c4e0c6e5481a994b0bcb5f6e1bc91457c4
       </div>
   </div>
   <div class="x_content">
@@ -62,7 +66,7 @@
         <tr>
           <th width="3%">No</th>
           <th>Nim</th>
-          <th>Nama</th>
+          <th width="20%">Nama</th>
           <th>Absensi</th>
           <th>Seminar</th>
           <th>Tugas</th>
