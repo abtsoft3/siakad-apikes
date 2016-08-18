@@ -140,9 +140,12 @@ class MahasiswaController extends Controller
 	}
 
 
-	public function getdatamahasiswa()
+	public function getdatamahasiswa($tahunajaran)
 	{
-		$getmodel = ModelMahasiswa::all('nama','nim');
+		//$getmodel = ModelMahasiswa::all('nama','nim');
+		
+		 $getmodel = ModelMahasiswa::where(DB::raw('substring(nim, 2, 2)'),"=",$tahunajaran)
+		 ->select('nim','nama')->get();
 		return Datatables::of($getmodel)->make(true);
 	}
 

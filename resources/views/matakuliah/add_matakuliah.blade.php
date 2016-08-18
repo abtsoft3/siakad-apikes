@@ -99,7 +99,7 @@
 									  {!! Form::close() !!}
 							</div>
 
-						<div class="col-lg-6 col-sm-6 col-xs-5">
+						<div class="col-lg-6 col-sm-6 col-xs-5 flexible">
 							<table id="datatable-dosen" class="table table-striped table-bordered">
 	                            <thead>
 	                              <tr>

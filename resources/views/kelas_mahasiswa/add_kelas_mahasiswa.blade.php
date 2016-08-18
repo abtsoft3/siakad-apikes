@@ -23,14 +23,28 @@
                   </div>
                   <div class="x_content">
 				 
-					<div class="col-lg-6 col-sm-6 col-xs-5">
+					<div class="col-lg-6 col-sm-6 col-xs-5 ">
 						{!! Form::open(array('url' => '/home/storekelasmahasiswa','class'=>'form-horizontal','id'=>'form-kelasmahasiswa','autocomplete'=>'off')) !!}
 						
 						{!! Form::hidden('temp_nim',0,array('class' => 'form-control','id'=>'temp_nim')) !!}
+							
+							 <div class="form-group">
+								{!! Form::label('angkatan','Angkatan',array('class' => 'col-sm-4 control-label')) !!}	
+								<div class="col-sm-5">
+									 <div class="input-group dtpicker">
+										<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+											{!! Form::text('angkatan',null,array('class' => 'form-control','maxlength'=>'4')) !!}
+											
+									</div>
+									</div>
+								</div>
+
+
+
 							<div class="form-group" id="kdkl">
 								{!! Form::label('kode_kelas','Kelas',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::select('kode_kelas',$datakelas,'',array('class' => 'form-control')) !!}
+									{!! Form::select('kode_kelas',$datakelas,'Pilih',array('class' => 'form-control')) !!}
 								</div>
 							</div>
 							
@@ -59,17 +73,17 @@
 									  </div>
 									  {!! Form::close() !!}
 							</div>
-							<div class="col-lg-6 col-sm-6 col-xs-5" >
+							<div class="col-lg-6 col-sm-6 col-xs-5 flexible">
 								<!--table-->
-					<table id="datatable-getmahasiswa" class="table table-striped table-bordered">
-                            <thead>
-                              <tr>
-                              <th></th>
-                                <th style="text-align:center;">Nim</th>
-                                <th>Nama</th>
-                              </tr>
-                            </thead>
-					</table>
+								<table id="datatable-getmahasiswa" class="table table-striped table-bordered">
+			                            <thead>
+			                              <tr>
+			                              <th></th>
+			                                <th style="text-align:center;">Nim</th>
+			                                <th>Nama</th>
+			                              </tr>
+			                            </thead>
+								</table>
 					<!--endtable-->
 							</div>
 					</div>
@@ -101,16 +115,12 @@
 var genTable = null;
 	$(document).ready(function(){
 
-		$('.dtpicker').datetimepicker({
-				format:'YYYY'
-			}).on('dp.change dp.show', function(e) {
-				$('#form-kelasmahasiswa').bootstrapValidator('revalidateField','tahun_ajaran');
-			});
+		
 		
 		//datatables
 		genTable = $('#datatable-getmahasiswa').DataTable({
           processing: true,
-          ajax: '{{url("/home/getdatamahasiswa")}}',
+          ajax: '{{url("/home/getdatamahasiswa",["tahunajaran"=>0])}}',
           paging:true,
           ordering:true,
           info:true,
@@ -134,6 +144,19 @@ var genTable = null;
               {data: 'nama', name: 'nama',"className":"text-center"}
           ]
       });
+
+
+	$('.dtpicker').datetimepicker({
+				format:'YYYY'
+			}).on('dp.change dp.show', function(e) {
+				$('#form-kelasmahasiswa').bootstrapValidator('revalidateField','tahun_ajaran');
+				//console.log($('#angkatan').val());
+				var angkatanval = $('#angkatan').val();
+				var substr_angkatan = angkatanval.substr(2,3);
+				var _url='/home/getdatamahasiswa/'+substr_angkatan;
+				genTable.ajax.url(_url).load();
+			});
+
 
 	var sbody = $('#datatable-getmahasiswa tbody');
       sbody.on('click','.chkbox',function(){

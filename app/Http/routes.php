@@ -162,7 +162,7 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/editkelasmahasiswa/{id}','KelasMahasiswaController@edit');
 	Route::post('/home/updatekelasmahasiswa','KelasMahasiswaController@update');
 	Route::get('/home/deletekelasmahasiswa/{id}','KelasMahasiswaController@destroy');
-	Route::get('/home/getdatamahasiswa','MahasiswaController@getdatamahasiswa');
+	Route::get('/home/getdatamahasiswa/{tahunajaran}','MahasiswaController@getdatamahasiswa');
 	Route::post('/home/check_kelasmahasiswa','KelasMahasiswaController@checking');
 	Route::get('/home/datakelasmahasiswa','KelasMahasiswaController@getKelasMahasiswa');
 
@@ -241,7 +241,6 @@ Route::group(['middleware' => ['userdosens']],function(){
 	Route::post('/home/dosen/changepasswords','UserDosenController@postchangepassword');
 	
 	Route::post('/home/dosen/TempUpload','UserDosenController@TempUpload');
-
 	//penilaian mahasiswa
 	Route::get('/home/addpenilaian/{iddosen}','PenilaianController@add');
  	Route::post('/home/addpenilaian','PenilaianController@store');
