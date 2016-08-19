@@ -1,6 +1,6 @@
 @extends('layouts.master_mahasiswa')
 
-@section('title','MataKuliah')
+@section('title','KHS')
 @section('css')
   <!-- Datatables -->
     <link href="{{ URL::asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
@@ -17,7 +17,7 @@
 
 <div class="x_panel">
   <div class="x_title">
-      <h2>Kartu Rencana Studi</h2>
+      <h2>Kartu Hasil Studi</h2>
                     
       <div class="clearfix">
 				
@@ -120,7 +120,7 @@
 
 <!--endtable-->
   </div>
-  <a href="#" target="_blank" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KRS</a>
+  <a href="#" target="_blank" class="btn btn-success pull-left" id="cetakkrs"><i class="fa fa-print"></i> Cetak KHS</a>
 </div>
 
 @endsection

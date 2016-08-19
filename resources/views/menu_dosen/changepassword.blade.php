@@ -1,5 +1,5 @@
 @extends('layouts.master_dosen')
-@section('title','Dosen')
+@section('title','Ganti Password')
 
 @section('css')
 	<link href="{{ URL::asset('vendors/bootstrapvalidator/dist/css/bootstrapValidator.min.css')}}" rel="stylesheet">

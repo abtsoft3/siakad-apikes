@@ -129,9 +129,7 @@ class KelasMahasiswaController extends Controller
         return response()->json(['return' => $stat]);
     }
 
-    public function getMahasiswa($tahunajaran){
-       
-    }
+   
 
 
 }
