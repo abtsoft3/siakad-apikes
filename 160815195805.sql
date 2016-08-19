@@ -473,6 +473,7 @@ INSERT INTO `users` VALUES ('1','basri','muhammadbasri444@gmail.com','$2y$10$FJM
 -- ----------------------------
 --  Trigger definition for `mahasiswa`
 -- ----------------------------
+
 DELIMITER ;;
 CREATE TRIGGER `tggr_insdetailmhs` AFTER INSERT ON `mahasiswa` FOR EACH ROW BEGIN
 		

@@ -27,7 +27,7 @@
 					<table id="datatable-mk" class="table table-striped table-bordered">
                             <thead>
                               <tr>
-                              <th>Centang</th>
+                              <th>{!! Form::checkbox('checkall',null,null, array('id'=>'checkall')) !!}</th>
                                 <th>NIM</th>
                                 <th>Nama</th>
                               </tr>
@@ -46,7 +46,9 @@
     <script src="{{ URL::asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
 	<script src="{{ URL::asset('vendors/alertify/js/alertify.min.js')}}">
 </script>
+
    <script type='text/javascript'>
+   var password_user =12345;
 		var gentable=null;
 		$(document).ready(function(){
 			gentable=$('#datatable-mk').DataTable({
@@ -80,7 +82,6 @@
       		if($(this).is(':checked')){
       				var this_checkbox = this;
       				var iduser=data.id;
-      				var password_user =12345;
 	      			$.ajax({
 						type: 'POST',
 						url: "{{ url('/home/update_all_user_mahasiswa') }}",
@@ -95,6 +96,29 @@
 						});
 	      	}
       	});
+
+      	var shead = $('#datatable-mk thead');
+        shead.on('click', '#checkall', function(){
+          var cells = gentable.cells().nodes();
+
+           var allcheckbox=$( cells ).find(':checkbox').prop('checked', $(this).is(':checked'));
+           $(allcheckbox).each(function(i,val){
+           		//console.log(val.value);
+           		$.ajax({
+						type: 'POST',
+						url: "{{ url('/home/update_all_user_mahasiswa') }}",
+						data: {'id':val.value,
+								'password':password_user,
+								'_token' : $('input[name="_token"]').val()
+							},
+						dataType: 'json',
+						error: function (xhr,textStatus,errormessage) {
+								alertify.alert("Kesalahan! ","Error !!"+xhr.status+" "+textStatus+" "+"Tidak dapat mengirim data!");
+							}
+						});
+           })
+            
+        });
 	});
 		
    </script>
