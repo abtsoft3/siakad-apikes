@@ -28,7 +28,7 @@
 							<div class="form-group" id="mkkd">
 								{!! Form::label('kodemk','Kode MataKuliah',array('class' => 'col-sm-4 control-label')) !!}
 								<div class="col-sm-5">
-									{!! Form::text('kodemk',null,array('class' => 'form-control','maxlength'=>'6')) !!}
+									{!! Form::text('kodemk',null,array('class' => 'form-control','maxlength'=>'10')) !!}
 									<small id="status_kdmk"></small>
 								</div>
 							</div>
@@ -50,21 +50,21 @@
 							<div class="form-group">
 								{!! Form::label('teori','Teori',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-3">
-									{!! Form::text('teori',1,array('class' => 'form-control','maxlength'=>'1')) !!}
+									{!! Form::text('teori',1,array('class' => 'form-control','maxlength'=>'3')) !!}
 								</div>
 							</div>
 							
 							<div class="form-group">
 								{!! Form::label('praktek','Praktek',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-3">
-									{!! Form::text('praktek',1,array('class' => 'form-control','maxlength'=>'1')) !!}
+									{!! Form::text('praktek',1,array('class' => 'form-control','maxlength'=>'3')) !!}
 								</div>
 							</div>
 
 							<div class="form-group">
 								{!! Form::label('klinik','Klinik',array('class' => 'col-sm-4 control-label')) !!}	
 								<div class="col-sm-3">
-									{!! Form::text('klinik',0,array('class' => 'form-control','maxlength'=>'1')) !!}
+									{!! Form::text('klinik',0,array('class' => 'form-control','maxlength'=>'3')) !!}
 								</div>
 							</div>
 							
