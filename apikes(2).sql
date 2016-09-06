@@ -21,8 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `apikes`
 --
-CREATE DATABASE IF NOT EXISTS `apikes` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `apikes`;
+CREATE DATABASE IF NOT EXISTS `siakadapikes` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `siakadapikes`;
 
 DELIMITER $$
 --

@@ -25,6 +25,16 @@
 				  <input type="hidden" name="_token" value="{{ csrf_token() }}" id='token'>
 					<!--table-->
 					<table id="datatable-mk" class="table table-striped table-bordered">
+							<colgroup>
+								<col></col>
+								<col></col>
+								<col></col>
+								<col></col>
+								<col></col>
+								<col></col>
+								<col style="width:100px"></col>
+
+							</colgroup>
                             <thead>
                               <tr>
                                 <th>Kode MataKuliah</th>
@@ -59,6 +69,8 @@
 				  columnDefs: [
 						{ "visible": false, "targets": 6 }
 					],
+					order:[[6,'asc']],
+					"displayLength": 25,
 					
 				 //serverSide: true,
 					ajax: "{!! route('datatablesmatakuliah.data') !!}",
