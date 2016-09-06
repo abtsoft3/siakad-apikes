@@ -30,11 +30,11 @@ class MataKuliahModel extends Model
 		$rules = array(
 			'kodemk' => 'Required',
 			'matakuliah' => 'Required|Max:100',
-			'bobot' => 'Required|Max:1',
-			'teori' => 'Required|Max:1' ,
-			'praktek' => 'Required|Max:1' ,
+			'bobot' => 'Required|Max:4',
+			'teori' => 'Required|Max:4' ,
+			'praktek' => 'Required|Max:4' ,
 			'kadep' => 'Required|Max:100',
-			'bobotnilai' => 'Required|Max:2',
+			'bobotnilai' => 'Required|Max:4',
 			'semester' => 'Required'
 		);
 		return Validator::make($input, $rules);
