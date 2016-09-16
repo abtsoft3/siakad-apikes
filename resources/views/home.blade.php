@@ -87,7 +87,6 @@
          
 @endsection
 @section('scripts')
-    <script src="{{ URL::asset('vendors/cropper-master/dist/cropper.min.js')}}"></script>
     <script type="text/javascript">
     function readURL(input) {
         var a=$(input)[0].files;

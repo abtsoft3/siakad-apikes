@@ -24,7 +24,7 @@
                   <div class="x_content">
 				  <input type="hidden" name="_token" value="{{ csrf_token() }}" id='token'>
 					<!--table-->
-					<table id="datatable-dosen" class="table table-striped table-bordered">
+					<table id="datatable-dosen" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                             <thead>
                               <tr>
                                 <th>Nidn</th>

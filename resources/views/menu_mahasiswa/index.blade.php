@@ -2,7 +2,6 @@
 @section('title','Mahasiswa')
 @section('css')
 <link href="{{ URL::asset('build/css/jquery.fileupload.css')}}" rel="stylesheet">
-<link href="{{ URL::asset('vendors/cropper-master/dist/cropper.min.css')}}" rel="stylesheet">
 <style>
     
     .fileinput-button {
@@ -47,7 +46,7 @@
 						  
                         </div>
                         <!--isi-->
-						<div class="col-md-3 col-sm-12 col-xs-12">
+						<div class="col-md-8 col-sm-12 col-xs-12">
 							<table class="table">
 								<colgroup>
 									<col/>
@@ -95,7 +94,6 @@
          
 @endsection
 @section('scripts')
-    <script src="{{ URL::asset('vendors/cropper-master/dist/cropper.min.js')}}"></script>
     <script type="text/javascript">
     function readURL(input) {
         var a=$(input)[0].files;
