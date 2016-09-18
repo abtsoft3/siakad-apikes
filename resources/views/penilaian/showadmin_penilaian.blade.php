@@ -1,4 +1,4 @@
-@extends('layouts.master_dosen')
+@extends('layouts.master')
 
 @section('title','Penilaian Mahasiswa')
 @section('css')
@@ -21,20 +21,20 @@
                     
       <div class="clearfix">
 
-        <a href="{{url('/home/addpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a>
+        <!-- <a href="{{url('/home/addpenilaian')}}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Tambah</a> -->
 
       </div>
   </div>
   <div class="x_content">
           
   <!--table-->
-  {!! Form::open(array('url' => '/home/addkelasdosen', 'id'=>'form-kelasdosen')) !!}
+  
 
     <table id="datatable-kelasdosen" class="table table-striped table-bordered" width="100%">
 
       <thead>
         <tr>
-        <th colspan="12">
+        <th colspan="13">
            <div class="form-horizontal">
             
               <div class="form-group">
@@ -64,16 +64,18 @@
         </tr>
         <tr>
           <th width="3%">No</th>
-          <th>Nim</th>
-          <th width="20%">Nama</th>
-          <th>Absensi</th>
-          <th>Seminar</th>
-          <th>Tugas</th>
-          <th>MID SM</th>
-          <th>UAS</th>
-          <th>Akhir</th>
+          <th>Idkhs</th>
+          <th width="10%">Nim</th>
+          <th width="15%">Nama</th>
+          <th width="7%">Absensi</th>
+          <th width="7%">Seminar</th>
+          <th width="7%">Tugas</th>
+          <th width="7%">MID SM</th>
+          <th width="7%">UAS</th>
+          <th width="7%">Akhir</th>
           <th width="3%">Nilai Huruf</th>
           <th>Keterangan</th>
+          <th width="7%"></th>
         </tr>
       </thead>
       <tfoot>
@@ -83,7 +85,7 @@
         </tr> 
       </tfoot>
     </table>
-    {!! Form::close() !!}
+    
 <!--endtable-->
   </div>
 </div>
@@ -131,6 +133,7 @@
               },
               aoColumns: [
                   {data: null,    name: 'no'},
+                  {data: 'idkhs',   name: 'idkhs'},
                   {data: 'nim',   name: 'nim'},
                   {data: 'nama',  name: 'nama'},
                   {data: 'absensi',  name: 'absensi'},
@@ -141,50 +144,37 @@
                   {data: 'akhir',  name: 'akhir'},
                   {data: 'nilaihuruf',  name: 'nilaihuruf'},
                   {data: 'keterangan',  name: 'keterangan'},
+                  {
+                    "className": "action text-center",
+                    "data": null,
+                    "bSortable": false,
+                    "defaultContent": "" +
+                    "<div class='btn-group' role='group'>" +
+                    "  <button class='edit  btn btn-primary btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='top' title='Edit'><i class='fa fa-edit'></i></button>" +
+                    "  <button class='delete btn btn-danger btn-xs' rel='tooltip' data-toggle='tooltip' data-placement='right' title='Hapus'><i class='fa fa-trash-o'></i></button>" +
+                    "</div>"
+                  }
               ],
               aoColumnDefs: [
-              //{ "visible": false, "aTargets": 1 },
+              {"visible": false, "aTargets": 1 },
               {"bSortable" : false, "aTargets": 0 },
               { aTargets  : [ -1 ] }
 
               ],
               
-              aaSorting: [[ 1, 'asc' ]]
+              aaSorting: [[ 2, 'asc' ]]
 
           });
 
         
 
-        var sbody = $('#datatable-kelasdosen thead');
+        var shead = $('#datatable-kelasdosen thead');
 
-         sbody.on('change','#kelas',function(){
-
-              idkelas = $('#kelas').val();
-              
-              url = '/home/getsem/'+idkelas;
-              $('#semester')
-                  .find('option')
-                  .remove()
-                  .end()
-                  .append('<option value="0">Semester</option>')
-                  .val('semester');
-
-              $.getJSON(url, function(data){
- 
-  
-              $.each(data.data, function(key, val){
-                
-                $('#semester').append('<option value="' + val.semester + '">Semester '+val.romsem+'</option>');
-              });
-              
-              });
-          });
-
-         sbody.on('change','#semester',function(){
+         shead.on('change','#semester',function(){
 
               sem = $('#semester').val();
               
-              url = '/home/getmk/'+idkelas+'/'+sem;
+              url = '/home/getsemmk/'+sem;
 
               $('#matkul')
                   .find('option')
@@ -203,7 +193,7 @@
 
           });
 
-         sbody.on('change','#matkul',function(){
+         shead.on('change','#matkul',function(){
 
               idkelas = $('#kelas').val();
               sem     = $('#semester').val();
@@ -214,6 +204,32 @@
               gentable.ajax.url(url).load(); 
 
           });
+
+        var sbody = $('#datatable-kelasdosen tbody');
+
+        sbody.on('click','.edit', function(){
+
+          var data = gentable.row($(this).parents('tr')).data();
+          window.location.href='/home/editnilai/'+data.idkhs;
+        }).
+        on('click','.delete', function(){
+          var data = gentable.row($(this).parents('tr')).data();
+          alertify.confirm("Konfirmasi","Anda Yakin Ingin menghapus data?", function (e) {
+          if (e) {
+            $.get("/home/deletenilai/"+data.idkhs, function(data, status){
+              //alert(data)
+                if(parseInt(data.return)==1){
+                  alertify.success('Data berhasil dihapus');
+                  url = '{{"getdatakhs"}}/'+idkelas+'/'+sem+'/'+matkul;
+                  gentable.ajax.url(url).load(); 
+                }else{
+                  alertify.error('Gagal menghapus');
+                }
+                
+            },'json');
+          }
+        },function(){});   
+        });
 
         /*var sdatabody = $('#datatable-kelasdosen tfoot');
 

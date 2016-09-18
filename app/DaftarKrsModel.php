@@ -44,7 +44,7 @@ class DaftarKrsModel extends Model
     	$data = $this->join('mahasiswa', 'krs.nim', '=', 'mahasiswa.nim')
     				 ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
     				 ->where('krs.nim', '=', $this->nim)
-                     ->whereRaw("matakuliah.semester = fromRoman('".$this->semester."')")
+                     ->whereRaw("matakuliah.semester = ".$this->semester)
     				 ->select([
     				     		'matakuliah.kodemk',
     				     		'matakuliah.matakuliah',
@@ -82,6 +82,7 @@ class DaftarKrsModel extends Model
         //2 = untuk view krs
         if($kat==1){
             $data = DB::table('matakuliah')
+                     ->orderBy('matakuliah.semester', 'asc')
                      ->whereNotExists(function($query)
                      {
                         $query->select(DB::raw(1))
@@ -95,10 +96,12 @@ class DaftarKrsModel extends Model
         }else{
 
             $data = DB::table('krs')
+                     ->orderBy('matakuliah.semester', 'asc')
                      ->join('matakuliah', 'krs.kodemk', '=', 'matakuliah.kodemk')
                      ->where('krs.nim', '=', $this->nim)
                      ->select([ 
-                                 DB::raw('toroman(matakuliah.semester) as semester')
+                                 'matakuliah.semester',
+                                 DB::raw('toroman(matakuliah.semester) as romsem')
                               ])->distinct()->get();
         }
         

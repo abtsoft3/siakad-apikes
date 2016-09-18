@@ -18,16 +18,20 @@ class ModelKelasDosen extends Model
 
     public function datadosen(){
     	$data = DB::table('dosen')
+                     ->join("detailmatakuliah", "dosen.iddosen", "=", "detailmatakuliah.iddosen")
+                     ->join("matakuliah", "detailmatakuliah.kodemk", "=", "matakuliah.kodemk")
                      ->whereNotExists(function($query)
                      {
                         $query->select(DB::raw(1))
                         ->from('kelasdosen')
-                        ->whereRaw("dosen.iddosen = kelasdosen.iddosen and kelasdosen.idkelas = '".$this->idkelas."'");
+                        ->whereRaw("dosen.iddosen = kelasdosen.iddosen and matakuliah.kodemk = kelasdosen.kodemk and kelasdosen.idkelas = '".$this->idkelas."'");
                      })
                      ->select([
                                 'dosen.iddosen',
                                 'dosen.nidn',
-                                'dosen.nama'
+                                'dosen.nama',
+                                'matakuliah.kodemk',
+                                'matakuliah.matakuliah'
                               ]);
         return $data;
     }
@@ -45,11 +49,14 @@ class ModelKelasDosen extends Model
     public function showkelasdosen(){
     	$data = $this->join("dosen", "kelasdosen.iddosen", "=", "dosen.iddosen")
     				 ->join("kelas", "kelasdosen.idkelas", "=", "kelas.idkelas")
+                     ->join("detailmatakuliah", "dosen.iddosen", "=", "detailmatakuliah.iddosen")
+                     ->join("matakuliah", "detailmatakuliah.kodemk", "=", "matakuliah.kodemk")
                      ->select([
                      			'kelasdosen.idkelasdosen',
                      			'dosen.nidn',
                      			'dosen.nama',
-                     			'kelas.namakelas'
+                     			'kelas.namakelas',
+                                'matakuliah.matakuliah'
                               ])->get();
         return $data;
     }

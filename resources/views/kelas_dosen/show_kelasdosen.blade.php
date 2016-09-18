@@ -33,6 +33,7 @@
           <th>NIDN</th>
           <th>Nama</th>
           <th>Kelas</th>
+          <th>Matakuliah</th>
           <th></th>
         </tr>
       </thead>
@@ -66,6 +67,7 @@
                   {data: 'nidn',          name: 'nidn'},
                   {data: 'nama',          name: 'nama'},
                   {data: 'namakelas',    name: 'namakelas'},
+                  {data: 'matakuliah',    name: 'matakuliah'},
                   {
                     "className": "action text-center",
                     "data": null,
@@ -96,7 +98,8 @@
               },
               aoColumnDefs: [
                 { "visible": false, "aTargets": 0 },
-                { "visible": false, "aTargets": 3 }
+                { "visible": false, "aTargets": 3 },
+                { "width": "40%",   "targets": 4 }
               ],
           });
 

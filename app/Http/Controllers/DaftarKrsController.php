@@ -53,11 +53,11 @@ class DaftarKrsController extends Controller
             $status = $cstatusmhs->status;
         }
 
-        if (date('d-m-Y') < $periodeawal) {
+        if (strtotime(date('d-m-Y')) < strtotime($periodeawal)) {
             $pesan = 'Pengisian KRS akan dilaksanankan pada tanggal : '.$periodeawal.' s/d '.$periodeakhir;
             return view('errors.errorkrs', ['pesan'=>$pesan]);
         }
-        elseif (date('d-m-Y') > $periodeakhir) {
+        elseif (strtotime(date('d-m-Y')) > strtotime($periodeakhir)) {
             $pesan = 'Pengisian KRS telah berakhir';
             return view('errors.errorkrs', ['pesan'=>$pesan]);
         }
@@ -94,7 +94,7 @@ class DaftarKrsController extends Controller
        
         $arrsemester['0'] = "Pilih";
         foreach ($sem as $key => $csem) {
-            $arrsemester[$csem->semester] = "Semester ".$csem->semester;
+            $arrsemester[$csem->semester] = "Semester ".$csem->romsem;
         }
     	
     	return view('krs.list_krs', ['arrsemester'=> $arrsemester]);

@@ -124,12 +124,20 @@
                   
         
           
-				         <li>
+				        <!--  <li>
                   <a><i class="fa fa-sitemap"></i> Angkatan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#level1_1">Tambah</a>
                         </li>
                         <li><a href="#level1_2">Tampilkan</a>
+                        </li>
+                    </ul>
+                  </li> -->
+
+                  <li>
+                  <a><i class="fa fa-sitemap"></i>Penilaian Mahasiswa <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{ url('/home/shownilai') }}">Tampilkan</a>
                         </li>
                     </ul>
                   </li>

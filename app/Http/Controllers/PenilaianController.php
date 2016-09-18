@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\ModelPenilaian;
@@ -22,7 +21,8 @@ class PenilaianController extends Controller
     	$model->iddosen = auth()->guard('userdosens')->user()->iddosen;
 
     	//$sem 	= $model->getsemester(1);
-    	$kelas 	= $model->getksm(1);
+    	//$kelas 	= $model->getksm(1);
+        $kelas = $model->getkelas();
         //$matkul = $model->getsemester(1);
 
         /*$arrsemester['0'] = "Semester";
@@ -35,18 +35,55 @@ class PenilaianController extends Controller
         $arrsemester['0']   = "Semester";
         $arrmatkul['0']     = "Mata Kuliah";
 
-        foreach ($kelas as $key => $ckelas) {
-            $arrkelas[$ckelas->idkelas]       = $ckelas->namakelas;
+        /*foreach ($kelas as $key => $ckelas) {
+            //$arrkelas[$ckelas->idkelas]       = $ckelas->namakelas;
             $arrmatkul[$ckelas->kodemk]       = $ckelas->matakuliah;
             $arrsemester[$ckelas->semester]   = "Semester ".$ckelas->romsem;
-        }
+        }*/
 
+        foreach ($kelas as $key => $ckelas2) {
+            $arrkelas[$ckelas2->idkelas]       = $ckelas2->namakelas;
+            
+        }
        /* $arrmatkul['0']   = "Mata Kuliah";
         foreach ($matkul as $key => $cmatkul) {
             $arrmatkul[$cmatkul->kodemk] = $cmatkul->matakuliah;
         }*/
 
     	return view("penilaian.add_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas, 'arrmatkul'=>$arrmatkul]);
+    }
+
+    public function getsem($kelas){
+        $model = new ModelPenilaian;
+
+        $model->iddosen     = auth()->guard('userdosens')->user()->iddosen;     
+        $model->idkelas     = $kelas;
+
+        $datasem = $model->getsem();
+
+        return Datatables::of($datasem)->make(true);
+    }
+
+    public function getmk($kelas, $sem){
+        $model = new ModelPenilaian;
+
+        $model->iddosen     = auth()->guard('userdosens')->user()->iddosen;     
+        $model->idkelas     = $kelas;
+        $model->semester    = $sem;
+
+        $datamk = $model->getmatakuliah();
+
+        return Datatables::of($datamk)->make(true);
+    }
+
+    public function getsemmk($sem){
+        $model = new ModelPenilaian;
+    
+        $model->semester    = $sem;
+
+        $datamk = $model->getallmatkul();
+
+        return Datatables::of($datamk)->make(true);
     }
 
     public function getdatamhs($kelas, $sem, $matkul){
@@ -145,19 +182,46 @@ class PenilaianController extends Controller
 
         $model->iddosen = auth()->guard('userdosens')->user()->iddosen;
 
-        $kelas  = $model->getksm(2);
+        $kelas = $model->getkelas();
 
         $arrkelas['0']      = "Kelas";
         $arrsemester['0']   = "Semester";
         $arrmatkul['0']     = "Mata Kuliah";
 
         foreach ($kelas as $key => $ckelas) {
-            $arrkelas[$ckelas->idkelas] = $ckelas->namakelas;
-            $arrmatkul[$ckelas->kodemk]       = $ckelas->matakuliah;
-            $arrsemester[$ckelas->semester]   = "Semester ".$ckelas->romsem;
+            $arrkelas[$ckelas->idkelas]       = $ckelas->namakelas;
+            
         }
 
+
         return view("penilaian.show_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas, 'arrmatkul'=>$arrmatkul]);
+        
+    }
+
+    public function shownilai(){
+        $model = new ModelPenilaian;
+
+        $kelas = $model->getallkelas();
+
+        $arrkelas['0']      = "Kelas";
+        $arrsemester['0']   = "Semester";
+        $arrmatkul['0']     = "Mata Kuliah";
+
+        foreach ($kelas as $key => $ckelas) {
+            $arrkelas[$ckelas->idkelas]       = $ckelas->namakelas;
+            
+        }
+
+        $arrsemester['1']   = "Semester I";
+        $arrsemester['2']   = "Semester II";
+        $arrsemester['3']   = "Semester III";
+        $arrsemester['4']   = "Semester IV";
+        $arrsemester['5']   = "Semester V";
+        $arrsemester['6']   = "Semester VI";
+        $arrsemester['7']   = "Semester VII";
+        $arrsemester['8']   = "Semester VIII";
+
+        return view("penilaian.showadmin_penilaian", ['arrsemester' => $arrsemester, 'arrkelas'=>$arrkelas, 'arrmatkul'=>$arrmatkul]);
         
     }
 
@@ -173,5 +237,52 @@ class PenilaianController extends Controller
 
         return Datatables::of($datanilai)->make(true);
 
+    }
+
+    public function editnilai($idkhs){
+        $model = new ModelPenilaian;
+
+        $model->idkhs  = $idkhs;
+        $datanilai = $model->editnilai();
+
+       return view("penilaian.edit_penilaian", ['datanilai'=>$datanilai]);
+
+    }
+
+    public function update(Request $requests){
+
+        $stat=0;
+        $model = new ModelPenilaian;
+
+        $data = $model->find($requests['idkhs']);
+
+        $data->absensi     = $requests['absensi'];
+        $data->seminar     = $requests['seminar'];
+        $data->tugas       = $requests['tugas'];
+        $data->midsm       = $requests['midsm'];
+        $data->nsem        = $requests['uas'];
+        $data->keterangan  = $requests['keterangan'];
+
+        $update = $data->save();
+
+        if($update){
+            $stat=1;
+        }else{
+            $stat=2;
+        }
+
+        return response()->json(['return' => $stat]);
+    }
+
+    public function destroy($idkhs){
+        
+        $statreturn = 0;
+        $model = new ModelPenilaian;
+        $data  = $model->find($idkhs);
+        $destroy = $data->delete();
+        if($destroy){
+            $statreturn = 1;
+        }
+        return response()->json(['return' => $statreturn]);
     }
 }

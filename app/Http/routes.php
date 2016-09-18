@@ -59,6 +59,8 @@ Route::group(['middleware' => 'web'],function(){
 	Route::get('/home/getdatamhs/{kelas}/{sem}/{matkul}','PenilaianController@getdatamhs');
 	Route::get('/home/showpenilaian', 'PenilaianController@show');
 	Route::get('/home/getdatakhs/{kelas}/{sem}/{matkul}', 'PenilaianController@datakhs');
+	Route::get('/home/getsem/{kelas}', 'PenilaianController@getsem');
+	Route::get('/home/getmk/{kelas}/{sem}', 'PenilaianController@getmk');
 
 });
 
@@ -170,6 +172,14 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/home/changepassword_admin','UserController@changepassword_admin');
 	Route::post('/home/changepassword_admin','UserController@post_changepassword_admin');
 	Route::post('/home/admin/TempUpload','UserController@uploadimage');
+
+	//ubah penilaian mahasiswa
+
+	Route::get('/home/shownilai','PenilaianController@shownilai');
+	Route::get('/home/getsemmk/{sem}', 'PenilaianController@getsemmk');
+	Route::get('/home/editnilai/{idkhs}', 'PenilaianController@editnilai');
+	Route::post('/home/editnilai/{idkhs}', 'PenilaianController@update');
+	Route::get('/home/deletenilai/{idkhs}', 'PenilaianController@destroy');
 });
 
 

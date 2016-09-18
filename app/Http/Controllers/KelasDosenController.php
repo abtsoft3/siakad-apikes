@@ -83,12 +83,23 @@ class KelasDosenController extends Controller
     	$model = new ModelKelasDosen;
     	
     	$iddosen = $requests->iddosen;
-    	foreach ($iddosen as $key => $value) {
-    		$data [] = array(
-    						'iddosen' => $value,
-    						'idkelas' => $requests['idkelas']
-    					 );
-    	}
+        $kodemk = $requests->kodemk;
+    	
+        foreach ($iddosen as $key => $valuedosen) {
+            $datadosen[] = $valuedosen;
+        }
+
+        foreach ($kodemk as $key => $valuekodemk) {
+            $datamk[] = $valuekodemk;
+        }
+
+        for($i=0; $i<count($datadosen); $i++){
+            $data [] = array(
+                            'iddosen' => $datadosen[$i],
+                            'idkelas' => $requests['idkelas'],
+                            'kodemk'  => $datamk[$i]
+                            );
+        }
 
     	$save = $model->insert($data);
 

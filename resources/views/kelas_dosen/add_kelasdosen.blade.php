@@ -45,9 +45,11 @@
         </tr>
         <tr>
           <th width="5%">{!! Form::checkbox('checkall',null,null, array('id'=>'checkall')) !!}</th>
-          <th>Iddosen</th>
+          
           <th width="30%">NIDN</th>
           <th>Nama</th>
+          
+          <th>Matakuliah</th>
         </tr>
       </thead>
       <tfoot>
@@ -101,35 +103,45 @@
                     orderable : false,
                     mRender: function ( data, type, row ) {
                         if ( type === 'display' ) {
-                          return '<input type="checkbox" name="iddosen" id="iddosen" class="editor-active" value="'+data.iddosen+'"">';
+                          return '<input type="checkbox" name="iddosen" id="iddosen" class="editor-active" value="'+(data.iddosen+data.kodemk)+'"> <input type="hidden" name="kodemk" id="kodemk'+(data.iddosen+data.kodemk)+'" value="'+data.kodemk+'"> <input type="hidden" name="iddosen" id="iddosen'+(data.iddosen+data.kodemk)+'" value="'+data.iddosen+'">';
                         }
                         return data;
                     },
                     className: "text-center",
 
                   },
-                  {data: 'iddosen', name: 'iddosen'},
+                  
                   {data: 'nidn',    name: 'nidn'},
-                  {data: 'nama',    name: 'nama'}
+                  {data: 'nama',    name: 'nama'},
+                  
+                  {data: 'matakuliah',    name: 'matakuliah'}
               ],
               aoColumnDefs: [
-              { "visible": false, "aTargets": 1  },
-              { aTargets  : [ -1 ] }
-
+              //{"visible": false, "aTargets": 1},
+              //{"visible": false, "aTargets": 4},
+              //{ aTargets  : [ -1 ] }
+              
               ],
               
-              aaSorting: [[ 1, 'asc' ]]
+              aaSorting: [[ 3, 'asc' ]]
 
           });
 
         var sbody = $('#datatable-kelasdosen tfoot');
         sbody.on('click','#btn-submit',function(){
-          
+            //var data = genTable.row($(this).parents('tr')).data();
             var iddosen;
             var isiiddosen;
                 iddosen = $('.editor-active:checked').map(function(index, elem) {    
-                  isiiddosen = $(elem).val();
+                  isiiddosen = $('#iddosen'+$(elem).val()).val();
                   return isiiddosen;
+                }).get();
+
+            var kdmk;
+            var isikdmk;
+                kdmk = $('.editor-active:checked').map(function(index, elem) {    
+                  isikdmk = $('#kodemk'+$(elem).val()).val();
+                  return isikdmk;
                 }).get();
               
               var idkelas = $('#kelas').val();
@@ -137,7 +149,7 @@
               $.ajax({
                 type: 'POST',
                 url: "{{ url('/home/addkelasdosen') }}",
-                data: {'idkelas':idkelas, 'iddosen':iddosen, '_token' : $('input[name="_token"]').val()},
+                data: {'idkelas':idkelas, 'iddosen':iddosen, 'kodemk':kdmk, '_token' : $('input[name="_token"]').val()},
                 dataType: 'json',
                 success: function (returndata) {
 
@@ -155,7 +167,7 @@
                     url = '{{"getdatadosen"}}/'+$('#kelas').val();
                     gentable.ajax.url(url).load(); 
                 }
-              });
+               });
           });
 
         var shead = $('#datatable-kelasdosen thead');

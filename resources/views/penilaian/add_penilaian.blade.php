@@ -203,15 +203,72 @@
           });
 
         var sbody = $('#datatable-kelasdosen thead');
-        sbody.on('change','.form-control',function(){
+        sbody.on('change','#kelas',function(){
 
-              iddosen =$('#iddosen').val();
+              /*iddosen =$('#iddosen').val();
               idkelas = $('#kelas').val();
               sem     = $('#semester').val();
               matkul  = $('#matkul').val();
               
               url = '/home/getdatamhs/'+idkelas+'/'+sem+'/'+matkul;
-              gentable.ajax.url(url).load(); 
+              gentable.ajax.url(url).load(); */
+
+
+              idkelas = $('#kelas').val();
+              
+              url = '/home/getsem/'+idkelas;
+              $('#semester')
+                  .find('option')
+                  .remove()
+                  .end()
+                  .append('<option value="0">Semester</option>')
+                  .val('semester');
+
+              $.getJSON(url, function(data){
+ 
+  //clear the current content of the select
+              //$select.html('');
+ 
+  //iterate over the data and append a select option
+              $.each(data.data, function(key, val){
+                
+                $('#semester').append('<option value="' + val.semester + '">Semester '+val.romsem+'</option>');
+              });
+              //semester.ajax.url(url).load();
+              });
+          });
+
+        sbody.on('change','#semester',function(){
+
+              sem = $('#semester').val();
+              
+              url = '/home/getmk/'+idkelas+'/'+sem;
+
+              $('#matkul')
+                  .find('option')
+                  .remove()
+                  .end()
+                  .append('<option value="0">Matakuliah</option>')
+                  .val('matkul');
+              $.getJSON(url, function(data){
+
+              $.each(data.data, function(key, val){
+
+                $('#matkul').append('<option value="' + val.kodemk + '">'+val.matakuliah+'</option>');
+              });
+
+              });
+
+          });
+
+        sbody.on('change','#matkul',function(){
+
+              idkelas = $('#kelas').val();
+              sem     = $('#semester').val();
+              matkul  = $('#matkul').val();
+              
+              url = '/home/getdatamhs/'+idkelas+'/'+sem+'/'+matkul;
+              gentable.ajax.url(url).load();
 
           });
 
