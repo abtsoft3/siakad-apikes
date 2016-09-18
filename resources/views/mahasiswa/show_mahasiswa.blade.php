@@ -26,7 +26,7 @@
   <div class="x_content">
 				  
   <!--table-->
-    <table id="datatable-mahasiswa" class="table table-striped table-bordered">
+    <table id="datatable-mahasiswa" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
       <thead>
         <tr>
           <th>Nim</th>

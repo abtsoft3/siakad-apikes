@@ -42,9 +42,9 @@
 					<div class="navbar-collapse collapse">							
 						<div class="menu">
 							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation"><a href="{{ url('login-mahasiswa')}}">Login Mahasiswa</a></li>
+								<li role="presentation"><a href="{{ url('login-mahasiswa')}}"> Mahasiswa</a></li>
 								<li class="dropdown">
-									<a href="{{ url('login-dosen')}}">Login Dosen</a>
+									<a href="{{ url('login-dosen')}}"> Dosen</a>
 								</li>
 						</div>
 					</div>						
